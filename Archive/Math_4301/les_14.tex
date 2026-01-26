@@ -1,0 +1,157 @@
+\lesson{14}{Thur Oct 16 2025 14:30}{}
+
+\section{Zeros of Polynomials}
+\begin{definition} Polynomials \leavevmode
+    
+    $ p(x) = a_{n}x^n + \cdots + a_1x + a_0 $. \hspace{2em} deg $ p(x) = n $
+
+    \vspace{1em}
+    $ p(x) = 0 $ polynomial \hspace{2em} deg $ p(x) = -\infty $
+
+\end{definition}
+
+\section{Division Algorithm for Polynomials}
+\begin{definition} Division algorithm for polynomials \leavevmode
+
+    Suppose $ p(x), s(x) \in P(F) $, $ s \neq 0 $, then, there are unique polynomials $ q(x), r(x) \in P(F) $ such that 
+    \[
+        p(x) = s(x) q(x) + r(x) \hspace{2em} \text{deg }r(x) < \text{deg }s(x)
+    \]
+
+\end{definition}
+
+\vspace{1em}
+\begin{eg} \leavevmode
+    
+    $ p = (x^4) - 2x - 1 $, $ s = 2x^2 - 3 $.
+
+    let $ p, s \in P(\mathbb{R}) $
+
+    \[
+        x_4 - 2x -1 (p) = (2x^2 - 3)(s) (\frac{1}{2x^2} + \frac{3}{4})(q) + (-2x + \frac{5}{4})(r)
+    \]
+    where $ \text{deg }r = 1 < \text{deg }s = 2 $
+
+\end{eg}
+
+\begin{note}
+    
+    If $ f(x), g(x) \neq 0 $, then
+    \[
+        \text{deg }f(x)g(x) = \text{deg }f(x) + \text{deg }g(x)
+    \]
+
+\end{note}
+
+\begin{proof} \leavevmode
+
+    Let $ n = \text{deg }p(x) $, $ m = \text{deg }s(x) $.
+
+    If $ n < m $, then $ p(x) = s(x) \times 0 + p(x) $, $ \text{deg }p < \text{deg }s $
+
+    \vspace{1em}
+    if $ n \geqslant m $, then consider
+    \[
+        T:P_{n - m}(F) \times P_{m-1}(F) \to P_n(F)
+    \]
+    \[
+        T(q,r) = qs + r
+    \]
+
+    \begin{itemize}
+        \item $ T $ is a linear map
+        \item T is injective if $ qs + r = 0 $ and $ q \neq 0 $, then $ qs $ has degree = $ \text{deg }q + \text{deg }s \geqslant \text{deg }s = m $, but $ r $ has $ \text{deg }r \leqslant m-1 $, so the sum cannot be zero. Contradiction.
+        
+        So $ q = 0, r = 0 $, so $ T $ is injective.
+    \end{itemize}
+
+    \vspace{1em}
+    Fundamental theorem of linear map
+
+    \begin{align*}
+        \dim P_{n-m}(F) \times P_{m-1}(F) 
+        &= 0 + \dim \text{range }T  \\
+        &= \dim P_{n-m}(F) + \dim P_{m-1}(F) \\
+        &= n-m+1+m \\
+        &= n+1
+    \end{align*}
+
+    but $ \dim P_{n}(F) = n+1 $ and $ \text{range }T \subseteq P_{n}(F) $, so $ \text{range }T = P_{n}(F) $, so $ T $ is surjective.
+
+    So for every $ p \in P_{n}(F) $, there are $ (q, r) $ such that 
+    \[
+        p = qs + r
+    \]
+    uniqueness follows from injectivity of $ T $.
+\end{proof}
+
+\section{Factorization of Polynomials over $ \mathbb{C} $}
+\vspace{2em}
+\begin{theorem} Fundamental Theorem of algebra \leavevmode
+
+    Every nonconstant polynomial with complex coefficients has a zero in $ \mathbb{C} $.
+
+    \vspace{1em}
+    (This is not true for real polynomials ) $ p(x) = x^2 + 1 $.
+    
+\end{theorem}
+
+\vspace{1em}
+\begin{corollary}
+    
+    Every polynomial in $ P(\mathbb{C}) $ factors completely: $ P(x) \in P(\mathbb{C}) $
+    \[
+        p(x) = c(x - \lambda_1) \cdots (x - \lambda_{n}) \hspace{2em} c, \lambda_1, \cdots , \lambda_{n} \in \mathbb{C}, n = \text{deg }p
+    \]
+
+\end{corollary}
+
+\begin{explanation} \leavevmode
+    
+    If $ \lambda $ is a zero of $ p $. Then divide $ p $ by $ x - \lambda $
+    \[
+        p(x) = (x - \lambda) q + r \hspace{2em} \text{deg }r \leqslant 0 \implies r \text{ is a constant}
+    \]
+
+    \vspace{1em}
+    plug in $ x = \lambda $
+    \[
+        0 = 0 + r \implies r = 0
+    \]
+    so $ p(x) = (x - \lambda) q(x) \hspace{2em} \text{deg }q = n-1$ .
+
+    Continue with $ q $.
+
+\end{explanation}
+
+\vspace{1em}
+\underbar{\textbf{Property of complex conjugate:}}
+
+\begin{itemize}
+    \item $ \overline{\overline{\lambda}} = \lambda $
+    \item $ \overline{\lambda_1 + \lambda_2} = \overline{\lambda_1} + \overline{\lambda_2} $
+    \item $ \overline{\lambda_1\lambda_2} = \overline{\lambda_1}\overline{\lambda_2} $
+    \item $ \lambda = \overline{\lambda} \iff \lambda \in \mathbb{R} $.
+\end{itemize}
+
+\vspace{1em}
+\begin{prop}
+    
+    If $ p(x) $ has real coefficient and if $ \lambda \in \mathbb{C} $ such that $ p(\lambda) = 0 $, then $ p(\overline{\lambda}) = 0 $, where $ \overline{\lambda}  $ is the complex conjugate of $ \lambda $.
+
+\end{prop}
+\vspace{1em}
+
+\begin{proof} \leavevmode
+
+    Suppose $ p(x) = a_{n}x^n + \cdots + a_1x + a_0 $, $ a_{i} \in \mathbb{R}, \lambda \in \mathbb{C} $. If $ p(\lambda) = 0 $, then
+
+    \begin{align*}
+        &a_{n}\lambda^n + \cdots + a_1\lambda + a_0 = 0 \\
+        \implies &\overline{a_{n}\lambda^n + \cdots + a_1\lambda + a_0} = 0 \\
+        \implies &\overline{a_{n}}\overline{\lambda}^n + \cdots + \overline{a_1}\overline{\lambda} + \overline{a_0} = 0 \\
+        \implies &a_{n}\overline{\lambda}^n + \cdots + a_1\overline{\lambda} + a_0 = 0 \\
+        \implies &p(\overline{\lambda}) = 0
+    \end{align*}
+
+\end{proof}

@@ -1,0 +1,341 @@
+\documentclass[a4paper]{article}
+
+% \usepackage[margin=1in]{geometry} % reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{Math 4301 - Homework 3}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4301 - Homework 3}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}[2B.3]
+\end{problem}
+
+\begin{subproblem}
+
+    Let $ U $ be the subspace of $ \mathbb{R}^5 $ defined by 
+    \[
+        U = \{(x_1, x_2, x_3, x_4, x_5) \in \mathbb{R}^5: x_1 = 3x_2 \text{ and } x_3 = 7x_4\}.
+    \]
+
+    Find a basis of $ U $.
+
+\end{subproblem}
+
+\begin{solution}
+    \begin{align*}
+        (x_1, x_2, x_3, x_4, x_5) &= (3x_2, x_2, 7x_4, x_4, x_5) \\
+        &= x_2(3,1,0,0,0) + x_4(0,0,7,1,0) + x_5(0,0,0,0,1) \\
+    \end{align*}
+
+    These three vectors are linearly independent, so $ (3,1,0,0,0), (0,0,7,1,0), (0,0,0,0,1) $ form a basis for $ U $.
+\end{solution}
+
+\begin{subproblem}
+    Extend the basis in (a) to a basis of $ \mathbb{R}^5 $.
+\end{subproblem}
+
+\begin{solution}
+    Adding the two vectors $ (1,0,0,0,0) $ and $ (0,0,1,0,0,0) $ will make the five vectors a basis for $ \mathbb{R}^5 $.
+\end{solution}
+
+\begin{subproblem}
+    Find a subspace $ W $ of $ \mathbb{R}^5 $ such that $ \mathbb{R}^5 = U \bigoplus W $.
+\end{subproblem}
+
+\begin{solution}
+    
+    Let $ W = \{(x_1, 0, x_3, 0, 0)\} $, as $ W = \text{span}((1,0,0,0,0), (0,0,1,0,0,0)) $, $ W + U = \mathbb{R}^5 $. By the corollary in class, if $ U_1 \cap U_2 = \{0\} $, then it is a direct sum.
+
+    \vspace{1em}
+    As in $ W $, $ x_1 = 3x_2, x_3 = 7x_4 $, if $ x_1 \text{ and } x_3 $ are non-zero, then $ x_2 \text{ and } x_4  $ are non-zero as well. So the only value in $ U_1 \cap U_2 $ is $ (0,0,0,0,0) $. Therefore direct sum is achieved.
+
+\end{solution}
+
+\begin{problem}[2B.6]
+    Prove or give a counterexample: If $ p_0, p_1, p_2, p_3 $ is a list in $ P_3(F) $ such that none of the polynimials $ p_0, p_1, p_2, p_3 $ has degree 2, then $ p_0, p_1, p_2, p_3 $ is not a basis of $ P_3(F) $
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    The counter example is $ \{1, x, x^2 -x^3, x^3\} $, which only has degree 0, 1, 3. We know the standard basis for $ P_3(F) $ is $ \{1, x, x^2, x^3\} $. The $ \{1, x, x^3\} $ is covered, and $ x^2 $ can be produced by $ x^2-x^3 + x^3 $ ( adding $ p_2 $ and $ p_3 $).
+\end{solution}
+
+\newpage
+\begin{problem}[2B.10]
+    
+    Suppose $ U $ and $ W $ are subspaces of $ V $ such that $ V = U \bigoplus W $. Suppose also that $ u_1, \cdots , u_{m} $ is a basis of $ U $ and $ w, \cdots , w_{n} $ is a basis of $ W $. Prove that 
+    \[
+        u_1, \cdots , u_{m}, w_1, \cdots , w_{n}
+    \]
+    is a basis of $ V $. 
+
+\end{problem}
+
+\vspace{1em}
+\begin{solution}
+    as $ V = U \bigoplus W $, for every $ v \in V $, there are unique vectors $ w \in W $ and $ u \in U $ such that 
+    \[
+        v = u + w
+    \]
+
+    As $ u_1, \cdots , u_{m} $ and $ u_1, \cdots , u_{n} $ are basis for $ U $ and $ V $, we know that
+    \begin{align*}
+        u = a_1u_1 + \cdots + a_{m}u_{m} \\
+        w = b_1w_1 + \cdots + b_{n}w_{n} 
+    \end{align*}
+    for some unique $ a_{i} \text{ and } b_{i} \in F $.
+
+    Then, 
+    \[
+        v = u + w = a_1u_1 + \cdots + a_{m}u_{m} + b_1w_1 + \cdots + b_{n}w_{n}
+    \]
+    for some unique $ a_{i} \text{ and } b_{i} $. Also, as $ U \bigoplus W = V $, then $ \dim U + \dim W = \dim V $, so $ \dim V = m + n $. As $ u_1, \cdots , u_{m}, w_1, \cdots , w_{n} $ are in $ V $ and spans $ V $, it is a basis.
+
+\end{solution}
+
+\newpage
+\begin{problem}[2C.1]
+    Show that the subspaces of $ \mathbb{R}^2 $ is exactly $ \mathbb{R}^2 $, all lines in $ \mathbb{R}^2 $ containing the origin, and $ \{0\} $.
+\end{problem}
+
+\vspace{1em}
+\begin{solution}
+    as $ \mathbb{R}^2 $ has $ \dim \mathbb{R}^2 = 2 $, the subspaces $ U $ can only has $ \dim U = \{0,1, 2\} $. For $ \dim U = 0 $, the only subspace is $ \{0\} $. For $ \dim U = 1 $, in $ \mathbb{R}^2 $ it is a linear combination of a single vector, and it needs include $ (0,0) $, so $ U $ represents lines that passes the origin. For $ \dim U = 2 $, it means that $ U $ is the span of two linearly independent vectors. As $ \dim \mathbb{R}^2 = 2 $, any two linearly independent vectors forms a basis for $ \mathbb{R}^2 $, which makes the span of the two vectors the entire $ \mathbb{R}^2 $. 
+
+    Thus, the only subspaces of $ \mathbb{R}^2 $ is $ \{0\}, \text{ lines through the origin }, \text{and } \mathbb{R}^2 $.
+\end{solution}
+
+\newpage
+\begin{problem}[2C.9]
+    Suppose $ m $ is a posotive integer and $ p_0, p_1, \cdots , p_{m} \in P(F) $ are such that each $ p_{k} $ has degree $ k $. Prove that $ p_0, p_1, \cdots , p_{m} $ is a basis of $ P_{m}(F) $.
+\end{problem}
+
+\vspace{1em}
+\begin{solution}
+    
+    As $ \dim P_{m}(F) = m+1 $, and there are $ n+1 $ vectors in $ p_0, p_1, \cdots , p_{m} $, and these vectors are in $ P_{m}(F) $. If $ p_0, p_1, \cdots , p_{m} $ are linearly independent, then it forms a basis for $ P_{m}(F) $.
+
+    Assume for contracdiction that $ p_0 ,p_1, \cdots , p_{m} $ are linaerly dependent, then by Linear Depencency Lemma one of the vectors in the list should be the linear combination of the previous vectors. However, this is not possible in such list as every $ p_{k} $ has degree $ k $. For any $ p_{k} $ in the list, the term of degree $ k $ cannot be linear combination of $ p_0, \cdots ,p_{k-1} $ as the term with degree $ k $ does not exist in any previous vectors, as their term with highest degree cannot exceed $ k-1 $. Therefore, $ p_0, p_1, \cdots , p_{m} $ are linearly independent. 
+
+    Thus, $ p_0, p_1, \cdots , p_{m} $ is a basis of $ P_{m}(F) $.
+    
+\end{solution}
+
+\newpage
+\begin{problem}[2C.13]
+
+    Suppose $ U $ and $ W $ are both five-dimensional subspaces of $ \mathbb{R}^9 $. Prove that $ U \cap W \neq \{0\} $
+    
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Known that $ \dim U = \dim V = 5 $ and $ \dim \mathbb{R}^9 = 9 $. The corollary states that $ \dim (U_1 + U_2) = \dim U_1 + \dim U_2 \iff U_1 \cap U_2 = \{0\} $.
+
+    Give $ \dim U + \dim V \neq \mathbb{R}^9 $, we know that 
+    \[
+        U_1 \cap U_2 \neq \{0\}
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}
+    
+    Explain why you might guess, motivated by analogy with the formula for the number of elements in the union of three finite sets, that if $ V_1, V_2, V_3 $ are subspaces of a finite-dimensional vector space, then
+    \begin{align*}
+        &\dim (V_1 + V_2 + V_3) \\
+        = &\dim V_1 + \dim V_2 + \dim V_3 \\
+         &- \dim (V_1 \cap V_2) - \dim (V_1 \cap V_3) -\dim (V_2 \cap V_3) \\
+         &+ \dim (V_1 \cap V_2 \cap V_3)
+    \end{align*}
+
+    Then either prove the formula above or give a counterexample.
+
+\end{problem}
+
+\vspace{1em}
+\begin{solution}
+    
+    The analogy comes from the inclusion-exclusion principle from sets, which says that if $ V_1, V_2, V_3 $ are three sets, and let $ |V_{i}| $ denote the number of elements inside the set $ V_{i} $, then
+    \[
+        |V_1 \cup V_2 \cup V_3| = |V_1| + |V_2| + |V_3| - |V_1 \cup V_2| - |V_2 \cup V_3| - |V_1 \cup V_3| + |V_1 \cup V_2 \cup V_3|
+    \]
+
+    The statement is not true. Let $ V_1 = \{(x_1, 0) | x_1 \in \mathbb{R}\}, V_2 = \{(0, x_2) | x_2 \in \mathbb{R}\}, V_3 = \{(x_3, x_3) | x_3 \in \mathbb{R}\} $, then
+    \[
+        \dim (V_1 + V_2 + V_3) = \dim \mathbb{R}^2 = 2
+    \]
+    but since $ V_1 \cap V_2 = V_1 \cap V_3 = V_2 \cap V_3 = V_1 \cap V_2 \cap V_3 = \{0\} $,
+    \begin{align*}
+        &\dim V_1 + \dim V_2 + \dim V_3 - \dim (V_1 \cap V_2) - \dim (V_1 \cap V_3) -\dim (V_2 \cap V_3) + \dim (V_1 \cap V_2 \cap V_3) \\
+        =& 1 + 1 + 1 - 0 - 0 - 0 + 0 \\
+        =& 3 \\
+    \end{align*}
+
+    So LHS and RHS doesn't match.
+
+\end{solution}
+
+\newpage
+\begin{problem}[3A.1]
+    
+    Suppose $ b, c \in \mathbb{R} $. Define $ T: \mathbb{R}^3 \to \mathbb{R}^2 $ by
+    \[
+        T(x,y,z) = (2x - 4y + 3z + b, 6x + cxyz)
+    \]
+
+    Show that $ T $ is linear if and only if $ b = c = 0 $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    \noindent $ \impliedby $
+
+    \noindent Assume $ b=c=0 $, then
+    \[
+        T(x, y, z) = (2x-4y+3z, 6x)
+    \]
+
+    let $ (x_1, x_2, x_3), (y_1, y_2, y_3) \in \mathbb{R}^3 $, then
+    \begin{align*}
+        T(x_1+y_1, x_2+y_2, x_3+y_3) 
+        &=(2(x_1+y_1) - 4(x_2+y_2) + 3(x_3+y_3), 6(x_1+y_1)) \\
+        &=(2x_1 - 4x_2 + 3x_3, 6x_1) + (2y_1 - 4y_2 + 3y_3, 6y_1) \\
+        &=T(x_1,x_2, x_3) + T(y_1,y_2,y_3)
+    \end{align*}
+
+    \vspace{1em}
+    Let $ a \in \mathbb{R} $
+
+    \begin{align*}
+        T(ax_1, ax_2, ax_3)
+        &=(2ax_1 - 4ax_2 + 3ax_3, 6ax_1) \\
+        &=a(2x_1 - 4x_2 + 3x_3, 6x_1) \\
+        &=aT(x_1,x_2,x_3) 
+    \end{align*}
+
+    So $ T $ is linear if $ b=c=0 $.
+
+
+    \vspace{3em}
+    \noindent $ \implies $
+
+    Prove contrapositive. If $ b \neq 0 $, then $ T(0,0,0) = (b,0) \neq (0,0) $. So $ T $ is not linear.
+
+    If $ c \neq 0 $, then
+    \[
+        T(1,1,1) = (1+b, 6+c) \hspace{1em} T(2,2,2) = (2+b, 12 + 8c)
+    \]
+
+    No matter $ b = 0 $ or not, $ T(2,2,2) \neq 2T(1,1,1) $. So $ T $ is not linear.
+
+\end{solution}
+
+\end{document}

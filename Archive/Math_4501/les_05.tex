@@ -1,0 +1,79 @@
+\lesson{5}{Fri Sep 05 2025 15:00}{}
+
+
+ \begin{itemize}
+    \item g was a contraction at all points in $ [a,b] $ "global"
+    \item $ |g'(x)| < 1 $ for all $  x \leqslant (a,b) $ then $ g $ is a contraction "global"
+\end{itemize}
+
+\begin{theorem} \leavevmode
+
+    $ g:[a,b] \to [a,b]$ continuous $ g' $ continuous and satisfies $ |g'(\xi)| <1 $ for some fixed point $ \xi \in [a,b] $. Then, simple iteration $ (x_k)_{k=0}^\infty $ converges to $ \xi $, provided that $ x_0 $ is sufficiently close to $ \xi  $.
+\end{theorem}
+
+\underbar{\textbf{Idea:}} Since $ g' $ continuous, $ g'(x) < 1 $ in a small enough interval containing $ \xi $.
+
+\newpage
+\begin{proof} \leavevmode
+
+    $ g' $ continuous: $ \forall \epsilon > 0 $, there exist $ \delta  $ such that $ |x-\xi| < \delta \implies |g'(x) - g'(\xi)| < \epsilon $. 
+    Let's choose $ \epsilon = \frac{1-|g'(x)|}{2}$. Then, 
+    \begin{align*}
+        x \in (\xi - \delta, \xi + \delta) \implies |g'(x)| \leqslant |g'(x)-g'(\xi)| + |g'(\xi)| \leqslant \epsilon + |g'(\xi)|\\
+         = \frac{1-|g'(x)|}{2} + |g'(\xi)| = \frac{1+|g'(\xi)|}{2} < 1
+    \end{align*}
+
+    So, for all $ x \in (\xi - \delta, \xi + \delta) $, $ |g'(x)| < 1 $. So $ g $ is contraction in $ (\xi - \delta, \xi + \delta) $
+
+    \vspace{1em}
+    Claim: $ g : (\xi - \delta, \xi + \delta)  \to (\xi - \delta, \xi + \delta)$
+
+    Why? : $ g(\xi) = \xi $ and $ |g(x) - g(\xi)| \leqslant |g'(\xi)| \cdot |x-\xi| $ ($ g'(\xi) < 1 $) by MVT. So $ g $ is restricted to the interval $ [\xi- \delta, \xi + \delta] $ is a contraction. By the previous Theorem $ (x_k)_{k = 0}^\infty $ simple iteration converges to unique fixed point in $ [\xi-\delta, \xi + \delta] $.
+
+    However, to apply this theorem, $ x_0 \in [\xi-\delta, \xi+\delta] $. i.e. $ x_0 $ ust be sufficiently close to $ \xi $.
+\end{proof}
+
+\vspace{1em}
+(P1) $ f:[a,b] \to \mathbb{R} $ continuous, find $ \xi \in[a,b] $ such that $ f(\xi) = 0$.
+
+(P2) $ g:[a,b] \to \mathbb{R} $ continuous, find $ \xi \in[a,b] $ such that $ g(\xi) = \xi$.
+
+\begin{itemize}
+    \item write $ g(x) = x - f(x) $ then do simple iteration.
+    \item Consider $ f(x) = \frac{1}{4} \sin(x) \hspace{2em} [\frac{-\pi}{2}, \frac{\pi}{2}]$
+    
+    $ g(x) = x - \frac{\sin(x)}{4}, g'(x) = 1-\frac{1}{4}\cos(x) $
+
+    $ |g'(\xi)| = |1-\frac{1}{4}| = \frac{3}{4} < 1 $
+\end{itemize}
+
+\begin{definition} \underbar{\textbf{relaxation Iteration}} \leavevmode
+
+    $ x_{k+1} = x_k - \lambda f(x_k) $ for some $ \lambda \neq 0 $. That is, fixed point interation on $ g_\lambda(x) = x-\lambda f(x) $.
+    
+\end{definition}
+
+\begin{theorem}
+    $ f:[a,b] \to \mathbb{R}, \text{ and }  f(\xi) = 0 $ for some $ \xi \in [a,b] $. $ f' $ continuous in some interval containing $ \xi $, $ f'(\xi) \neq 0 $. Then, there is a $ \delta > 0 $ and a $\lambda \neq 0  $ such that relaxation iteration $ (x_k)_{k = 0}^\infty $ converges to $ \xi $ if $ x_0  $ is in $ [\xi-\delta, \xi + \delta] $
+\end{theorem}
+
+\begin{proof} \leavevmode
+    
+    WLOG assume $ f'(\xi) > 0 $, $ |g'_\lambda(x)| = |1-\lambda f'(x)|$
+
+    Goal: $ |g'_\lambda (x)| < 1 $ for some choice of $ \lambda, \delta $ so that for $ x \in [\xi - \delta, \xi + \delta] $ there exists $ \delta > 0  $ such that $ m \leqslant |f'(x)| $ for $ x \in [\xi - \delta, \xi + \delta] $ by $ f' $ continuous.
+
+    Pick $ \lambda $ such that $ -L \leqslant 1-\lambda f'(x) \leqslant L $ for $ L < 1 $
+
+    e.g.$ \begin{cases}
+        1-\lambda m \leqslant L \\
+        1-\lambda M \geqslant  -L \\
+    \end{cases} $ for $ \lambda > 0 $
+
+    try $ \begin{cases}
+        1-\lambda m = L \\
+        1-\lambda M = -L \\
+    \end{cases}  \cdot \lambda(m + M)  = 0$, $ \lambda = \frac{2}{m+M} $
+
+    $ L = 1-\frac{2m}{m+M} = \frac{M-m}{M+m} < 1 $. This works.
+\end{proof}

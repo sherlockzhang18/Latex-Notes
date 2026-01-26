@@ -1,0 +1,147 @@
+\lesson{22}{Thr Nov 20 2025 14:30}{}
+
+\begin{remark} \leavevmode
+    
+    If $ T $ is invertible and $ P(T) = 0 $,
+    \[
+        T^m + a_{m-1}T^{m-1} + \cdots + a_1T + a_0 I = 0, \hspace{1em} a_0 \neq 0
+    \]
+
+    then 
+    \[
+        T^{-1}(T^m + \cdots + a_1T + a_0I) = 0
+    \]
+
+    so $ T^{m-1} + a_{m-1}T^{m-2} + \cdots + a_1I + a_0T^{-1} = 0 $
+    
+    Move every term except the last term to the other side and divide by $ a_0 $.
+    \[
+        T^{-1} = -\frac{1}{a_0}T^{m-1} - \frac{a_{m-1}}{a_0}T^{m-2} \cdots -\frac{a_1}{a_0}I
+    \]
+\end{remark}
+
+\begin{theorem} \leavevmode
+    
+    \begin{itemize}
+        \item 
+            $ T $ is diagonalizable $ \iff $ the minimal polynomial of $ T $ is a product of distinct linear polynomial.
+
+        \item 
+            There is a basis with respect to which $ M(T) $ is upper-triangular $ \iff $ minimal polynomial of $ T $ completely factors.
+    \end{itemize}
+
+\end{theorem}
+
+\vspace{2em}
+\underbar{\textbf{Minimal Polynomial of upper triangular matrices:}}
+
+\begin{eg}
+    
+    $ T \in L(\mathbb{C}^3) $
+
+    $ T(x, y, z) = (x + y + 5z, y + 4z, -z) $
+
+    $ M(T) $ with respect to standard basis:
+    \[
+        M(T) = \begin{bmatrix}
+          1 & 1 & 5 \\
+          0 & 1 & 4 \\
+          0 & 0 & -1 \\
+        \end{bmatrix}
+    \]
+
+    eigenvalue: $ 1, -1 $, $ p(x) $ minimal polynomial.
+
+    \vspace{1em}
+    By theorem 5.13, $ (x-1)(x+1) $ is a factor of $ p(x) $. Also, $ \text{deg }p(x)\leqslant 3 $.
+
+    So now check 
+    \[
+        M((T-I)(T+I)) = 
+        \begin{bmatrix}
+          0 & 1 & 5 \\
+          0 & 0 & 4 \\
+          0 & 0 & -2 \\
+        \end{bmatrix}
+        \begin{bmatrix}
+          2 & 1 & 5 \\
+          0 & 2 & 4 \\
+          0 & 0 & 0 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          0 & 2 & 4 \\
+          0 & 0 & 0 \\
+          0 & 0 & 0 \\
+        \end{bmatrix}
+    \]
+
+    Since every zero of $ p(x) $ is an eigenvalue and since eigenvalue of $ T = {1, -1} $. So
+    \[
+        p(x) = (x-1)^2(x+1) \hspace{1em} \text{or } \hspace{1em} p(x) = (x-1)(x+1)^2
+    \]
+\end{eg}
+
+
+\setcounter{chapter}{7}
+\chapter{Operators on Complex Vector Spaces}
+\section{Generalized Eigenvectors and Nilpotent Operators}
+
+\begin{definition}[generalized eigenvector] \leavevmode
+    
+    $ \lambda $: an eigenvalue for $ T $
+
+    $ v \neq 0 $: a general eigenvector for $ \lambda $ if there is $ j \geqslant 1 $ such that
+    \[
+        (T-\lambda I)^j v = 0
+    \]
+
+\end{definition}
+
+
+\begin{eg}
+
+    $ T(x, y, z) = (2z, 3y, 0) $, $ T \in L(\mathbb{C}^3) $
+
+    \[
+        M(T) = \begin{bmatrix}
+          0 & 0 & 2 \\
+          0 & 3 & 0 \\
+          0 & 0 & 0 \\
+        \end{bmatrix}
+    \]
+
+    the eigenvalues: 0, 3
+
+    Let $ \lambda = 0 $, eigenvectors: $ E(0,T) = \text{span }\{(1, 0, 0)\} $
+
+    \vspace{1em}
+    Generalized eigenvector: $ Tv = 0 $ or $ T^2v = 0 $ or $ T^3v = 0 $.
+
+    \vspace{1em}
+    $ T^2 = (0, 9y, 0) $. For example, (0,0,1) is a generalized eigenvector corresponding to eigenvalue 0.
+
+\end{eg}
+
+
+\section{Generalized Eigenspace Decomposition}
+\begin{definition}[generalized eigenspace] \leavevmode
+    
+    For $ \lambda $, 
+    \begin{align*}
+        G(\lambda, T)
+        &= \{\text{generalized eigenvector }_{\text{for }\lambda} \cup \{0\}\} \\
+        &=\text{null }(T - \lambda I) \cup \text{null }(T - \lambda I)^2 \cup \cdots \cup \text{null }(T-\lambda I)^m \cup \cdots 
+    \end{align*}
+
+\end{definition}
+
+\begin{theorem}
+    
+    Let $ S = T - \lambda I $, then
+    \begin{enumerate}
+        \item $ \text{null }S^i \subseteq \text{null }S^{i+1} $
+        \item If $ \text{null }S^i = \text{null }S^{i+1} $, then $ \text{null }S^i = \text{null }S^{i+1} = \text{null }S^{i+2} \cdots $
+    \end{enumerate}
+
+\end{theorem}

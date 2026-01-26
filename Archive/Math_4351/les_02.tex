@@ -1,0 +1,73 @@
+% lec_02.tex
+\lesson{2}{Mon Apr 15 2024 14:00}{Elliptic Curve DLP, Repeated Doubling \& ECDH}
+
+\section{Order on \(E(\mathbb{F}_p)\) and the Discrete Logarithm}
+\begin{lemma}
+	Let \(P\in E(\mathbb{F}_p)\) have order \(s\).  Then
+	\[
+		aP = bP \quad\Longleftrightarrow\quad a\equiv b\pmod{s}.
+	\]
+\end{lemma}
+\begin{proof}
+	If \(a=b+sk\) then
+	\[
+		aP=(b+sk)P=bP+k(sP)=bP+k\mathcal{O}=bP.
+	\]
+	Conversely, if \((a-b)P=\mathcal{O}\), write \(a-b=sq+r\) with \(0\le r<s\).  Then
+	\[
+		0=(sq+r)P=q(sP)+rP=rP,
+	\]
+	and minimality of \(s\) forces \(r=0\), so \(s\mid(a-b)\).
+\end{proof}
+
+\begin{corollary}
+	The order \(s\) of any point divides \(\lvert E(\mathbb{F}_p)\rvert\).
+\end{corollary}
+
+\begin{eg}
+	Over \(\F_5\), the curve \(y^2=x^3+x+1\) has \(\lvert E(\F_5)\rvert=9\).  For
+	\(\;P=(2,1),\,2P=(2,4),\,3P=\mathcal{O},\dots\),
+	the order of \(P\) is \(3\), and indeed \(3\mid9\).
+\end{eg}
+
+\section{Elliptic Curve DLP}
+Given \(P,Q\in E(\F_p)\), the \emph{elliptic curve discrete logarithm problem} is to find an integer \(n\) with
+\[
+	nP=Q.
+\]
+If such \(n\) exists, we write \(\log_PQ\).
+
+\begin{eg}
+	On the above curve \(P=(2,1)\), \(Q=(2,4)\) gives \(\log_PQ=2\).  But for
+	\(R=(3,1)\) no solution exists, so \(\log_PR\) is undefined.
+\end{eg}
+
+\section{Repeated Doubling}
+Write
+\[
+	n = \sum_{i=0}^{k-1} a_i2^i,\quad a_i\in\{0,1\}.
+\]
+Precompute \(P,2P,4P,\dots,2^{k-1}P\).  Then
+\[
+	nP = \sum_{i=0}^{k-1} a_i\,2^iP,
+\]
+using only \(2k\) group operations instead of \(O(2^k)\).
+
+\begin{eg}
+	For \(n=37=32+4+1\), compute \(2P,4P,8P,16P,32P\) then
+	\[
+		37P = 32P + 4P + P
+	\]
+	in just 7 additions.
+\end{eg}
+
+\section{ECDH Key Exchange}
+Alice and Bob agree on public \((p,E,P)\).  They choose private keys \(n_A,n_B\) and publish
+\[
+	Q_A = n_A P,\quad Q_B = n_B P.
+\]
+Each computes
+\[
+	n_AQ_B = n_BQ_A = n_An_BP,
+\]
+the shared secret (e.g.\ its \(x\)-coordinate).

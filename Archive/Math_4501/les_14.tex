@@ -1,0 +1,159 @@
+\lesson{14}{Fri Sep 26 2025 15:00}{}
+
+\begin{theorem} LU-decomposition \leavevmode
+    
+    $ A \in \mathbb{R}^{n \times n}, PA = LU $ where $ L $ unit-lower-triangular and $ U $ upper-triangular. $ P \in R^{n \times n} $ permutation matrix.
+
+    \vspace{1em}
+    Permutation matrix is an identity matrix whose rows have been permuted.
+
+    \[
+        \begin{bmatrix}
+          1 & 0 & 0 & 0 \\
+          0 & 1 & 0 & 0 \\
+          0 & 0 & 1 & 0 \\
+          0 & 0 & 0 & 1 \\
+        \end{bmatrix}
+        \xrightarrow{\text{permutate row 1 and 3} }
+        \begin{bmatrix}
+          0 & 0 & 1 & 0 \\
+          0 & 1 & 0 & 0 \\
+          1 & 0 & 0 & 0 \\
+          0 & 0 & 0 & 1 \\
+        \end{bmatrix}
+    \]
+
+    \[
+        \begin{bmatrix}
+          0 & 0 & 1 & 0 \\
+          0 & 1 & 0 & 0 \\
+          1 & 0 & 0 & 0 \\
+          0 & 0 & 0 & 1 \\
+        \end{bmatrix}
+        \begin{bmatrix}
+          a_{1} \\
+          a_{2} \\
+          a_{3} \\
+          a_{4} \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          a_{3} \\
+          a_{2} \\
+          a_{1} \\
+          a_{4} \\
+        \end{bmatrix}
+    \]
+
+\end{theorem}
+
+\vspace{2em}
+\underbar{\textbf{Application of Decomposition: }}
+Want to solve $ Ax = b $.
+
+Multiply P: $ PAx = Pb $
+
+LU decomposition: $ L(Ux) = Pb $
+
+Solve for $ y $: $ Ly = Pb $ (Forward solution)
+
+Solve for $ x $: $ Ux = y $ (Backward solution)
+
+
+\vspace{2em}
+"Conditioning" of the problem $ Ax = b $.
+
+How accurate is the solution $ x $ obtained through LU?
+
+\vspace{1em}
+There is errors (such as measurement errors) in the system:
+\[
+    Ax = b 
+\]
+where $ x $ is the true solution, and $ b $ is the true data.
+
+\[
+    A(x + \delta x) = b + \delta b  
+\]
+where $ \delta x $ is error in solution and $ \delta b $ is error in data.
+
+\vspace{2em}
+$ A( x) =  b  \iff \delta x = A^{-1} (\delta b) $ 
+
+$ \left\lVert A( x) \right\rVert = \left\lVert  b \right\rVert $ \hspace{3em} $ \left\lVert \delta x \right\rVert = \left\lVert A^{-1} (\delta b)  \right\rVert $
+
+Using the norm property:
+
+\[
+    \left\lVert A \right\rVert = \sup_{x \neq 0} \frac{\left\lVert Ax \right\rVert}{x} \implies 
+    \left\lVert Ax \right\rVert \leqslant  \left\lVert A \right\rVert \left\lVert x \right\rVert.
+\]
+
+So 
+\[
+    2. \left\lVert b \right\rVert \leqslant \left\lVert A \right\rVert \left\lVert x \right\rVert \hspace{3em} 1. \left\lVert \delta x \right\rVert \leqslant \left\lVert A^{-1} \right\rVert \left\lVert \delta b \right\rVert
+\]
+
+So now we have
+\begin{align*}
+    &\frac{\left\lVert \delta x \right\rVert}{\left\lVert x \right\rVert} (\text{ relative error in solution}) \\
+    \leqslant &(\text{using }1) \frac{\left\lVert A^{-1} \right\rVert \left\lVert \delta b \right\rVert}{\left\lVert x \right\rVert} \\
+    \leqslant &(\text{using }2) \frac{\left\lVert A \right\rVert}{\left\lVert b \right\rVert} \cdot \left\lVert A^{-1} \right\rVert \left\lVert \delta b \right\rVert \\
+    = &\left\lVert A \right\rVert \left\lVert A^{-1} \right\rVert \frac{\left\lVert \delta b \right\rVert}{\left\lVert b \right\rVert} \text{ relative error in data}
+\end{align*}
+
+
+We get
+\[
+    \frac{\left\lVert \delta x \right\rVert}{\left\lVert x \right\rVert} \leqslant \left\lVert A \right\rVert \left\lVert A^{-1} \right\rVert \frac{\left\lVert \delta b \right\rVert}{\left\lVert b \right\rVert}
+\]
+
+\vspace{2em}
+condition number:
+
+$ R(A) = \left\lVert A \right\rVert \left\lVert A^{-1} \right\rVert $
+
+$ R(\overrightarrow{I}) = \left\lVert \overrightarrow{I} \right\rVert _{\infty} \left\lVert \overrightarrow{I} \right\rVert _\infty = 1 $
+
+
+\vspace{2em}
+\begin{lemma}
+    
+    $ A \in \mathbb{R}^{m \times n} $, $ B \in \mathbb{R}^{n \times p} $
+
+    \[
+        \left\lVert \overrightarrow{A}\overrightarrow{B} \right\rVert \leqslant \left\lVert \overrightarrow{A} \right\rVert \cdot \left\lVert \overrightarrow{B} \right\rVert
+    \]
+
+\end{lemma}
+
+$ 1 = \left\lVert I \right\rVert = \left\lVert AA^{-1} \right\rVert \leqslant \left\lVert A \right\rVert \left\lVert A^{-1} \right\rVert = R(A) $
+
+\vspace{2em}
+\vspace{2em}
+\underbar{\textbf{QR-factorization}}
+
+\[
+    A = QR \hspace{3em} Q \text{ orthogonal and } R \text{ upper triangular }
+\]
+
+
+\vspace{2em}
+$ \{a_1, a_2, \cdots , a_{n}\} $ a basis of a subspace of $ \mathbb{R}^m $, $ m \geqslant n $.
+
+\vspace{1em}
+Want an orthonormal basis: Gran-Schnidt process.
+
+\[
+    q_1 = \frac{a_1}{\left\lVert a_1 \right\rVert _2}, q_2 = \frac{a_2 - (a_2-q_1)q_1}{\left\lVert a_2 - (a_2-q_1)q_1 \right\rVert _2 }, q_3 = \frac{a_3 - (a_3 q_1)q_1 - (a_3q_2)q_2}{\left\lVert \cdots  \right\rVert _2} \cdots 
+\]
+
+\[
+    A = \begin{bmatrix}
+      a_{1} & a_{2} & \cdots  & a_{n} \\
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+      q_{1} & q_{2} & \cdots  & q_{n} \\
+    \end{bmatrix}
+\]

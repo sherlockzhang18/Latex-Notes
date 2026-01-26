@@ -1,0 +1,349 @@
+\documentclass[a4paper]{article}
+
+\usepackage[margin=1.3in]{geometry} % reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{4501 - Homework 3}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4501 - Homework 3}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}
+
+    For $ u, v \in \mathbb{R}^n $ show the following inequality,
+    \[
+        \frac{1}{4} \frac{\left| \left\lVert u+v \right\rVert ^2_2 - \left\lVert u-v \right\rVert ^2_2 \right|}{\left\lVert u \right\rVert _2 \left\lVert v \right\rVert _2} \leqslant 1
+    \]
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    First, expand the left hand side:
+    \[
+        \left\lVert u+v \right\rVert _2^2 = \left( \sum_{i = 1}^{n} |u_{i} + v_{i}|^2 \right) = u^2 + 2uv + v^2
+    \]
+    Similarly, 
+    \[
+        \left\lVert u-v \right\rVert _2^2 = u^2 - 2uv + v^2
+    \]
+
+    So $ \left\lVert u+v \right\rVert _2^2 - \left\lVert u-v \right\rVert _2^2 = 4uv $
+
+    \vspace{1em}
+    Putting it back to the LHS we got
+    \[
+        \frac{1}{4} \frac{4uv}{\left\lVert u \right\rVert _2 \left\lVert v \right\rVert _2} = \frac{uv}{\left\lVert u \right\rVert _2 \left\lVert v \right\rVert _2}
+    \]
+
+    By Cauchy-Schwarz inequality, $ uv \leqslant {\left\lVert u \right\rVert _2 \left\lVert v \right\rVert _2} $, so $ \frac{uv}{\left\lVert u \right\rVert _2 \left\lVert v \right\rVert _2} \leqslant 1 $.
+
+\end{solution}
+
+
+\newpage
+\begin{problem}
+    
+    For any $ A \in \mathbb{R}^{m \times n} $ with linearly independent columns, show that $ \left\lVert A \right\rVert _2 = \left\lVert A^T \right\rVert _2 $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    As theorem 2.12 shows that 
+    \[
+        \left\lVert A \right\rVert _2 = max_{i} \lambda_{i}^{\frac{1}{2}}
+    \]
+    where $ \lambda_i $ is eigenvalue of the matrix $ A^T A $.
+
+    \noindent So, we know that 
+    \[
+        \left\lVert A \right\rVert _2 = \lambda_{\text{max}}(A^TA) \hspace{3em} \left\lVert A^T \right\rVert _2 = \lambda_{\text{max}}(AA^T)
+    \]
+
+    Therefore now we want to prove $ \lambda_{\text{max}}(A^TA) = \lambda_{\text{max}}(AA^T) $.
+
+    let $ \lambda $ be an eigenvalue of $ A^TA $ and $ w \neq 0 $ be the corresponding eigenvector. Then,
+    \[
+        A^TAw = \lambda w
+    \]
+
+    set $ z = Aw $, $ z \neq 0 $ as $ A $ is linearly independent and $ \text{null}A = \{0\} $.
+
+    So
+    \[
+        AA^Tz = A(A^TA)w = \lambda aw = \lambda z
+    \]
+
+    This shows that eigenvalue of $ A^TA $ is also an eigenvalue of $ AA^T $.
+
+    \vspace{1em}
+    Similarly, we can show that eigenvalue of $ AA^T $ is also an eigenvalue of $ A^TA $.
+
+    \vspace{2em}
+    Thus, 
+    \[
+        \lambda_{\text{max}}(A^TA) = \lambda_{\text{max}}(AA^T)
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}
+    
+    Let $ A, B \in \mathbb{R}^{n \times n} $ and denote by $ I $ the identity matrix of order $ n $.
+
+\end{problem}
+
+\begin{subproblem}
+
+    Show that $ \left\lVert AB \right\rVert \leqslant \left\lVert A \right\rVert \left\lVert B \right\rVert$
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    \[
+        \frac{\left\lVert ABx \right\rVert}{\left\lVert x \right\rVert}
+        = \frac{\left\lVert A(Bx) \right\rVert}{\left\lVert Bx \right\rVert} \cdot \frac{\left\lVert Bx \right\rVert}{\left\lVert x \right\rVert}
+    \]
+
+    As $ \left\lVert A \right\rVert = \sup_{x \in R^n \backslash \{0\}} \frac{\left\lVert Av \right\rVert}{\left\lVert v \right\rVert} $, 
+    \[
+        \frac{\left\lVert A(Bx) \right\rVert}{\left\lVert Bx \right\rVert} \cdot \frac{\left\lVert Bx \right\rVert}{\left\lVert x \right\rVert}
+        \leqslant \left\lVert A \right\rVert \cdot \frac{\left\lVert Bx \right\rVert}{\left\lVert x \right\rVert}
+        \leqslant \left\lVert A \right\rVert \left\lVert B \right\rVert
+    \]
+
+\end{solution}
+
+\vspace{2em}
+\begin{subproblem}
+    
+    Show that if the matrix $ I -B $ is singular, then there exists a nonzero vector $ x \in \mathbb{R}^n $ such that $ (I - B)x = 0 $, and that $ \left\lVert B \right\rVert \geqslant 1 $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    As $ I - B $ is nonsingular and it is a square matrix, its null space is not $ \{0\} $. Then, there must be some non-zero vector $ x $ such that $ (I-B)x = 0 $.
+
+    \vspace{1em}
+    This shows that $ \exists x \neq 0 $ such that $ Bx = Ix = x $.
+
+    As $ \left\lVert B \right\rVert = \sup_{x \in R^n \backslash \{0\}} \frac{\left\lVert Bx \right\rVert}{\left\lVert x \right\rVert} $, pick the $ x $ above, we have 
+    \[
+        \left\lVert B \right\rVert \geqslant 
+        \frac{\left\lVert Bx \right\rVert}{\left\lVert x \right\rVert} 
+        = \frac{\left\lVert x \right\rVert}{\left\lVert x \right\rVert} 
+        = 1
+    \]
+
+\end{solution}
+
+\vspace{2em}
+\begin{subproblem}
+    
+    Suppsoe that $ \left\lVert A \right\rVert < 1 $. Show that $ I - A $ is nonsingular, and that 
+    \[
+        (I - A)^{-1} = I + A(I - A)^{-1},
+    \]
+    then show that
+    \[
+        \left\lVert (I - A)^{-1} \right\rVert \leqslant \frac{1}{1-\left\lVert A \right\rVert} 
+    \]
+
+\end{subproblem}
+
+\vspace{2em}
+\begin{solution}
+    
+    If $ \left\lVert A \right\rVert < 1 $, then there is no $ x \neq 0 $ such that $ \frac{\left\lVert Ax \right\rVert}{\left\lVert x \right\rVert} = 1 $, so $ Ax \neq x = Ix $, so $ I - A $ has null space $ \{0\} $. So $ A $ is invertible.
+
+    \[
+        I = (I-A)(I-A)^{-1} = (I-A)^{-1} - A(I-A)^{-1}
+    \]
+    This shows 
+    \[
+        (I - A)^{-1} = I + A(I - A)^{-1},
+    \]
+
+    \[
+        \left\lVert (I - A)^{-1} \right\rVert = \left\lVert I + A(I - A)^{-1} \right\rVert \leqslant \left\lVert I \right\rVert + \left\lVert A(I - A)^{-1} \right\rVert
+    \]
+
+    \[
+        (1 - \left\lVert A \right\rVert) \left\lVert (I-A)^{-1} \right\rVert \leqslant \left\lVert I \right\rVert = 1
+    \]
+
+    So this implies 
+    \[
+        \left\lVert (I - A)^{-1} \right\rVert \leqslant \frac{1}{1-\left\lVert A \right\rVert} 
+    \]
+    
+\end{solution}
+
+\newpage
+\begin{problem}
+    See Jupyter Notebook for implementation.
+\end{problem}
+
+\newpage
+\begin{problem}
+    
+    Two different norms $ \left\lVert \cdot \right\rVert $ and $ \left\lVert \cdot \right\rVert _{*} $ on $ R^n $ are saide to be equivalent if there exists constants $ c, C > 0 $ such that
+    \[
+        c \left\lVert v \right\rVert \leqslant \left\lVert v \right\rVert _* \leqslant C \left\lVert v \right\rVert \text{ for all } v \in \mathbb{R}^n.
+    \]
+    Show that the 1-norm, 2-norm, and the $ \infty $-norm are all equivalent.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Relating $ \left\lVert \cdot \right\rVert _1 $ and $ \left\lVert \cdot \right\rVert _\infty $:
+
+    pick $ c = \frac{1}{n} $ and $ C = 1 $, then 
+    \[
+        c \cdot \left\lVert v \right\rVert _1 = \frac{1}{n} \sum_{i = 1}^{n} |v_{i}| \leqslant \frac{1}{n} \cdot n \cdot \max_{i}|v_{i}| = \left\lVert v \right\rVert _\infty
+    \]
+
+    Also, 
+    \[
+        C \cdot \left\lVert v \right\rVert _1 = \sum_{i = 1}^{n} |v_{i}| \geqslant \max_{i}|v_{i}| = \left\lVert v \right\rVert _\infty
+    \]
+
+
+    Thus, $ \left\lVert \cdot \right\rVert _1 $ and $ \left\lVert \cdot \right\rVert _\infty $ are equivalent.
+
+    \vspace{2em}
+    Relating $ \left\lVert \cdot \right\rVert _2 $ and $ \left\lVert \cdot \right\rVert _\infty $
+
+    As
+    \[
+        \left\lVert v \right\rVert _\infty^2 = \max_{i}|v_{i}|^2 \leqslant \sum_{i = 1}^{n} |v_{i}|^2 = \left\lVert v \right\rVert _2^2
+    \] 
+    we can pick $ c = 1 $
+    
+    \vspace{1em}
+    Also,
+    \[
+        \left\lVert v \right\rVert _2^2 = \sum_{i = 1}^{n} |v_{i}|^2 \leqslant n \cdot \max_{i}|v_{i}|^2 = n \left\lVert v \right\rVert _\infty^2
+    \]
+    so picking $ C = \sqrt{n} $ is valid.
+
+    Since we have proved that $ \left\lVert \cdot \right\rVert _1 \equiv \left\lVert \cdot \right\rVert _\infty $ and $ \left\lVert \cdot \right\rVert _2 \equiv \left\lVert \cdot \right\rVert _\infty $, by transitivity of equivalence relation 
+    \[
+        \left\lVert \cdot \right\rVert _1 \equiv \left\lVert \cdot \right\rVert _2 \equiv \left\lVert \cdot \right\rVert _\infty
+    \]
+
+\end{solution}
+
+\end{document}

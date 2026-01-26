@@ -1,0 +1,268 @@
+{
+    // Latex imports
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.showContextMenu": true,
+    "latex-workshop.intellisense.package.enabled": true,
+    "latex-workshop.message.error.show": false,
+    "latex-workshop.message.warning.show": false,
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOCFILE%"
+            ]
+        },
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "LaTeXmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+    ],
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.aux",
+        "*.bbl",
+        "*.blg",
+        "*.idx",
+        "*.ind",
+        "*.lof",
+        "*.lot",
+        "*.out",
+        "*.toc",
+        "*.acn",
+        "*.acr",
+        "*.alg",
+        "*.glg",
+        "*.glo",
+        "*.gls",
+        "*.ist",
+        "*.fls",
+        "*.log",
+        "*.fdb_latexmk",
+        "*.synctex.gz"
+    ],
+    "latex-workshop.latex.autoClean.run": "onBuilt",
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+    "latex-workshop.linting.chktex.exec.args": [
+        "-wall",
+        "-n22",
+        "-n30",
+        "-e16",
+        "-q",
+    ],
+    "latex-workshop.latex.magic.args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%",
+        "--shell-escape"
+    ],
+
+	"tikz":{
+		"prefix": "tikz",
+		"body": ["\\documentclass%[border=5mm]",
+		"{standalone}",
+		"%\\usepackage{amsmath}",
+		"\\usepackage{pgfplots}",
+		"\\usetikzlibrary{patterns,arrows,positioning,calc,fadings,shapes,decorations.markings}",
+		"\\usepackage{tikz}",
+		"\\begin{document}",
+		"\\begin{tikzpicture}",
+         "",
+		"\\end{tikzpicture}",
+        "\\end{document}",
+		],
+		"description": "tikz axis gunplots for data"
+	},
+	"tikzp":{
+		"prefix": "tikzpicture",
+		"body": [
+		"\\begin{tikzpicture}",
+         "",
+		"\\end{tikzpicture}",
+		],
+		"description": "tikzpicture"
+	},
+	"draw":{
+		"prefix": "tikz draw",
+		"body": ["\\draw[",
+			"draw=orange,",
+			"fill=orange,",
+			"opacity=0.3",
+			"]( , ) -- ( , )",
+			"%node[red] {}",
+			";"
+		],
+		"description": "tikz draw"
+	},
+
+	"drawfill":{
+		"prefix": "tikz drawfill",
+		"body": ["\\drawfill[",
+			"draw=orange,",
+			"fill=orange,",
+			"opacity=0.3",
+			"]( , ) -- ( , )--( , )",
+			"%node[red] {}",
+			";"
+		],
+		"description": "tikz drawfill"
+	},
+	"fill":{
+		"prefix": "tikz fill",
+		"body": ["\\fill[",
+			"color=orange,",
+			"opacity=0.3",
+			"]( , ) -- ( , )--( , );",
+		],
+		"description": "tikz fill"
+	},
+	"node":{
+		"prefix": "tikz node",
+		"body": ["\\node[",
+			"color=orange,",
+			"opacity=0.3",
+			"]( ) at ( , ){};",
+		],
+		"description": "tikz node"
+	},
+	"nodeinclue":{
+		"prefix": "node inclue",
+		"body": ["\\node[",
+			"color=orange,",
+			"opacity=0.3",
+			"]( ) at ( , ){\\includegraphics[width=]{}};",
+		],
+		"description": "node incluede"
+	},
+	"axis-pgf":{
+		"prefix": "tikz axis",
+		"body": ["\\documentclass%[border=5mm]",
+		"{standalone}",
+		"%\\usepackage{amsmath}",
+		"\\usepackage{pgfplots}",
+		"\\usepgfplotslibrary{groupplots}",
+		"\\usetikzlibrary{patterns}",
+		"\\usepackage{tikz}",
+		"\\begin{document}",
+		"\\begin{tikzpicture}",
+		"\\begin{axis}[",
+       " tick align=outside,",
+        "tick pos=left,",
+		"x grid style={white!69.019608!black},",
+		"xmin=-1,",
+		"xmax=5,",
+		"xtick style={color=black},",
+		"y grid style={white!69.019608!black},",
+		"ymin=-4,",
+		"ymax=3,",
+		"ytick style={color=black}",
+	                  "]",
+					  "",
+		"\\end{axis}",
+		"\\end{tikzpicture}",
+        "\\end{document}",
+		],
+		"description": "tikz axis gunplots for data"
+	},
+
+	"axis char":{
+		"prefix": "axis chart",
+		"body": ["\\documentclass{standlone}",
+		"\\usepackage{pgfplots}",
+		"\\begin{document}",
+		"\\begin{tikzpicture}",
+		"\\begin{axis}[",
+			"width=0.8\textwidth,",
+			"height=6cm,",
+			"ybar,",
+			"ylabel=Y Label,",
+			"xlabel=X Label,",
+			"xtick=data,",
+			"xticklabels={A,B, C, D, E},",
+			"legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},",
+			"enlarge x limits=0.2,",
+			"bar width=0.2cm,",
+			"nodes near coords,",
+			"nodes near coords align={vertical},",
+			"cycle list={blue,red,green},",
+		"]",
+		"",
+		"% 三组数据对比",
+		"\\addplot coordinates {(0,2) (1,4) (2,6) (3,8) (4,10)};",
+		"\\addplot coordinates {(0,1) (1,3) (2,5) (3,7) (4,9)};",
+		"\\addplot coordinates {(0,3) (1,6) (2,9) (3,12) (4,15)};",
+		
+		"\\legend{Data 1, Data 2, Data 3}",
+		"\\end{axis}",
+		"\\end{tikzpicture}",
+		"\\end{document}",
+		],
+		"description": "axis chart"
+	},
+
+	"insert figure":{
+		"prefix": "figure",
+		"body":["\\begin{figure}[htbp]\n\t\\centering\n\t\\includegraphics[width=${1}\\textwidth]{picture/${2}}\n\t\\caption{${3}}\n\t\\label{${4}}\n\\end{figure}"],
+		"description": "insert figure snippet"
+	},
+	"insert table":{
+		"prefix": "table",
+		"body":["\\begin{table}[${1:htbp}]\n\t\\centering\n\t\\caption{${2:caption}}\n\t\t\\begin{tabular}{${3:c|c}}\n\t\t\\hline\n\t\t${4:column1 & column2}\n\t\t\\end{tabular}\n\t\\label{${5:label}}\n\\end{table}"],
+		"description": "insert table snippet"
+	},
+	"insert enumerate":{
+		"prefix": "enumerate",
+		"body":["\\begin{enumerate}\n\t\\item ${1:enumerate1}\n\t\\item ${2:enumerate2}\n\\end{enumerate}"],
+		"description": "insert enumerate snippet"
+	},
+	"insert item":{
+		"prefix": "itemize",
+		"body":["\\begin{itemize}\n\t\\item ${1:itemsize1}\n\t\\item ${2:itemsize2}\n\\end{itemize}"],
+		"description": "insert item snippet"
+	},
+	"insert frame":{
+		"prefix": "frame",
+		"body":["\\begin{frame}{${1}}\n\t${2}\n\\end{frame}"],
+		"description": "insert frame snippet"
+	},
+	"insert paragraph":{
+		"prefix": "paragraph",
+		"body":["\\paragraph{${1}}~{}\\par"],
+		"description": "insert paragraph snippet"
+	},
+	"insert columns":{
+		"prefix": "columns",
+		"body":["\\begin{columns}\n\t\\column{0.5\\textwidth}\n${1}\n\t\\column{0.5\\textwidth}\n\\end{columns}"],
+		"description": "insert columns snippet"
+	},
+	"insert figures":{
+		"prefix": "figures",
+		"body":["\\begin{figure*}[htbp]\n\t\\begin{minipage}{0.5\\textwidth}\n\t\t\\includegraphics[width=${1}\\textwidth]{picture/${2}}\n\t\t\\caption{${3}}\n\t\t\\label{${4}}\n\t\\end{minipage}\n\t\\hfill\n\t\\begin{minipage}{0.5\\textwidth}\n\t\t\\includegraphics[width=${1}\\textwidth]{picture/${2}}\n\t\t\\caption{${3}}\n\t\t\\label{${4}}\n\t\\end{minipage}\n\\end{figure*}"],
+		"description": "insert figures snippet"
+	},
+	"insert algorithmic":{
+		"prefix": "algorithmic",
+		"body":["%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%\\STATE\\IF  \\ENDIF\\FOR \\ENDFOR\\FOR \\TO  \\ENDFOR\\FORALL \n%\\ENDFOR\\WHILE \\ENDWHILE\\REPEAT  \\UNTIL\\LOOP\n%\\ENDLOOP\\REQUIRE \\ENSURE \\RETURN \\PRINT \\COMMENT,\\AND, \\OR, \\XOR, \\NOT, \\TO, \\TRUE, \\FALSE \n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\\begin{algorithm}[htbp]\n\t\\caption{${1}}\n\t\\label{al:${2}}\n\t\\begin{algorithmic}\n\t\t\\REQUIRE{${3}}\n\t\t\\ENSURE{${3}}\n\t\\end{algorithmic}\n\\end{algorithm}"],
+		"description": "insert algorithmic snippet"
+	},
+	"insert algorithm":{
+		"prefix": "algorithm",
+		"body":["\\begin{algorithm}[htbp]\n\t\\caption{${1}}\n\t\\label{al:${2}}\n\t\t\\KwIn{${3}}\n\t\t\\KwOut{${3}}\n\\end{algorithm}"],
+		"description": "insert algorithm snippet"
+	},
+	"insert thebibliography":{
+		"prefix": "thebibliography",
+		"body":["\\begin{thebibliography}{99}\n\t\\bibitem{ref1} \n\t\\bibitem{ref2} \n\\end{thebibliography}"],
+		"description": "insert thebibliography snippet"
+	},
+}

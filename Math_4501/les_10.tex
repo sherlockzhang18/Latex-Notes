@@ -1,0 +1,97 @@
+\lesson{10}{Wed Sep 17 2025 15:00}{}
+
+\begin{definition} (p-norm)
+    $ \overrightarrow{u} \in \mathbb{R}^n, p \geqslant 1 $
+
+    \[
+        \left\lVert \overrightarrow{u} \right\rVert _{p} = \left\lVert \overrightarrow{u} \right\rVert _{l_{p}} = \left( \sum_{i = 1}^{n} |u_{i}|^P \right) ^{\frac{1}{p}}
+    \]
+\end{definition}
+
+Checking the norm definition:
+
+\begin{itemize}
+    \item $ \left\lVert \overrightarrow{u_0} \right\rVert \iff \sum_{i = 1}^{n} \left\lVert u_i \right\rVert ^p = 0 \iff u_{i} = 0  $ for $ i = 1, \cdots , n $
+    \item $ \left\lVert \lambda \overrightarrow{u} \right\rVert _p = \sum_{i = 1}^{n} \left\lVert \lambda u_i \right\rVert ^p = \left( |\lambda |^p \cdot (\sum_{i = 1}^{n} |u_{i}|^p)^{\frac{1}{p}} \right) = |\lambda | \left\lVert \overrightarrow{u} \right\rVert _p$
+\end{itemize}
+
+$ \left\lVert \overrightarrow{u} + \overrightarrow{v} \right\rVert _p \leqslant \left\lVert \overrightarrow{u} \right\rVert _p + \left\lVert \overrightarrow{v} \right\rVert _p$ for $ p \geqslant 1 $.
+
+\begin{lemma} Young's inequality \leavevmode
+
+    $ p, q \geqslant 1 $, $ \frac{1}{p} + \frac{1}{q} = 1 $ (conjugate pairs).
+
+    \[
+        ab \leqslant \frac{1}{p}a^p  + \frac{1}{q} b^q
+    \]
+    
+\end{lemma}
+
+\begin{proof}
+    \begin{align*}
+        ab 
+        &= ab = \exp(\ln(ab)) \\
+        &= \exp\left( \frac{1}{p} \ln a^p + \frac{1}{q} \ln b^q \right) \\
+        &= \exp\left( \alpha x + (1-\alpha ) y \right) (\text{ letting }\alpha  = \frac{1}{p} \text{ and } x = \ln a^p) \\
+        &\leqslant \alpha \exp(x) + (1-\alpha ) \exp(y)
+    \end{align*}
+\end{proof}
+
+\begin{theorem} Cauchy-schwarz inequality \leavevmode
+
+    $ \overrightarrow{u}, \overrightarrow{v} \in \mathbb{R}^n $
+
+    \[
+        |\overrightarrow{u} \cdot \overrightarrow{v}| \leqslant \left\lVert \overrightarrow{u} \right\rVert _2 \left\lVert \overrightarrow{v} \right\rVert _2 \hspace{3em} \overrightarrow{u} \cdot \overrightarrow{v} = \sum_{i = 1}^{n} u_{i}v_{i}
+    \]
+    
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        &\left| \frac{\overrightarrow{u}}{\left\lVert \overrightarrow{u} \right\rVert _p} \cdot \frac{\overrightarrow{v}}{\left\lVert \overrightarrow{v} \right\rVert _p}\right| \\
+        &= \left| \sum_{i = 1}^{n} \frac{u_{i}}{\left\lVert \overrightarrow{u} \right\rVert _p} \frac{v_{i}}{\left\lVert \overrightarrow{v} \right\rVert _q} \right| \\
+        &\leqslant \sum_{i = 1}^{n} \frac{u_{i}}{\left\lVert \overrightarrow{u} \right\rVert _p} \frac{v_{i}}{\left\lVert \overrightarrow{v} \right\rVert _q} \\
+        &\leqslant \sum_{i = 1}^{n} \frac{1}{p} \cdot \frac{u_{i}}{\left\lVert \overrightarrow{u} \right\rVert _p} + \frac{1}{q} \cdot \frac{v_{i}}{\left\lVert \overrightarrow{v} \right\rVert _q} \\
+        &= \frac{1}{\left\lVert \overrightarrow{u} \right\rVert _p^p} \cdot \frac{1}{p} \left( \sum_{i = 1}^{n} |u_{i}|^p \right) + \frac{1}{\left\lVert \overrightarrow{v} \right\rVert _p^p} \cdot \frac{1}{q} \left( \sum_{i = 1}^{n} |v_{i}|^q \right)\\
+        &= \frac{1}{p} + \frac{1}{q} \\
+        &=1
+    \end{align*}
+
+    Case $ p = 1, q = \infty $.
+
+    \begin{align*}
+        |\overrightarrow{u} \cdot \overrightarrow{v}| 
+        &= |\sum_{i = 1}^{n} u_{i}v_{i}| \\
+        &\leqslant \sum_{i = 1}^{n} |u_{i}||v_{i}| \\
+        &\leqslant \sum_{i = 1}^{n} |u_{i}|(\max_{i}|v_{i}|) \\
+        &= \sum_{i = 1}^{n} |u_{i}|\left\lVert  \overrightarrow{v} \right\rVert _\infty \\
+        &= \left\lVert \overrightarrow{v} \right\rVert _\infty \sum_{i = 1}^{n} |u_{i}| \\
+        &= \left\lVert \overrightarrow{u} \right\rVert _1 \left\lVert \overrightarrow{v} \right\rVert _\infty
+    \end{align*}
+
+    
+\end{proof}
+
+Hodden's inequality to be filled.
+
+\vspace{2em}
+\begin{theorem} Minkowskis inequality
+
+    $ p \geqslant 1 $, 
+    \[
+        \left\lVert  \overrightarrow{u} + \overrightarrow{v} \right\rVert _p  \leqslant \left\lVert \overrightarrow{u} \right\rVert _p + \left\lVert \overrightarrow{v} \right\rVert _p
+    \]
+    
+\end{theorem}
+
+\begin{proof}
+    \begin{align*}
+        \left\lVert \overrightarrow{u} + \overrightarrow{v} \right\rVert _p^p
+        &=\sum_{i = 1}^{n} |u_{i} + v_{i}|^p \\
+        &=\sum_{i = 1}^{n} |u_{i} + v_{i}|^{p-1} |u_{i}+v_{i}|\\
+        &=\sum_{i = 1}^{n} |u_{i} + v_{i}|^{p-1} \left(|u_{i}|+|v_{i}|\right) \\
+        &=\sum_{i = 1}^{n} |u_{i} + v_{i}|^{p-1} |u_{i}| + \sum_{i = 1}^{n} |u_{i} + v_{i}|^{p-1} |v_{i}| \\
+        &\leqslant \left[\sum_{i = 1}^{n} |u_{i} + v_{i}|^p \right] ^{\frac{1}{q}} [\left\lVert \overrightarrow{u} \right\rVert] _p + \left\lVert \overrightarrow{v} \right\rVert _p\\
+    \end{align*}
+\end{proof}

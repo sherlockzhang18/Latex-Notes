@@ -1,0 +1,256 @@
+\lesson{8}{Thur Sep 18 2025 14:30}{}
+
+\vspace{2em}
+\begin{proof} \leavevmode
+    
+    Let $ u_1, u_2, \cdots , u_{k} $ be a basis for $ \text{null}T $.
+    
+    Extend it to a basis $ u_1, \cdots , u_{k}, v_1, \cdots , v_{l} $ for $ V $
+
+    \vspace{1em}
+    Claim: $ Tv_1, \cdots , Tv_{l} $ form a basis for range$ T $
+
+    \begin{itemize}
+        \item $ Tv_1, \cdots , Tv_{l} \in \text{range}T $
+        
+        \item linearly independent:
+        
+            \vspace{1em}
+            If $ a_1Tv_1 + \cdots + a_{l}Tv_{l} = 0 $, then
+            \[
+                T(a_1v_1 + \cdots + a_{l}v_{l}) = 0 \implies a_1v_1 + \cdots + a_{l}v_{l} \in \text{null}T
+            \]
+
+            So,
+            \[
+                a_1v_1 + \cdots + a_{l}v_{l} = b_1u_1 + \cdots + u_{k}u_{k}  \text{ for some }  b_{i} \in F
+            \]
+
+            So 
+            \[
+                a_1v_1 + \cdots + a_{l}v_{l}-b_1u_1 - \cdots - b_{k}u_{k} = 0
+            \]
+
+            which leads to 
+            \[
+                a_1 = a_2 = \cdots = a_{l} = b_1 = \cdots = b_{k} = 0
+            \]
+        
+        \item spanning
+        If $ w \in \text{range}T, $ then $ w = Tv $ for some $ v \in V $ and $ v = \lambda_1u_1 + \cdots + \lambda_{k}u_{k} + \mu_1v_1 + \cdots + \mu_{l}v_{l} $ for some $ \lambda_{i}, \mu_{i} $.
+
+        So
+        \[
+            w = Tv = \lambda_1 T u_1 + \cdots + \lambda_{k} T u_{k} + \mu_1 T v_1 + \cdots + \mu_{l} T v_{l} = \mu_1 T v_1 + \cdots + \mu_{l} T v_{l}
+        \]
+
+        \vspace{1em}
+        This finishes the claim.
+        
+    \end{itemize}
+\end{proof}
+
+\vspace{2em}
+\begin{definition}
+
+    $ T \in L(V, W) $ is called surjective if it's onto.
+
+\end{definition}
+
+\begin{corollary}
+
+    \begin{enumerate}
+        \item If $ \dim V < \dim W $, then ther is no surjective \textbf{linear map} from $ V $ to W.
+        \vspace{1em}
+        If $ \text{range}L = W $, then 
+        \[
+            \dim V = \dim W + \dim \text{null} T \geqslant \dim W
+        \]
+
+        \item if $ \dim V > \dim W $, there is no injective linear map from $ V $ to $ W $.
+        
+        \vspace{1em}
+        If $ T: V \to W $ is injective, then 
+        \[
+            \dim V = \dim  \text{range} T + 0 \leqslant \dim W
+        \]
+    \end{enumerate}
+
+\end{corollary}
+
+\begin{note}
+    $ L(V, W) $ is itself a vector space with $ T, S \in L(V, W), \lambda \in F $
+
+    \begin{itemize}
+        \item $ (T + S)v = Tv + Sv $ \hspace{3em} $ T + S \in L(V, W) $
+        \item $ (\lambda T)v = \lambda T v $ \hspace{3em} $ \lambda T \in L(V, W) $
+    \end{itemize}
+\end{note}
+
+\begin{definition} Product of linear maps:
+
+    $ S, T \in L(V, W): V \to W \to U $
+
+    $ ST \in L(V, W) $
+
+    $ (ST)v = S(Tv) $
+
+    \vspace{2em}
+    $ ST $ is a linear map:
+    \begin{itemize}
+        \item $ ST(v_1+v_2) = S(T(v_1 + v_2)) = S(Tv_1 + Tv_2) = S(Tv_1) + S(Tv_2) = STv_1 + STv_2 $
+        \item $ ST(\lambda v) = S(T(\lambda v)) = S(\lambda Tv) = \lambda S(Tv) = \lambda(ST(v)) $
+    \end{itemize}
+
+\end{definition}
+
+\begin{definition}
+    
+    Properties of Product of linear map
+
+    \begin{itemize}
+        \item $ T_1: V \to W $
+        \item $ T_2: W \to U $
+        \item $ T_3: U \to V $
+    \end{itemize}
+
+    If $ T_1, T_2, T_3 $ are linear maps, then 
+    \[
+        (T_3T_2)T_1 = T_3(T_2T_1)
+    \]
+
+    \[
+        (S_1+S_2)T = S_1T + S_2T
+    \]
+    \[
+        S(T_1+T_2) = St_1 + ST_2
+    \]
+    
+    $ TS $ means Let $ S: V \to W, T: W \to U $
+
+    \vspace{1em}
+    $ ST $ may not make sense:
+
+    If $ V = W = U $ and $ S, T \in L(V, V)$.
+    then, $ ST, TS \in L(V, V) $
+
+    But in general $ ST \neq TS $
+\end{definition}
+
+\begin{eg} \leavevmode
+    
+    $ V = P(\mathbb{R}) $
+
+    $ T: V \to V $, $ S: V \to V $
+
+    $ T(P(x)) = p'(x) S(p(x)) = x(px) $
+
+    \vspace{1em}
+    $ ST (p(x))= xp'(x) $
+
+    $ TS(p(x)) = T(xp(x)) = p(x) + xp'(x) $
+
+    They are not equal.
+
+\end{eg}
+
+
+\section{Matrices}
+
+\begin{definition}
+    
+    $ F = \mathbb{R} \text{ or } \mathbb{C} $, then $ n \times m $ matrix over $ F $ is 
+
+    \[
+        \begin{bmatrix}
+          a_{11} & a_{12} & \cdots  & a_{1m} \\
+          a_{21} & \ddots & \ddots  & a_{2m} \\
+          \vdots & \ddots & \ddots & \vdots \\
+          a_{n1} & a_{n2} & \cdots  & a_{nm} \\
+        \end{bmatrix}
+    \]
+
+\end{definition}
+
+\begin{definition}
+    
+    Suppose $ V, W $ are finite-dimensional vector space over $ F $ and $ T \in L(V, W) $. Fix a basis $ v_1, \cdots , v_{m} $ for $ V $ and a basis $ w_1, \cdots , w_{n} $ for $ W $.
+
+    Form a $ m \times n $ matrix $ A $:
+    \[
+        M(T) = 
+            \begin{bmatrix}
+                a_{11} & a_{12} & \cdots  & a_{1n} \\
+                a_{21} & \ddots & \ddots  & a_{2n} \\
+                \vdots & \ddots & \ddots & \vdots \\
+                a_{m1} & a_{m2} & \cdots  & a_{mn} \\
+            \end{bmatrix}
+    \]
+    (vertical $ w_1, \cdots , w_{m} $, and horizontal $ Tv_1, \cdots , Tv_{n} $)
+
+    \vspace{1em}
+    $ M(T, (v_1, \cdots , v_{m}), (w_1, \cdots ,w_{n})) $
+
+    \vspace{1em}
+    $ T(v_{i}) = a_{1i}w_1 + a_{2i}w_2 + \cdots + a_{mi}w_{m} $ (ith column)
+
+\end{definition}
+
+\begin{eg}
+    
+    Let $ D: P_3(\mathbb{R}) \to P_2(\mathbb{R}) $ be given by 
+    $ D(p(x)) = p'(x) $. Find the matrix of $ D $ with respect to the standard basis.
+
+    picture to be filled
+
+\end{eg}
+
+\begin{eg}
+    
+    $ T: \mathbb{R}^2 \to \mathbb{R}^3 $ is given by 
+
+    $ T(x_1, x_2) = (2x_1, x_1 + 3x_2, x_1 - x_2) $
+
+    What is 
+    \begin{enumerate}
+        \item $ M(T, ((1,0),(0,1)), ((1,0,0), (0,1,0), (0,0,1))) $
+        \item $ M(T, ((1,1), (2,1)), ((1,0,0), (0,1,0), (0,0,1))) $
+    \end{enumerate}
+
+    \vspace{1em}
+    \begin{enumerate}
+        \item $ T(1,0) = (2,1,1), T(0,1) = (0,3,-1) $
+        
+        So the matrix should be 
+        \[
+            \begin{bmatrix}
+              2 & 0 \\
+              1 & 3 \\
+              1 & -1 \\
+            \end{bmatrix}
+        \]
+
+        \item $ T(1,1) = (2,4,0), T(2,1) = (4,5,1) $
+        
+        So the matrix should be 
+        \[
+            \begin{bmatrix}
+              2 & 4 \\
+              4 & 5 \\
+              0 & 1 \\
+            \end{bmatrix}
+        \]
+    \end{enumerate}
+
+\end{eg}
+
+
+\begin{definition}
+    $ F^{m,n}: $ set of $ m $ by $ n $ matrices over $ F $ is a vector space with addition and scalar multiplication of matrices.
+
+    $ \dim F^{m,n} = mn $
+
+    \vspace{1em}
+    A basis $ E^{i,j} $ is all the entries 0 except ij-th one which is 1.
+
+\end{definition}

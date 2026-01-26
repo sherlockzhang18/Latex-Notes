@@ -1,0 +1,94 @@
+\lesson{1}{Tue Aug 26 2025 11:30}{Introduction}
+
+
+\begin{itemize}
+    \item Textbook: Fourier analysis an Introduction
+    \item Exam: two midterm one final
+    \item homework due on Thursday
+    \item A is 93 and above
+\end{itemize}
+
+\setcounter{chapter}{0}
+\chapter{The Genesis of Fourier Analysis}
+
+\section{What is Fourier Analysis?}
+
+\[
+    f: [-\pi, \pi]  \in \mathbb{C} 
+\]
+
+\[
+    \begin{bmatrix}
+      a_{11} & a_{12} & a_{13} & a_{14} \\
+      a_{21} & a_{22} & a_{23} & a_{24} \\
+      a_{31} & a_{32} & a_{33} & a_{34} \\
+    \end{bmatrix}
+\]
+
+Define function $ f: \mathbb{R} \rightarrow \mathbb{C} $
+
+fourier analysis is the study of when (and in what sense) such a representation holds, and its consequence and application.
+
+nice simple functions $ e^x $
+\begin{itemize}
+    \item $ \frac{d}{dx}e^x = e^x $, $ e^x $ continuous.
+    \item $ e^a \cdot e^b = e^{a+b} $; $ e^x $ infinitely differentiable
+\end{itemize}
+
+\vspace{1em}
+expansion of $ e^x $
+\vspace{1em}
+
+
+$ e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} $
+
+\vspace{1em}
+$ e^{ikx} = \sum_{n=0}^{\infty} \frac{(ikx)^n}{n!}$ where $ e^{ikx} = \cos(kx) + i\sin(kx)$
+
+
+
+\vspace{2em}
+Vectors in $ \mathbb{R}^2 $ are objects with magnitude and direction.
+
+Can add them and multiply by scale.
+
+\vspace{1em}
+We can fix two special vectors $ e_1 \text{ and } e_2$ and consider the values $ \alpha $ and $ \beta $ such that for a vector $ v $ we have $ v = \alpha e_1 + \beta e_2 $. {$ e_1 \text{ and } e_2$} is refered as the basis.
+
+Now, we can think of vectors in view of coordinates as $ (\alpha, \beta) $
+
+- Coordinates allow us to define operations on vectors and properties of vectors more easily.
+
+
+\vspace{2em}
+consider functions on $ [-\pi, \pi) $ (complex valued)
+
+\[
+    V = \{ f: [-\pi, \pi) -> \mathbb{C}\}
+\]
+
+\begin{itemize}
+    \item $ f,g \in V $, $ (f+g)(x) = f(x) +g(x) $ (i.e, we can add functions)
+    \item $ \alpha \in \mathbb{R}, f \in V $, $ (\alpha f)(x) = \alpha f(x) $ (ie, we have scalar multiplication on V). V becomes vector space with essential properties if our example in $ \mathbb{R}^2 $
+\end{itemize}
+
+\begin{itemize}
+    \item Do we have a basis in $ V_1 $
+    \item Since functions have a infinite degree of freedom, we will need an infinite collection for our basis.
+    \item Need to introduce infinite bases.
+    \item \textbf{Hamel Basis}: $ \{V_n\}, n \in \mathbb{N} $ is a Hamel basis for $ V $ if $ \forall v \in V, \exists N \in \mathbb{N} $ such that $ v = \sum_{n=0}^{\infty} a_n v^n $ for some $ a_n $.(e.g. Polynomials of any degree has a Hamel basis)
+    \item schouder basis, $ \{V_n\}, n \in \mathbb{N} $ is a schouder basis for V if 
+\end{itemize}
+
+To talk about a Schouder basis (since we have infinite sum), we need a \underbar{norm} for our vector space.
+Since these are sums of functions, we can also talk about pointwise and uniform convergence.
+
+\begin{itemize}
+    \item for all these to make sense, we will also need to restrict those $ f $ we consider (i.e. we will be looking subspaces of V)
+    \item When we have this representation, we'll have coordinates $ f  $
+\end{itemize}
+
+\begin{eg}
+    Planchercl, $ \int_{-\pi}^{\pi} $
+    
+\end{eg}

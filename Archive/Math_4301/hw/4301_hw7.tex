@@ -1,0 +1,378 @@
+\documentclass[a4paper]{article}
+
+% \usepackage[margin=1in]{geometry} // reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{4301 linear algebra - Homework 7}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4301 - Homework 7}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}[3F.17]
+
+    Suppose $ V $ and $ W $ are finite-dimensional and $ T \in (L, W) $. Prove that $ T $ is invertible if and only if $ T' \in L(W', V') $ is invertible.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    We are using the corollary in class that
+    \begin{align*}
+        T \text{ is surjective } \iff T' \text{ is injective} \\
+        T \text{ is injective } \iff T' \text{ is surjective} \\
+    \end{align*}
+
+    $ \implies $
+
+    \vspace{1em}
+    If $ T $ is invertible, then it is injective and surjective.
+    By the corollary above, $ T' $ is injective and surjective. So it is invertible.
+
+    $ \impliedby $
+
+    \vspace{1em}
+    If $ T' $ is invertibel, then it is injective and surjective.
+    By the corollary above, $ T $ is also injective and surjective. So it is invertible.
+    
+\end{solution}
+
+\newpage
+\begin{problem}[3F.19]
+
+    Suppose $ U \subseteq V $. Explain why
+    \[
+        U^0 = \{\varphi \in V': U \subseteq \text{null }\varphi\}
+    \]
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    As $ U \subseteq \text{null }\varphi $, we know that $ \varphi(u) = 0 $ for all $ u \in U $. This is the definition of $ U^0 $.
+    \[
+        \varphi(u) = 0 \text{ for all } u \in U \iff U \subseteq \text{null }\varphi
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[3F.22]
+
+   Suppose $ V $ if finite-dimensional and $ U $ and $ W $ are subspaces of $ V $.
+
+\end{problem}
+
+\vspace{1em}
+\begin{subproblem}
+
+    Show that $ (U + W)^0 = U^0 \cap W^0 $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    Let $ \varphi \in (U + W)^0 $. Then for any $ u \in U $ and $ w \in W $, we know that $ u, w \in U + W $, so $ \varphi(u) = \varphi(w) = 0 $. Thus $ \varphi \in U^0 \cap V^0 $. Therefore $ (U + W)^0 \subseteq U^0 \cap W^0 $.
+
+    \vspace{2em}
+    Let $ \varphi \in U^0 \cap W^0 $, then for any $ u \in U $ and $ w \in W $, $ \varphi(u) = \varphi(w) = 0 $. Any vector $ x $ in $ U + W $ can be written as $ au + bw $. $ \varphi(x) = \varphi(au + bv) = a\varphi(u) + b\varphi(v) = a \cdot 0 + b \cdot 0 = 0 $. Therefore $ (U + W)^0 \supseteq U^0 \cap W^0 $
+
+    \vspace{2em}
+    Therefore we got
+    \[
+        (U + W)^0 = U^0 \cap W^0
+    \]
+
+\end{solution}
+
+\vspace{2em}
+\begin{subproblem}
+
+    Show that $ (U \cap W)^0 = U^0 + W^0 $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    $ (U \cap W)^0 \supseteq U^0 + W^0 $:
+
+    \vspace{1em}
+    Let $ \varphi = \alpha + \beta $ with $ \alpha \in U^0 $ and $ \beta \in W^0 $. Then, for any $ x \in U \cap W $, $ \alpha(x) = \beta(x) = 0 $. So,
+    \[
+        \varphi(x) = \alpha(x) + \beta(x) = 0 + 0 = 0
+    \]
+    Therefore, $ \varphi \in (U \cap W)^0 $, so $ (U \cap W)^0 \supseteq U^0 + W^0 $.
+
+    \vspace{2em}
+
+    Since $ U^0 + W^0 \subseteq (U \cap W)^0 $ and both are finite-dimensional, if we prove $ \dim (U^0 \cup W^0) = \dim U^0 + \dim W^0 $, then $ (U \cap W)^0 = U^0 + W^0 $.
+
+    \begin{align*}
+        \dim (U^0 + W^0) 
+        &= \dim U^0 + dim W^0 - \dim (U^0 \cap W^0) \\
+        &= (\dim V - \dim U) + (\dim V - \dim W) - \dim ((U + W)^0) \\
+        &= 2\dim V - \dim U - \dim W - (\dim V - \dim (U + W)) \\
+        &= \dim V - (\dim U + \dim W - \dim (U + W)) \\
+        & = \dim V - \dim (U \cap W) \\
+        &= \dim (U \cap W)^0
+    \end{align*}
+
+\end{solution}
+
+\newpage
+\begin{problem}[4.1]
+
+    Suppose $ w, z $ in $ \mathbb{C} $. Verify the following equalities and inequalities.
+    
+\end{problem}
+
+\vspace{1em}
+\begin{subproblem}
+
+    $ z + \overline{z} = 2\text{Re} z $
+    
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    let $ z = a + bi $, then $ \overline{z} = a - bi $, where $ a, b \in \mathbb{R} $.
+    \[
+        z + \overline{z} = a + bi + a - bi = 2a = 2 \text{Re}z
+    \]
+
+\end{solution}
+
+\vspace{2em}
+\begin{subproblem}
+    
+    $ z - \overline{z} = 2(\text{Im}z)i $
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    let $ z = a + bi $, then $ \overline{z} = a - bi $, where $ a, b \in \mathbb{R} $.
+    \[
+        z - \overline{z} = a + bi - (a - bi) = 2bi = 2 (\text{Im}z)i
+    \]
+
+\end{solution}
+
+\setcounter{subproblem}{4}
+\begin{subproblem}
+    
+    $ \overline{\overline{z}} = z $
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    let $ z = a + bi $, then $ \overline{z} = a - bi $, where $ a, b \in \mathbb{R} $.
+
+    \[
+        \overline{\overline{z}} = \overline{a-bi} = a + bi = z
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[4.4]
+    
+    Suppose $ m $ is positive integer. Is the set
+    \[
+        \{0\} \cup \{p \in P(F) : \text{deg }p = m\}
+    \]
+    a subspace of $ P(F) $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    No it is not as it is not closed under addition. $ x^m $ and $ 1 - x^m $ are both in the set $ A = \{0\} \cup \{p \in P(F) : \text{deg }p = m\} $
+
+    \[
+        x^m + 1 - x^m = 1 \notin A
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[4.7]
+    
+    Suppose that $ m $ is a nonnegative integer, $ z_1, \cdots ,z_{m + 1} $ are distinct elements of $ F $, and $ w_1, \cdots ,w_{m+1} \in F $. Prove that there exists a unique polynomial $ p \in P_{m(F)} $ such that
+    \[
+        p(z_{k}) = w_{k}
+    \]
+    for each $ k = 1, \cdots, m+1 $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Define the linear map:
+    \begin{align*}
+    &T: P_{m}(F) \to F^{m+1} \\    
+    &T(p) = (p(z_1), p(z_2), \cdots , p(z_{m+1}))
+    \end{align*}
+
+    Then, for $ P_{m}(F) $ we choose $ \{1, x, x^2, \cdots , x^n\} $ as the basis, and for $ F^{m+1} $ we choose the standard basis.
+
+    Then the transformation could be written as a matrix:
+    \[
+        T = \begin{bmatrix}
+          1 & z_1 & z_1^2 & \cdots & z_1^m \\
+          1 & z_2 & z_2^2 & \cdots & z_2^m \\
+          \vdots & \vdots & \vdots & \ddots & \vdots \\
+          1 & z_{m+1} & z_{m+1}^2 & \cdots & z_{m+1}^m \\
+        \end{bmatrix}
+    \]
+
+    This is a Vandermonde matrix, and the determinant of the matrix is 
+    \[
+        \text{det }T = \prod_{1 \leqslant i \leqslant j \leqslant m+1 } (z_{j} - z_{i})
+    \]
+
+    Since $ z_1 ,\cdots , z_{m+1} $ are distinct elements, the determinant is not zero. Therefore the matrix is invertible.
+
+    \vspace{1em}
+    By the theorem in class, there exists a unique $ p $ such that
+    \[
+        T(p) = (w_1, \cdots , w_{m+1})
+    \]
+    , which is identical to 
+    \[
+        p(z_{k}) = w_{k}
+    \]
+
+
+\end{solution}
+
+\newpage
+\begin{problem}[4.9]
+    
+    Prove that every ploynomial of odd degree with real coefficients has a real zero.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    By the corollary in class, let $ p \in P(\mathbb{R}) $ be a ploynomial with odd degree, its factorization should have the form
+    \[
+        p(x) = c(x - \lambda_1)\cdots (x - \lambda_{k})(x^2 + r_{1}x + s_{1}) \cdots (x^2 + r_{l} + s_{l})
+    \]
+    where $ c, \lambda_1, \cdots \lambda_{k} \in \mathbb{R} $ with $ k > 0 $ and $ x^2 + r_{i}x + s_{i} $ has no real zeros for $ 1 \leqslant i \leqslant l $. Therefore, $ \text{deg }p = k + 2l $. Since $ \text{deg }p $ is odd, and $ \text{deg }p = k + 2l $, $ k $ has to be odd. Then it has at least one real zero since $ k > 0 $.
+    
+\end{solution}
+
+\end{document}

@@ -1,0 +1,160 @@
+\lesson{2}{Thu Aug 28 2025 14:30}{}
+
+\begin{eg} \leavevmode
+
+    \begin{enumerate}
+        \item $ F^n $ with the usual scalar multiplication and addition ($ \mathbb{R}^2, \mathbb{R}^3, \mathbb{C}^4 $)       
+         
+        \item $ F^{\infty} = \{(a_1, a_2, \cdots ) | a_i \in F \text{ with } i = 1, 2, \cdots \} $ is a vector space over $ F $. with component by component addition and scalar multiplication.
+        
+        \item $ V: $ set of all continuous functions $ f: \mathbb{R} \to \mathbb{R} $ with 
+            \begin{align*}
+                & (f+g)(x) = f(x)+g(x) \\
+                & (c \cdot f)(x) = c \cdot f(x) \\
+            \end{align*}  
+        is a vector space over $ \mathbb{R} $
+
+        \item $ S $: an arbitrary set and $ V $: the set of all functions from $ S $ to $ V $.
+        \begin{align*}
+            & f,g: S \to F \\
+            & (f+g) (s) = f(s) + g(s)\\
+            & (cf)(s) = cf(s)\\
+        \end{align*}
+        is a vector space with Notation $ F^S $
+
+        Checking conditions:
+        \begin{itemize}
+            \item 0 vector: The zero function.
+            \item if $ f \in V $, $ (-f) (s) = -f(s) $, then $ f + (-f) = 0 $
+            \item for example $ S = \{1,2\} $ and $ F = \mathbb{R} $. This example represents $ \mathbb{R}^2 $. 
+            
+            \vspace{1em}
+            $ f: \{1,2\} \to \mathbb{R} $
+
+            Let $ a = f(1), b = f(2) $, then $ (a,b) \in \mathbb{R}^2 $
+        \end{itemize}
+    \end{enumerate}
+\end{eg}
+
+\noindent in conclusion from above, 
+\begin{itemize}
+    \item $ F^{1,2, \cdots , n} $ can be identified with $ \mathbb{R}^n $
+    \item $ F^{1,2, \cdots} $ can be identified with $ \mathbb{R}^{\infty} $
+\end{itemize}
+
+
+\begin{theorem} Properties of Vector space
+    Let $ V $ be a vector space over $ F $, then
+    \begin{enumerate}
+        \item The additive identity $ (0) $ is unique
+            \begin{explanation}
+                If 0 and 0' are both additive identities, then $ 0 = 0 + 0' = 0' $
+            \end{explanation}
+
+        \item additive inverse of any vector $ v $ is unique.
+        
+            if $ w,u $ are such that 
+            \begin{align*}
+                & w+v = 0\\
+                & u+v = 0\\
+            \end{align*}, then $ w = u $
+
+            $ u = (w+v) +u = w + (v+u) = w $
+
+            Notation: additive inverse of $ v: -v $ \hspace{1em}$ u-v: $ $ = u + (-v) $
+
+        \item $ 0 \cdot v = 0 $  \hspace{1em}   $ \forall v \in V $
+        
+            \vspace{1em}
+            \begin{explanation}
+                \begin{align*}
+                    0v & = (0+0)v \\
+                    & = 0v + 0v \\
+                    \implies 0v & = 0v + 0v \\
+                \end{align*}
+                Add $ -(0v) $ to both sides we get $ 0 = 0v + 0v + -0v = 0v $
+            \end{explanation}
+
+        \item $ (-1)v = -v $ \hspace{1em} $ \forall v \in V $
+        \vspace{1em}
+            \begin{explanation}
+                \begin{align*}
+                    0 & = 0v = (1 + (-1)) v \\
+                    & = 1v + (-1) v \\
+                    \implies (-1) v & = -v
+                \end{align*}
+            \end{explanation}
+
+        \item $ a \cdot 0 = 0 $ \hspace{1em} $ \forall a \in F $
+        \vspace{1em}
+            \begin{explanation}
+                Exercise.
+            \end{explanation}
+    \end{enumerate}
+\end{theorem}
+
+\section{Subspace}
+
+\begin{definition} \leavevmode 
+    \underbar{\textbf{Subspaces}}:
+    
+    \noindent Let $ V $ be a vector space over $ F $. A non-empty subset $ U \subseteq V $ is called a \underbar{subspace} if $ U $ it self is a vector space with the addition and scalar multiplication from V.
+
+    \vspace{1em}
+    \begin{enumerate}
+        \item $ u \neq \emptyset $
+        \item $ v, w \in U $, then $ v+w \in U $
+        \item $ c \in F, u \in U $, then $ cu \in U $
+    \end{enumerate}
+
+    \vspace{1em}
+    let $ U \neq \emptyset $, so pick $ u \in U $ then 3. implies that $ 0u = 0 \in U $, so $ 0 \in U $
+
+    and if $ v \in U $, then 3. implies $ (-1)v \in U \implies -v \in U $
+
+    so $ U $ is a vector space over $ F $.
+\end{definition}
+
+\begin{remark}
+    if $ V $ is a vector space, then $ \{0\} $ and $ V $ are always subspaces.
+\end{remark}
+
+\begin{eg} \leavevmode
+    \begin{enumerate}
+        \item Find all subspaces of $ \mathbb{R}^2 $
+        \begin{itemize}
+            \item $ \{0\} $
+            \item $ \mathbb{R}^2 $
+            \item line through origin. if another point other than the line is added (w), then vector $ w $ and another vector on the line $ v $ will cover all the points using linear combination.
+        \end{itemize}
+
+        \item Let $ V = F^5 $, find 4 subspaces of $ F $
+        \begin{itemize}
+            \item $ F^5 $
+            \item $ \{0\} $
+            \item $ \{(x_1, x_2, x_3, x_4, x_5) | x_5 = 0\} $
+            \item $ \{(x_1, x_2, x_3, x_4, x_5) | x_1 = 3x_2\} $
+        \end{itemize}
+
+        Non-examples:
+        \begin{itemize}
+            \item $ \{(x_1, \cdots , x_5) | x_1 = 1 + x_2\} $: zero is not inside.
+            \item $ \{(x_1, x_2, x_3, x_4, x_5) | x_1 = 0 \text{ or } 1\} $: $ v = (1,0,0,0,0) \in U$ but $ 2v \notin U $
+        \end{itemize}
+
+        \item 
+            $ V = F^n $
+
+            $ U = \{(x_1, \cdots , x_n) | x_1 - x_2 + 2x_{3} = 0\} $ is a subspace.
+            \begin{align*}
+                &x_1 - x_2 + 2x_{3} = 0 \text{ and } y_1-y_2+2y_3 = 0 \\
+                \implies &(x_1-y_1) + (x_2 - y_2) + 2(x_3 - y_3) = 0
+            \end{align*}
+
+        \item $ F = \mathbb{R} $: $ V = \mathbb{R}^n $
+        
+            $ u = \{(x_1, \cdots , x_n) | x_1-x_2+2x_3 = 1\}  $ is not a subspace.
+
+            $ u = \{(x_1, \cdots , x_n) | x_1 \geqslant 0\}  $ is not a subspace.
+    \end{enumerate}
+\end{eg}

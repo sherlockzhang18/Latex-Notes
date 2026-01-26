@@ -1,0 +1,107 @@
+\lesson{5}{Fri Jan 23 2026 10:00}{}
+
+\begin{eg}
+    Define \underbar{a set function} to be $ f: S \to \mathbb{R} $ 
+    $ f(s) = 
+    \begin{cases}
+        1, & \text{ if } 0 \in S \\
+        0, &\text{otherwise} 
+    \end{cases} $
+
+    \vspace{1em}
+    Check countable additivity: Suppose $ A = \dot\cup^\infty_{i = 1} A_{i} $, $ A_{i} \subseteq [0,1] $, then $ \mu(A) = 1 \iff \frac{1}{2} \in A \iff (\exists i) \frac{1}{2} \in A_{i} \iff \sum_{i=1}^{\infty} \mu(A_{i}) = 1 $.
+\end{eg}
+
+\begin{eg}
+    Trivial measure $ \mu(S) = 0 $, all $ S \subseteq [0,1] $
+\end{eg}
+
+\begin{eg}
+    Try $ \mu(A) = \int_{a}^{b} X_{A}(x) dx$ where $ X_{A}(x) = \begin{cases}
+        1, & x \in A \\
+        0, & \text{otherwise}
+    \end{cases} $
+
+    Works for some $ A $ not others:
+
+    \begin{itemize}
+        \item $ X_{Q} $ is not R.I. on $ [0,1] $, since for any step functions $ f_1\leqslant X_{Q} \leqslant  f_2 $ we have $ \int_{0}^{1}f_1 = 0 < 1 = \int_{0}^{1} f_2 $
+        \item Try $ \mu(A) = \inf \{\int_{0}^{1} f(x)dx | f \text{ is step function } f_{n}, X_{A} \leqslant f\} $. (Called "Jordan Constant") set function, monotonic
+        
+        but not countably additive: Let $ Q \cap [0,1] = \{q_1, q_2, \cdots \} $ and observe that $ Q \cap [0,1] = \dot\cap^{\infty}_{i=1} \{q_{i}\} $. 
+
+        But $ \mu(A) = 1 \neq \sum_{i=1}^{\infty} \mu(A_{i}) = 0   $
+    \end{itemize}
+
+    
+\end{eg}
+
+
+\begin{definition} [Lebesgue Outer measure $ \mu^* $] \leavevmode
+
+    \begin{itemize}
+        \item Should agree with length for intervals, so put $ \mu^*([a,b]) = b - a = \mu*((a,b)) = \mu*([a,b)) = \mu*((a,b]) $.
+        \item Generalize to all open subsets of $ \mathbb{R} $ using:
+    \end{itemize}
+    
+\end{definition}
+
+\begin{theorem}[theorem 7.2] \leavevmode
+
+    If $ G \subseteq \mathbb{R} $ is open then there exists a \underbar{unique countable} collection $ \{G_{i}\} $ of disjoint intervals such that
+    \[
+        G = \dot\cup^{\infty}_{i = 1} G_{i}
+    \]
+
+    Note this embraces finite unions, since $ \emptyset \cup \emptyset = \emptyset $
+\end{theorem}
+
+
+\begin{proof}
+    
+    Given $ x \in G $, define its component open interval 
+    \[
+        I_{x} = (a_{x}, b_{x}) \text{ where } \begin{cases}
+            a_{x} = \inf\{y: (y,x) \subseteq G\} \text{ (could be )-infty} \\
+            b_{x} = \sup\{y: (x,y) \subseteq G\} \text{ (could be )+infty} \\
+        \end{cases}
+    \]
+
+    eg: $ G = \cup^{\infty}_{n = 1} (2^{-n}, 2^{-(n-1)}) $
+
+    \vspace{1em}
+    Claim: For any $ x, y \in G $, either $ I_{x} = I_{y} $ or $ I_{x} \cap I_{y} = \emptyset $. 
+
+    So we could write $ G = \dot\cup_{x\in G} I_{x} $ if we ignore duplicates.
+
+    But $ Q = \{q_1, q_2, \cdots \} $ is countable, so let us choose one point in $ Q \cap I_{x} $, each $ x $, and call it $ x_{i} $. Then $ \dot\cup_{i = 1}^{\infty} I_{x_{i}} $ is countable and disjoint and contains $ G $, so put $ G_{i} = I_{x_{i}} $ to get the decomposition.
+
+    \vspace{1em}
+    For \underbar{uniqueness}, suppose $ G = \dot\cup G_{i} = \dot\cup H_{i} $, then for each $ x \in G (\exists i) x \in G_{i} $ and $ x\in H_{j} $, for some unique $ i $ and $ j $.
+
+    But $ H_j $ is a component interval so $ G_{i} \subseteq H_{j} $. Likewise $ G_{i} $ is a component interval so $ H_{j} \subseteq G_{i} $. This means $ G_{i} = H_{j} $. So both collections of intervals are the same.
+
+\end{proof}
+
+\vspace{2em}
+\underbar{\textbf{Applications:}}
+
+\begin{definition} \leavevmode
+
+    $ \mu^*(G) = \sum_{i=1}^{\infty} b_{i} - a_{i} $ where $ G = \dot\cup _{i = 1}^\infty (a_{i}, b_{i}) $ ($ G_{i} $ component open interval). 
+
+    Finally, for arbitrary $ S \subseteq \mathbb{R} $, put $ \mu^*(S) = \inf\{\mu^*(G) | \text{ open } G \subseteq \mathbb{R} \text{ with } S \subseteq G \} $.
+
+    \underbar{\textbf{Properties}}:
+    \begin{itemize}
+        \item $ \mu^* (A + x) = \mu^*(A) $ (interval under transition)
+        \item $ (\forall \epsilon > 0)(\forall A \subseteq [0,1])(\exists G \subseteq [0,1]) \mu^*(A) \leqslant \mu^*(G) + \epsilon $
+    \end{itemize}
+
+\end{definition}
+
+\begin{eg}
+
+    $ \mu^*(Q) = 0 $ in fact $ \mu^*(S) = 0 $ for any countable subsets.
+
+\end{eg}

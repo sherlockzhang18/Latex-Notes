@@ -1,0 +1,125 @@
+\lesson{4}{Wed Jan 21 2026 10:00}{}
+
+\begin{eg}
+    \underbar{\textbf{Note}}: Use $ [a,b] = [0,1] = E $ for domain of $ f $ in all examples.
+
+    \begin{enumerate}
+        \item 
+        $ f(x) = \begin{cases}
+        1, &x \in Q \\
+        0, &x \notin Q
+        \end{cases} $
+
+        It is not R.I (riemann Integrable) since $ \begin{cases}
+        U(f,p) \equiv 1 \\
+        L(f,p) \equiv 0
+        \end{cases} $
+        for every partition $ P  $ of $ E $.
+
+        \vspace{1em}
+        \item 
+            $ f(x) = 
+            \begin{cases}
+                \frac{1}{q}, & x = \frac{p}{q} \in Q \text{ in lowest terms} \\
+                0, & x \notin Q
+            \end{cases} $
+
+            Claim: $ f $ is R.I.
+            \begin{explanation}
+                Find $ f_2 $ (step function) and use $ f_1 \equiv 0 $ such that $ |\int f_2 - \int f_1| < \epsilon $ given $ N $ (big positive integer), there are $ O(N^2) $ with denominator $ \leqslant  N $.
+
+                Construct $ f_2 $ as follows:
+                \begin{itemize}
+                    \item 
+                    around each $ x = \frac{p}{q} $ with $ q \leqslant N $, put a subinterval of width $ \frac{\epsilon}{N^2} $.
+                    \item 
+                    let $ f_2(x) = 
+                    \begin{cases}
+                        1, & \text{ each subinterval above} \\
+                        \frac{1}{N}, &\text{ outside}
+                    \end{cases} $
+                    \item 
+                    then $ f(x) \leqslant f_2(x) $ and $ \int_{E}f_2(x) \leqslant O(N^2)\frac{\epsilon}{N^3} + \frac{1}{N} = O(\frac{1}{N}) $
+                    \item 
+                    Given $ \epsilon > 0 $, choose $ N $ big enough such that $ \int_{E}f_2 < \epsilon $.
+                \end{itemize}
+                Conclude that $ f $ is R.I. (and $ \int_{E} f = 0 $).
+            \end{explanation}
+
+        \item 
+        $ f(x) = 
+        \begin{cases}
+            1, & x \in Q \\
+            -1, & x \notin Q 
+        \end{cases} $
+
+        so $ f $ is not R.I., but $ |f(x)| = 1, \forall x $.
+
+        \vspace{1em}
+        Conclude: $ |f| $ R.I does not imply $ f $ R.I.
+
+        \item 
+        Recall: $ Q $ is countable, so write $ Q = \{q_1, q_2, \cdots\} $
+
+        Let $ f_{n}(x) = 
+        \begin{cases}
+            1, &x \in \{q_1, \cdots , q_{n}\} \\
+            0, & \text{otherwise}
+        \end{cases} $
+        
+        then each $ f_{n} $ is piecewise continuous; and $ f_{n} \to f = \begin{cases}
+            1, &x \in Q \\
+            0, & x \notin Q
+        \end{cases}$ 
+
+        Each $ f_{n} $ is R.I. with $ \int f_{n} = 0 $, and $ f_{n} $ is pointwise convergence, but $ f $ is not R.I.
+
+    \end{enumerate}
+    
+\end{eg}
+
+\begin{theorem}
+    If $ f_{n} \to f $ uniformly on $ [a,b] $, and $ f_{n} $ is R.I. for all $ n $, then $ f $ is R.I. and $ \int f = \lim_{n \to \infty} \int f_{n} $.
+    \vspace{1em}
+    
+    \underbar{\textbf{Recall}}: $ f_{n} \to f $ uniformly on $ S \subseteq \mathbb{R} $ iff $ (\forall \epsilon > 0) (\exists N) n \geqslant N  \implies (\forall x \in S)|f_{n}(x) - f(x)| < \epsilon $
+\end{theorem}
+
+\chapter{Lebesgue Measure}
+\section{basics}
+
+Consider a collection $ S $ of subsets of $ [a,b] $.
+\begin{eg}
+    $ [a,b] = [0,1] $, $ S = \{\emptyset, \{0\}, \{\frac{1}{2}\}, (\frac{3}{4}, 1]\} $.
+\end{eg}
+
+\vspace{1em}
+Suppose $ S $ is closed (or preserved by / invariant under) under countable unions
+
+\begin{eg}
+    \begin{enumerate}
+        \item $ S =  $ all subsets of $ [a,b] $
+        \item $ S = \emptyset $ or $ S = \{\emptyset, \{\frac{1}{2}\}\} $
+        \item $ S = \{\text{all countable subsets of } [a,b]\} $
+        
+        In this example, $ S $ is uncountable, since $ \{x\} \in S $ for every $ x \in [a,b] $.
+    \end{enumerate}
+\end{eg}
+
+
+
+
+\begin{definition}
+    Say that set function $ \mu: S \to \mathbb{R} $ is a (positive) measure iff
+    \begin{enumerate}
+    \item $ 0 \leqslant \mu(A) \leqslant b-a $ for every $ A \in S $.
+    \item $ \mu(\emptyset) = 0 $.
+    \item $ A \subseteq B, A, B \in S \implies \mu(A) \leqslant  \mu(B) $ "monotonicity" 
+    \item If $ A = \bigcup^{\infty}_{i = 1}, A_{i} \in S $ for all $ i $, with $ i \neq j \implies A_{i} \bigcap A_{j} = \emptyset $
+    
+    This is disjointness, denoted by a dot $ \cdot $, like $ \mathbin{\dot{\cup}} $
+
+    Then $ \mu(A) = \sum_{i=1}^{\infty} \mu(A_{i})  $ "countable additivity".
+
+    \end{enumerate}
+\end{definition}

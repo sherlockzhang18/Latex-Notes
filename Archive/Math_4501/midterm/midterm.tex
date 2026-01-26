@@ -1,0 +1,302 @@
+\documentclass[a4paper]{article}
+
+\usepackage[margin=1in]{geometry} % reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{4501 - Midterm 1}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4501 - Midterm 1}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}
+    Let $ f: \mathbb{R} \to \mathbb{R} $ be a function given by
+    \[
+        f(x) =
+        \begin{cases}
+            \frac{1}{2}x^2 &\text{if } x \geqslant 0 \\
+            0 &\text{if } x < 0
+        \end{cases}
+    \]
+
+    Show that $ f $ is a contraction in an interval containing $ x = 0 $, and specify a specific interval.
+\end{problem}
+
+\vspace{1em}
+\begin{solution}
+
+    We want to first prove that $ f'(x) $ is continuous on an interval containing 0, then use mean value theorem to prove that it is a contraction.
+
+    \[
+        f'(x) = 
+        \begin{cases}
+            x, &x \geqslant 0 \\
+            0, &x < 0
+        \end{cases}
+    \]
+
+    The function is continuous on $ x > 0 $ and $ x < 0 $. Checking continuity at $ x = 0 $:
+    \[
+        \lim_{x \to 0^{-}} f'(x) = 0 \hspace{2em} \lim_{x \to 0^{+}} f'(x) = 0
+    \]
+
+    So $ f' $ is continuous at 0.
+
+    \vspace{2em}
+    Let $ [-r, r] $ be a closed arbitrary interval containing 0. Then by Mean Value Theorem, for any $ x, y \in [-r, r] $,
+    \[
+        |f(x) - f(y)| \leqslant f'(\eta) |x - y| \leqslant \sup_{c \in [-r, r]}f'(c) |x - y|
+    \]
+
+    So if we choose $ r $ so that $ |f'(x) < 1|, x \in [-r, r] $, then $ f $ is a contraction.
+
+    \vspace{2em}
+    Choose $ r $ to be $ \frac{1}{2} $, then in the interval $ [-\frac{1}{2}, \frac{1}{2}] $, $ f'(x) \leqslant \frac{1}{2} $
+    \[
+        |f(x) - f(y)| \leqslant \sup_{c \in [-r, r]}f'(c) = \frac{1}{2} |x - y|
+    \]
+    which proves that $ f $ is a contraction on $ [-\frac{1}{2}, \frac{1}{2}] $.
+
+\end{solution}
+
+\newpage
+\setcounter{problem}{2}
+\begin{problem}
+    
+    We want to find $ \xi $ at which the following function vanishes
+    \[
+        f(x) = \pi - 20\arctan\left(\frac{1}{x}\right) - 8 \arctan \left(\frac{3}{79}\right)
+    \]
+    Suppose we know that the solution $ \xi $ likes in the interval $ [5, 10] $.
+
+\end{problem}
+
+\begin{subproblem}
+
+    Consider the relaxation iteration:
+    \[
+        x_{k+1} = x_{k} - \lambda f(x_{k}).
+    \]
+    Find a relaxation parameter $ \lambda $ for which one can show that the iteration converges if $ x_0 $ is sufficiently close to $ \xi $.
+    
+\end{subproblem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $ g(x) = x - \lambda f(x) $. We want to find $ \lambda $ so that it restrict $ |g'(x)|< 1 $.
+
+    \[
+        f'(x) = -20 \cdot \frac{1}{1 + \left(\frac{1}{x}\right)} \cdot (-\frac{1}{x^2}) = \frac{20}{1 + x^2}
+    \]
+    so $ f' $ is continuous and non-zero in the range $ [5,10] $.
+    Then,
+    \[
+        g'(x) = 1 - \lambda f'(x) = 1 - \frac{20 \lambda}{1 + x^2}
+    \]
+    Thus, only need to choose $ \lambda $ such that $ |g'(x)| < 1 $, then by Theorem 1.5 the relaxation iteration converges.
+
+    \begin{align*}
+        |1-\lambda f'(x)| < 1 \\
+        -1 < 1 - \lambda f'(x) < 1 \\
+        0 < \lambda f'(x) < 2
+    \end{align*}
+
+    Since $ f'(x) $ is positive when $ x \in [5, 10] $, we got $ 0 < \lambda < \frac{2}{f'(x)} $. Since $ f'(x) $ is monotonically decreasing when $ x \in [5, 10] $, $ \lambda < \frac{2}{f'(5)} $ will make $ \lambda < \frac{2}{f'(x)} $ for all $ x \in {5, 10} $. So $ \lambda \in (0, \frac{2}{f'(5)}) = (0, 2.6) $.
+
+    
+    \vspace{2em}
+
+    Choose $ \lambda = 2.5 $, then 
+    \[
+        \begin{cases}
+            g'(5) = \frac{1}{26} \\
+            g'(10) = \frac{76}{101}
+        \end{cases}
+    \]
+
+    Then we know that $ |g'(x)| < 1 $ for $ x \in [5,10] $ if $ \lambda = 2.5 $. Therefore, 
+    \[
+        x_{k+1} = x_{k} - 2.5 f(x)
+    \]
+    converges if $ x_0 $ is sufficiently close to $ \xi $.
+
+\end{solution}
+
+\newpage
+\begin{problem}
+    In this problem, we will study the Frobenius norm.
+\end{problem}
+
+\begin{subproblem}
+
+    Let us define for $ A, B \in \mathbb{R}^{m \times m} $
+    \[
+        A : B = \sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij}b_{ij}, \hspace{2em} \left\lVert A \right\rVert _F = (A : A)^{\frac{1}{2}}
+    \]
+    Here $ a_{ij} $ denotes the $ (i, j) $-th entry of $ A $, and $ b_{ij} $ denotes the $ (i, j) $-th entry of $ B $. 
+
+    \noindent Verify the identity for $ A, B \in \mathbb{R}^{m \times n} $,
+    \[
+        A : B = \frac{1}{4} (\left\lVert A + B \right\rVert _F^2 - \left\lVert A - B \right\rVert _F^2).
+    \]
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    \begin{align*}
+        \frac{1}{4} (\left\lVert A + B \right\rVert _F^2 - \left\lVert A - B \right\rVert _F^2)
+        &= \frac{1}{4} \left(\sum_{i=1}^{m} \sum_{j=1}^{n} (a+b)_{ij}^2 - \sum_{i=1}^{m} \sum_{j=1}^{n} (a-b)_{ij}^2 \right) \\
+        &= \frac{1}{4} \sum_{i=1}^{m} \sum_{j=1}^{n} \left( (a_{ij}+b_{ij})^2 -  (a_{ij}-b_{ij})^2 \right) \\
+        &= \frac{1}{4} \sum_{i=1}^{m} \sum_{j=1}^{n} \left( a_{ij}^2 + 2a_{ij}b_{ij} + b_{ij}^2 - (a_{ij}^2 - 2a_{ij}b_{ij} + b_{ij}^2) \right) \\
+        &= \frac{1}{4} \sum_{i=1}^{m} \sum_{j=1}^{n} \left( 4a_{ij}b_{ij} \right) \\
+        &= \sum_{i=1}^{m} \sum_{j=1}^{n} \left( a_{ij}b_{ij} \right) \\
+        & = A : B
+    \end{align*}
+
+\end{solution}
+
+\vspace{2em}
+\begin{subproblem}
+    
+    Note that
+    
+    \begin{itemize}
+        \item for any orthogonal matrix $ Q \in R^{m \times m} $, $ \left\lVert QA \right\rVert _F = \left\lVert A \right\rVert _F $
+        \item $ \left\lVert A \right\rVert _F = \left\lVert A^T \right\rVert _F $.
+    \end{itemize}
+    Using these facts, show that $ \left\lVert A \right\rVert _2 \leqslant \left\lVert A \right\rVert _F $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    Since $ \left\lVert A \right\rVert _2 = \sup_{v \in \mathbb{R}^n \backslash \{0\}} \frac{\left\lVert Av \right\rVert _2}{\left\lVert v \right\rVert _2} $, assume $ v_1 \in \mathbb{R}^n $ makes the $ \frac{\left\lVert Av_1 \right\rVert _2}{\left\lVert v_1 \right\rVert _2} $ reaches the supreme. By property of linear algebra, we can extend $ v_1 $ to $ v_1, \cdots , v_{n} $ where $ v_1, \cdots , v_{n} $ are linearly independent.
+
+    \vspace{1em}
+    Then, perform a Gram-Schmidt process on $ v_1, \cdots , v_{n} $ so that we got $ q_1, \cdots , q_{n} $ back, where $ q_1, \cdots , q_{n} $ is a orthonormal basis.
+
+    let $ Q = [q_1 | q_2 | \cdots | q_{n}] $, then $ Q \in R^{n \times n} $ and $ Q $ is orthogonal. $ AQ \in R^{m \times n} $. By Lemma 3.6 we know that $ \left\lVert AQ_{n} \right\rVert _F = \left\lVert A \right\rVert _F $. Then
+    \[
+        \left\lVert A \right\rVert _F^2 = \left\lVert AQ \right\rVert _F^2
+        = \sum_{i=1}^{m} \sum_{j=1}^{n} [(AQ)_{ij}]^2
+        = \sum_{j=1}^{n} \sum_{i=1}^{m} [(AQ)_{ij}]^2
+        = \sum_{j=1}^{n} \left\lVert Aq_{j} \right\rVert _2^2
+        \geqslant \left\lVert Aq_{1} \right\rVert _2^2
+    \]
+
+    If $ \left\lVert Aq_{1} \right\rVert _2 = \left\lVert Av_{1} \right\rVert _2 $ then we are done. Since by the Gram-Schmidt process, $ q_1 = \frac{v_1}{\left\lVert v_1 \right\rVert} _2 $, and our choice of $ v_1 $, then 
+    \[
+        \left\lVert Av_1 \right\rVert _2 = \frac{\left\lVert Av_1 \right\rVert _2}{\left\lVert v_1 \right\rVert _2} = \frac{\left\lVert v_1 \right\rVert _2 \left\lVert Aq_1 \right\rVert _2}{\left\lVert v_1 \right\rVert _2} = \left\lVert Aq_1 \right\rVert _2
+    \]
+
+    Therefore, we have $ \left\lVert A \right\rVert _F^2 \geqslant \left\lVert Av_1 \right\rVert _2^2 $, which shows 
+    $ \left\lVert A \right\rVert _2 \leqslant \left\lVert A \right\rVert _F $.
+
+\end{solution}
+
+\end{document}

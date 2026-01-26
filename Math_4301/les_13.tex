@@ -1,0 +1,247 @@
+\lesson{13}{Tue Oct 14 2025 14:30}{}
+
+Last time:
+$ V $ and $ v_1, .., v_{n} $ a basis, $ U \subseteq V $, then $ V' = L(V, F) $ $ \phi_1, \cdots , \phi_{n} $ dual basis, then 
+
+$ U^0 \subseteq V' $
+
+$ U^0 = \{\phi \in V' | \phi(u) = 0 \text{ for all } u \in U\} $.
+
+\vspace{2em}
+\begin{theorem} Annihilator \leavevmode
+
+    $ U^0:  $ Annihilator of $ U $.
+
+    \begin{itemize}
+        \item $ U^0 $ is a subspace of $ V' $
+        \item $ \dim U^0(n-k) + \dim U(k) = \dim V (n) $ 
+    \end{itemize}
+
+\end{theorem}
+
+\begin{proof} \leavevmode
+
+    Pick a basis $ v_1, \cdots , v_{k} $ for $ U $, $ k = \dim U $.
+
+    Extend to a basis for $ V $: $ v_1, \cdots , v_{k}, v_{k+1}, \cdots , v_{n} $
+
+    Let $ \phi_1, \cdots , \phi_{n} $ span $ U^0 $
+
+    \vspace{1em}
+    Claim: $ \phi_{k+1}, \cdots , \phi_{n} $ span $ U^0 $.
+
+    Clearly $ \phi_{k+1}, \cdots , \phi_{n} \in U^0 $ because $ \phi_{j}(v_{i}) = 0 $, so $ \phi_{j} $ is 0 on $ U = \text{span}(v_1, \cdots , v_{k}) $.
+
+    So $ \phi_{j} \in U^0 $.
+
+    Combining these, $ \phi_{k+1}, \cdots , \phi_{n} $ is a basis for $ U^0 $, so $ \dim U^0 = n - k $.
+
+    \vspace{1em}
+    If $ \phi \in U^0 $, then $ \phi = a_1\phi_1 + \cdots + a_{n}\phi_{n} $
+
+    Now apply both sides to $ v_{i}, 1 \leqslant i \leqslant k $, we get
+    \[
+        \phi(v_{i}) = a_1\phi_1(v_{i}) + \cdots + a_{n}\phi_{n}(v_{i})
+    \]
+
+    so $ a_{i} = 0, 1 \leqslant i\leqslant k \implies \phi \in a_{k+1}\phi_{k+1} + \cdots + a_{n}\phi_{n} \in \text{span}(\phi_{k+1}, \cdots , \phi_{n}) $.
+
+\end{proof}
+
+
+\vspace{2em}
+\begin{theorem}
+
+    Assume
+    $ T: V \to W  $
+
+    $ T': W' \to V' $
+
+    \begin{enumerate}
+        \item $ \text{null}T' = (\text{range}T)^0 $
+        \item $ \text{range}T' = (\text{null}T)^0 $
+    \end{enumerate}
+    
+\end{theorem}
+
+\begin{proof}
+    
+    \begin{enumerate}
+        \item \begin{align*}
+            \phi \in \text{null}T' 
+            &\iff T' \phi = 0 \\
+            & \iff \phi \circ  T = 0 \\
+            & \iff \phi (Tv) = 0 \text{ for all } v \in v \\
+            & \iff \phi(w) = 0 \text{ for all } w \in \text{range}T \\
+            & \iff \phi \in (\text{range}T)^0 \\
+        \end{align*}
+
+    \end{enumerate}
+
+\end{proof}
+
+\vspace{2em}
+\begin{corollary} \leavevmode
+    
+    \begin{enumerate}
+        \item $ T $ is surjective $ \iff $ $ T' $ is injective.
+        \item $ T $ is injective $ \iff $ $ T' $ is surjective.
+        \item $ \dim \text{range} T = \dim \text{range} T' $
+    \end{enumerate}
+
+\end{corollary}
+
+\vspace{4em}
+\begin{proof}\leavevmode
+    \begin{enumerate}
+        \item 
+        \begin{align*}
+            T \text{ is surjective }
+            & \iff \text{range}T = W \\
+            & \iff (\text{range}T)^0 = W^0 = \{0\} \hspace{2em} \text{theorem 24} \\
+            & \iff \text{null} T' = \{0\} \hspace{2em} \text{theorem 23} \\
+            & \iff T' \text{ is surjective} \\
+        \end{align*}
+        
+        \item exercise
+        
+        \item 
+        \begin{align*}
+            \implies \text{range}T 
+            &= \dim V - \dim \text{null} T \\
+            & = \dim (\text{null}T)^0  \hspace{2em} \text{ theorem 24} \\
+            & = \dim \text{range}T'  \hspace{2em} \text{ theorem 23} \\            
+        \end{align*}
+
+    \end{enumerate}
+    
+
+\end{proof}
+
+\begin{theorem}
+    
+    $ \dim U + \dim U^0 = \dim W $
+
+    $ U^0 = \{0\} \implies \dim U = \dim W \implies U = W $ 
+
+\end{theorem}
+
+\vspace{2em}
+\begin{definition}Column Rank / Row rank \leavevmode
+    
+    $ A_{m \times n} $
+
+    \begin{itemize}
+        \item row rank of $ A = $ dimension of the span of the rows of $ A $ in the vector space of $ 1 \times n $ matrices
+        \item column rank of $ A =  $ dimension of the span of columns of $ A $ in $ m \times 1 $ matrices
+    \end{itemize}
+
+\end{definition}
+
+\begin{eg}
+    
+    \[
+        A = \begin{bmatrix}
+          2 & 0 & 0 & 0 \\
+          1 & 0 & 0 & 0 \\
+        \end{bmatrix}
+    \]
+
+    row rank = $ \dim \text{span}(
+    \begin{bmatrix}
+      2 & 0 & 0 & 0 \\
+    \end{bmatrix},
+    \begin{bmatrix}
+      1 & 0 & 0 & 0 \\
+    \end{bmatrix}) = 1 $
+
+    \vspace{1em}
+    column rank = $ \dim \text{span}\{\begin{bmatrix}
+      2 \\
+      1 \\
+    \end{bmatrix},
+    \begin{bmatrix}
+      0 \\
+      0 \\
+    \end{bmatrix},
+    \begin{bmatrix}
+      0 \\
+      0 \\
+    \end{bmatrix},
+    \begin{bmatrix}
+      0 \\
+      0 \\
+    \end{bmatrix}\} = 1 $
+
+    \vspace{2em}
+    \[
+        B = \begin{bmatrix}
+          5 & 1 \\
+          3 & 0 \\
+          1 & 0 \\
+        \end{bmatrix}
+    \]
+    row rank = 2, column rank = 2
+
+\end{eg}
+
+\vspace{2em}
+\begin{theorem}
+    
+    The row rank and column rank are always equal.
+
+\end{theorem}
+
+\begin{note}
+    $ T \in L(V, W) $, then 
+    \[
+        \dim \text{range }T = \text{column rank of } M(T)
+    \]
+\end{note}
+
+\begin{explanation}
+    
+    \[
+        M(T) = [Tv_1 | \cdots | Tv_{n}]
+    \]
+    then 
+    \[
+        c_1Tv_1 + \cdots + c_{n}Tv_{n} = 0 \iff c_1 \text{ first column } + \cdots + c_{n} \text{ n-th column}
+    \]
+
+    Assume $ \dim W = m, \dim F^{ m \times 1 } = m $,
+    then
+    \[
+        \dim \text{span} (Tv_1, \cdots , Tv_{n}) = \dim \text{span}(\text{columns of M(T)})
+    \]
+    which is equal to 
+    \[
+        \dim \text{range }(T) = \text{column rank of } M(T)
+    \]
+
+\end{explanation}
+
+\vspace{1em}
+\begin{proof}
+    The row rank of $ A $ = column rank of $ A^T $, so it is enough to show 
+    \[
+        \text{column rank of }A^T = \text{column rank of }A
+    \]
+
+    Let $ A $ be $ m \times n $. There is a linear map $ T: F^n \to F^m $ such that $ M(T) = A $. Let $ v_1, \cdots , v_{n} $ be the standard basis for $ F^n $, and $ w_1, \cdots , w_{m} $ be the standard basis for $ W $. So $ T $ should be defined as:
+    \[
+        T(v_{i}) = A_{1i}w_1 + A_{2i} w_2 + \cdots + A_{mi} w_{m}
+    \]
+
+    Now 
+    \begin{align*}
+        \text{column rank of } A = M(T)
+        &= \dim \text{range }T \\
+        &= \dim \text{range }T' \\
+        &= \text{column rank of } M(T') \\
+        &= \text{column rank of } A^T \\
+        &= \text{row rank of } A
+    \end{align*}
+\end{proof}
+
+\chapter{Polynomials}

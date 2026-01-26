@@ -1,0 +1,111 @@
+\lesson{6}{Mon Jan 26 2026 10:00}{}
+
+\begin{theorem}[Thm 7.5] \leavevmode
+    
+    $ (\forall \epsilon > 0)(\forall S \subseteq [0,1])(\exists G) $
+    \[
+        \mu^*(S) \leqslant \mu^*(G) + \epsilon \text{ and } S \subseteq G
+    \]
+
+\end{theorem}
+
+graph here.
+
+\begin{lemma}[Lem 7.6] \leavevmode
+    
+    $ (\forall x \in \mathbb{R})(\forall A \subseteq \mathbb{R}) $
+    \[
+        \mu^*(A + y) = \mu^*(A)
+    \]
+
+\end{lemma}
+
+\begin{proof}
+    cover $ A $ by open $ G $ within $ \epsilon $.
+
+    Then if $ G = \dot\cup_i(a_{i}, b_{i}) $, we have $ G + x = \dot\cup_{i} (a_{i}+x, b_{i}+x) $ and $ \mu^*(G+x) = \mu^*(G) $. Now let $ G $ shrink to $ A $ and $ G+x $ shrink to $ A+x $.
+\end{proof}
+
+\vspace{2em}
+To shwo that $ \mu^* $ is not countably additive:
+
+\begin{explanation}
+    Fix $ E = [0,1] $. Then $ \mu^*(E) = 1 $.
+
+    Define $ E_{\alpha} = \{x \in E | x - \alpha \text{ is rational.}\} $
+
+    eg: $ E_0 = Q \cap E, \hspace{1em} \frac{E_1}{\sqrt{2}} = \{Z = \frac{1}{\sqrt{2} }, z \in Q \} \cap E $.
+
+    \vspace{1em}
+    Observe that $ E_{\alpha} $ is countable for each $ \alpha $, and $ \epsilon_{\alpha} \cap \epsilon_{\beta} \neq \emptyset  \implies E_{\beta} = E_{\alpha}$ (since $ \beta - \alpha \in \mathbb{C} $).
+    
+    Now let $ V $ contain one element from each distinct $ E $. (Need the axiom of choice here)
+
+    Then, $ x, y \in V, x \neq y \implies x - y \notin Q $.
+\end{explanation}
+
+\vspace{2em}
+Claim: $ E = \dot\cup_{q \in Q\cup[0,1)} V + q (\mod E) $ countable distinct union
+
+\vspace{1em}
+eg: Show that $ E \subset \cup V + q (\mod E) $
+
+\vspace{1em}
+Number the distinct $ V + q $ as $ V_1, V_2, V_3 \cdots  $
+
+But $ V_{n} = V + q_{n} $, so $ Q\cap E = \{q_1, q_2, \cdots \} $.
+
+So 
+\[
+    \mu^*(v_{n}) = \mu^*(V + q) = \mu^*(V) \text{ for each }n
+\]
+
+Suppose $ \mu^* $ is countably additive on subset of $ E $, Then
+\[
+    1 = \mu^*(E) = \mu^*(\dot\cup v_{n}) = \sum_{n} \mu^*(V_{n}) = \sum_{n} \mu^*(V)
+\]
+
+So there is no value of $ \mu^*V() $ that gives equality.
+
+\vspace{1em}
+\underbar{\textbf{Idea}}: Restrict $ \mu^* $ to \underbar{a subcollection of all subsets of $ E $} which we will call the measurable sets. (\underbar{Notion}: $ 2^E $)
+
+\vspace{1em}
+Method: Define $ \mu_*(S) = a - \mu^*(E \backslash S) $ (called inner measure of $ S $)
+
+Note: $ \mu^*(S) \geqslant 0 $
+
+\begin{definition}[Lebesgue measurable]\leavevmode
+    
+    $ A \subseteq E $ is \underbar{Lebesgue measurable} iff $ \mu^*(A) = \mu_* (A) $
+
+\end{definition}
+
+\begin{remark}
+    
+    so lebesgue measure sets $ A $ are those that divide $ E $ into $ E = A \dot\cup (E \backslash A) $ so that $ \mu^*(A) + \mu^*(E \backslash A) = \mu^*(E) = 1 $.
+
+\end{remark}
+
+\begin{definition}
+    
+    \[
+        \mu = \mu^* |_{\{A \subseteq E | \mu^*(A) = \mu_*(A)\}}.
+    \]
+    This is restriction of $ \mu^* $ to the lebesgue measurable subsets.
+
+\end{definition}
+
+\begin{corollary}
+    
+    $ A \subseteq E $ lebesgue measurable $ \iff $ $ E \backslash A $ is LM
+
+\end{corollary}
+
+\begin{proof}
+    
+    Have: \[
+        \mu^*(A) = \mu_*(A) = 1 - \mu^*(E \backslash A) \iff \mu^*(E \backslash A) = 1 - \mu^*(A) = 1 -  \mu^*(E \backslash (E \backslash A)) = \mu^*(E \backslash A)
+    \]
+
+\end{proof}

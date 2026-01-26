@@ -1,0 +1,189 @@
+\lesson{15}{Tue Oct 21 2025 14:30}{}
+
+\section{Factorization of Polynomials over $ \mathbb{R} $}
+\begin{corollary} \leavevmode
+    
+    Let $ p(x) \in P(\mathbb{R}) $, then by corollary above,
+    \[
+        p(x) = c(x - \lambda_1) \cdots (x-\lambda_{k})(x - \lambda_{k+1}) \cdots (x - \lambda_{m})
+    \],
+    where $ c, \lambda_1, \cdots , \lambda_{k} \in \mathbb{R} $, $ \lambda_{k + 1}, \cdots, \lambda_{m} \in \mathbb{C}  $
+
+    \vspace{1em}
+    For each $ k + 1 \leqslant j \leqslant m $, $ \overline{\lambda_{j}} $is also a zero of $ p(x) $.
+
+\end{corollary}
+
+\vspace{2em}
+\underbar{\textbf{What is $ (x - \lambda_{j})(x - \overline{\lambda_{j}}) $}}
+
+Let $ \lambda_{j} = b + ci, \overline{\lambda_{j}} = b-ci $, then
+\begin{align*}
+    (x - \lambda_{j})(x - \overline{\lambda_{j}})
+    &= (x - (b + ci)) (x - (b - ci)) \\
+    &= x^2 - 2bx + b^2 + c^2 \\
+\end{align*}
+
+\begin{note}
+    
+    If $ p(x) \in P(\mathbb{R}) $, then
+    \[
+        p(x) = c(x - \lambda_1) \cdots (x - \lambda_{k})(x^2 + r_{k+1}x + s_{k+1}) \cdots (x^2 + r_{l} + s_{l})
+    \]
+    such that $ c, \lambda_1, \cdots , \lambda_{k}, r_{j}, s_{j} \in \mathbb{R} $, $ k + 1 \leqslant j \leqslant l $, and $ x^2 + r_{i} + s_{i} $ with $ k + 1 \leqslant i \leqslant l $ has no real zero.
+
+\end{note}
+
+\vspace{2em}
+\begin{theorem} \leavevmode
+    
+    if $ p(x) \in P(F) $ is a polynomial of degree $ n $, then $ p(x) $ has at most $ n $ zeros in $ F $.
+
+\end{theorem}
+
+\vspace{1em}
+\begin{proof} \leavevmode
+        
+    Induction on $ n $ and division algorithm:
+
+    \vspace{1em}
+    if $ \lambda \in F $ is a zero of $ p $, then $ p(x) = (x - \lambda) q(x) $, where $ \text{deg }q = n - 1 $. But $ q $ itself by induction has only at most $ n - 1 $ zeros, so $ p $ has at most $ n $ zeros.
+
+\end{proof}
+
+\chapter{Eigenvalues and Eigenvectors}
+\section{Invariant Subspaces}
+
+\begin{definition}
+    
+    $ T: V \to V $ a linear map, i.e $ L(V,V) $ or $ L(V) $, is called an operator.
+ 
+\end{definition}
+
+\begin{definition}
+    
+    A subspace $ U \subseteq V $ is invariant under $ T $ if 
+    \[
+        Tu \in U \text{ for } u \in U
+    \]
+
+\end{definition}
+
+\vspace{1em}
+\begin{eg} \leavevmode
+    
+    $ T: \mathbb{R}^2 \to \mathbb{R}^2 $, $ T(x, y) = (x, 0) $.
+
+    \vspace{1em}
+    Then invariant subspaces are:
+    \begin{itemize}
+        \item $ \mathbb{R}^2 $
+        \item \{0\}
+        \item the y-axis and x-axis. The other lines through origin are \underbar{\textbf{NOT}} invariant under this $ T $.
+    \end{itemize}
+
+
+    \vspace{2em}
+    This shows in general
+    \begin{itemize}
+        \item \{0\}
+        \item $ V $
+        \item $ \text{null }T $
+        \item $ \text{range }T $
+    \end{itemize}
+    is invariant subspaces
+
+    \vspace{2em}
+    $ D: P(F) \to P(F) $, $ D(p) = p' $
+    , then 
+    \begin{itemize}
+        \item $ P_m(F) $ is invariant under $ D $.
+    \end{itemize}
+
+\end{eg}
+
+\vspace{2em}
+Suppose $ T \in L(V) $, suppose $ U $ is a 1-dimensional invariant subspace. Pick any non-zero vector $ v \in U $, so $ U = \text{span }(v) $. Then, $ Tv \in U \implies Tv \in \text{span }(v)$, so $ Tv = \lambda v $ for some $ \lambda \in F $.
+
+\vspace{1em}
+\begin{definition} Eigenvalue \leavevmode
+    
+    $ T \in L(V), \lambda \in F $ is called an \underbar{eigenvalue} for $ T $ if there is a non-zero vector $ v \in V $ with
+    \[
+        Tv = \lambda v
+    \]
+
+\end{definition}
+
+\vspace{1em}
+\begin{eg} \leavevmode
+    
+    \begin{enumerate}
+        \item 
+            Let $ T \in L(\mathbb{R}^2), T(x, y) = (-y, x) $, find all eigenvalues of $ T $.
+
+            \vspace{1em}
+            \underbar{\textbf{Solution:}}
+            There is no eigenvalue.
+
+            \begin{explanation}
+                
+                $ T(x,y) = \lambda(x,y), (x,y) \neq (0,0) $
+
+                \vspace{1em}
+                $ \implies (-y,x) = (\lambda x, \lambda y) \implies
+                \begin{cases}
+                    -y = \lambda x \\
+                    x = \lambda y
+                \end{cases}
+                 \implies -y = \lambda^2 y
+                $
+
+                There is no real $ \lambda $ that can satify this condition. So there is no eigenvalue.
+
+            \end{explanation}
+
+        \vspace{1em}    
+        \item 
+            Let $ T \in L(\mathbb{R}^2), T(x, y) = (x, 0) $, find all eigenvalues of $ T $.
+            
+            \vspace{1em}
+                \underbar{\textbf{Solution:}}
+                
+
+                $ T(x, y) = \lambda(x, y), (x, y) \neq (0,0) $
+                
+                $ \implies (x,0) = (\lambda x, \lambda y) $
+
+                $ \implies x = \lambda x, 0 = \lambda y $
+
+                $ \implies x = 0 \text{ or } \lambda = 1 $, $ y = 0 \text{ or } \lambda = 0 $
+
+                \begin{itemize}
+                    \item If $ x = 0 $, then $ y \neq 0 $, so $ \lambda = 0 $: $ T(0,y) = (0)(0,y) $
+                    \item if $ \lambda = 1 $, then $ y = 0 $: $ T(x, 0) = 1(x, 0) $
+                \end{itemize}
+
+        \vspace{1em}
+        \item 
+            $ T \in L(\mathbb{C}^2), T(z, w) = (-w, z) $ 
+
+            $ \lambda \in \mathbb{C} $, $ T(z, w) = \lambda(z, w) $ with $ (z, w) \neq (0,0) $
+
+            $ \implies (-w, z) = (\lambda z, \lambda w) $
+
+            $ \implies 
+            \begin{cases}
+                -w = \lambda z \\
+                z = \lambda w
+            \end{cases} 
+            \implies  -w = \lambda^2w \implies w(1 + \lambda^2) = 0 \implies w = 0 \text{ or } \lambda = \pm i
+            $
+
+            If $ w = 0 $, then $ z = \lambda w = 0 $, not allowed.
+
+            If $ \lambda = \pm i $, plug in and test it is correct.
+
+    \end{enumerate}
+
+\end{eg}

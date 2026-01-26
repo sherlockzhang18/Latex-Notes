@@ -1,0 +1,229 @@
+\lesson{10}{Thur Sep 25 2025 14:30}{}
+
+\begin{definition} \leavevmode
+    
+    \begin{itemize}
+        \item An isomorphism is an invertible linear map.
+        \item $ V $ and $ W $ are isomorphic if there is an isomorphism $ T: V \to W $.
+    \end{itemize}
+    
+\end{definition}
+
+\vspace{2em}
+\begin{eg}
+    
+    $ V = \{(x,y,z) | x + 2y - z = 0 \} \subset \mathbb{R}^3 $. $ V $ is a subspace of $ \mathbb{R}^3 $.
+
+    Then $ V $ and $ \mathbb{R}^2 $ are isomorphic 
+    
+    $ T: V \to \mathbb{R}^2 $, $ T(x, y, z) = (x, y) $.
+
+    \vspace{2em}
+    injective: if $ T(x, y, z) = 0 $, then $ x = y = 0 $, so $ z - x + 2y = 0 $. So $ \text{null}T = \{0\} $.
+
+    \vspace{1em}
+    surjective: For any $ (x, y) \in \mathbb{R}^2 $, $ T(x, y, x+2y) = (x, y) $
+
+    \vspace{2em}
+    $ T^{-1}: \mathbb{R}^2 \to V $, $ T^{-1}(x,y) = (x, y, x+2y) $.
+
+\end{eg}
+
+\vspace{2em}
+\begin{theorem}
+    
+    If $ V $ and $ W $ are finite-dimensional, then $ V $ and $ W $ are isomorphic if and only if $ \dim V = \dim W $.
+
+\end{theorem}
+
+\begin{proof}
+
+    Suppose $ T: V \to W $ is invertible, so $ T $ is injective and surjective. Then,
+    \[
+        \dim \text{null}T ( = 0) + \dim \text{range} T ( = \dim W ) = \dim V \implies \dim W = \dim V 
+    \]
+
+    \vspace{2em}
+    Conversely if $ \dim W = \dim V = n $,
+
+    Let $ v_1, \cdots , v_{n} $ be a basis for $ V $, and $ w_1, \cdots , w_{n} $ be a basis for $ W $. Then there is $ T \in L(V, W) $ with $ Tv_{i} = w_{i} $
+
+    \begin{itemize}
+        \item $ T $ is injective
+        
+        If $ v \in \text{null}T $, then $ v = a_1v_1 + \cdots + a_{n}v_{n} $, so 
+        \[
+            0 = Tv = T(a_1v_1 + \cdots + a_{n}v_{n}) = a_1w_1 + \cdots + a_{n}w_{n}
+        \]
+        So $ a_1 = a_2 = \cdots =a_{n} = 0 $.
+
+
+        \item $ T $ is surjective
+        
+        $ w \in W $, then $ w = b_1w_1 + \cdots + b_{n}w_{n} $. Then
+        \begin{align*}
+            T(b_1v_1 + \cdots + b_{n}v_{n}) 
+            &= b_1Tw_1 + \cdots + b_{n}Tw_{n} \\
+            &= b_1w_1 + \cdots + b_{n} w_{n} \\
+            &= w \\
+        \end{align*}
+    \end{itemize}
+
+\end{proof}
+
+\begin{eg}
+    $ P_{m}(\mathbb{R}) $ and $ \mathbb{R}^{m+1} $ are isomorphic: $ \dim P_{m}(\mathbb{R}) = \dim \mathbb{R}^m+1 = m+1 $.
+
+    \vspace{1em}
+    $ T: (a_{m}x^m + \cdots + a_1x + a_0) = (a_{m}, \cdots , a_0) $.
+\end{eg}
+
+\begin{eg}
+    
+    Suppose $ \dim V = n $, $ \dim W = m $. Find a basis $ v_1, \cdots , v_{n} $ for $ V $ and $ w_1, \cdots , w_{m} $ for $ W $. Then $ L(V, W) \xrightarrow{\phi} F^{m,n} $
+    \[
+        \phi(T) = U(T)
+    \]
+
+    Then $ \phi $ is linear.
+
+    \vspace{1em}
+    Claim: $ \phi $ is an isomorphism.
+    \begin{itemize}
+        \item $ \phi $ is injective: if $ U(T) = 0 $ matrix, then $ Tv_{i} = 0 $ for all $ i $. So $ T = 0 $.
+        \item $ \phi $ is surjective: If $ A = (A_{ij}) $, there is a unique $ T \in L(V, W) $ such that 
+        
+        \[
+            Tv_{j} = A_{1,j}w_1 + \cdots + A_{m,j}w_{m} \hspace{2em} j = 1, \cdots , n
+        \]
+
+        Then $ U(T) = A $, so $ \phi(T) = A $.
+    \end{itemize}
+
+\end{eg}
+
+\vspace{2em}
+\begin{corollary}
+    
+    \begin{align*}
+        \dim L(V,W) 
+        &= \dim F^{m,n}\\
+        &= mn \\
+        &= (\dim V)(\dim W) \\
+    \end{align*}
+
+\end{corollary}
+
+\begin{theorem} \leavevmode
+    
+    Suppose $ V, W $ are finite-dimensional and $ \dim V = \dim W $, $ T \in L(V, W) $.
+
+    Then, $ T $ is injective $ \iff $ $ T $ is invertible $ \iff T $ is surjective.
+
+\end{theorem}
+
+\begin{proof} \leavevmode
+    
+    \begin{enumerate}
+        \item $ \implies $ if $ T $ injective, then $ \dim \text{null}T = \{0\} $, and $ \dim \text{null}T + \dim \text{range}T = \dim V = \dim W $.
+        
+        This implies $ \text{range}T = W \implies T $ is surjective.
+
+        \item $ \impliedby $ If $ T $ is surjecive, then $ \text{range}T = W $ , so $ \dim \text{range}T = \dim W = \dim V $
+        \[
+            \dim \text{null}T + \dim \text{range}T = \dim V \implies \text{null}T = \{0\}
+        \]
+        So $ T $ is surjective.
+    \end{enumerate}
+
+\end{proof}
+
+\begin{note}
+    
+    In particular if $ V = W: T \in L(V,V) $ and $ V $ is finite-dimensional
+
+    \[
+        T \text{ surjective } \iff T \text{ injective } \iff T \text{ invertible }
+    \]
+
+    \vspace{1em}
+    Last time: $ T: F^\infty \to F^\infty $
+
+    $ T(a_1, a_2, \cdots ) = (0, a_1, a_2, \cdots ) $
+
+    \vspace{1em}
+    injective but not surjective.
+\end{note}
+
+Another version of this theorem: 
+\begin{theorem}
+    \begin{tikzcd}
+        V \arrow[r, bend left=20, "T"]
+        &W \arrow[l, bend left=20, "S"]
+    \end{tikzcd}
+
+    Suppose $ \dim V = \dim W $, then
+    \[
+        TS = I_{W} \iff ST = I_{V}
+    \]
+\end{theorem}
+
+\begin{proof}
+
+    the condition $ TS = I_{W} $ alone shows that $ S $ is surjective because if $ Sw = 0 $, the $ w = TSw = T \cdot 0 = 0 $
+
+    Using the previous theorem, $ S $ is invertible, there exists $ S^{-1 }$.
+
+    Claim $ T = S^{-1} $: $ TS = I_{W} \implies TSS^{-1} = I_{W}S^{-1} = S^{-1} $
+    
+    $ \implies T = S^{-1} $
+
+\end{proof}
+
+\section{Product and Quotient of Vector Spaces}
+
+\begin{definition} Product of Vector Spaces \leavevmode
+
+    $ V_1, \cdots , V_{m} $ vector spaces over $ F $. 
+
+    \begin{itemize}
+        \item Product is defined as:
+        \[
+            V_1 \times \cdots \times V_{m} = \{(u_1, u_2, \cdots , u_{m}) | u_{i} \in V_{i}, i = 1, \cdots , m \}
+        \]
+
+        \item Addition is defined as
+        \[
+            (u_1, \cdots , u_{m}) + (u_1', \cdots , u_{m}') = (u_1+ u_1', \cdots , u_{m}+ u_{m}')
+        \]
+
+        \item Scalar multiplication:
+        \[
+            a(u_1, \cdots , u_{m}) = (au_1, \cdots , au_{m})
+        \]
+    \end{itemize}
+
+\end{definition}
+
+\vspace{2em}
+\begin{theorem}
+    $ V_1 \times \cdots \times V_{m} $ is a vector space. 
+
+    \vspace{2em}
+    Basis for $ V_1 \times \cdots \times V_{m} $:
+
+    Pick a basis $ u_{i,1}, u_{i,2}, \cdots , u_{i,n_{i}} $ for $ V_{i} $ (so $ \dim V_{i} = n_{i} $).
+
+    Then the vectors:
+    \[
+        w_{i,j} = (0,\cdots ,0, \cdots ,u_{i,j}, \cdots 0) \hspace{2em} (1\leqslant j \leqslant n_{i})
+    \]
+
+    Then $ w_{i,j} (1\leqslant i \leqslant m, 1\leqslant j \leqslant n_{i})$ form a basis for $ V_1 \times \cdots \times V_{m} $. 
+
+    So 
+    \[
+        \dim  V_1 \times \cdots \times V_{m}  = \dim V_1 + \cdots + \dim V_{m}
+    \]
+\end{theorem}
+

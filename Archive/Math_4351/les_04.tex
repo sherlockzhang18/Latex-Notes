@@ -1,0 +1,79 @@
+% lec_04.tex
+\lesson{4}{Mon Apr 22 2024 10:00}{Lenstra's Elliptic Curve Factorization}
+
+\section{Elliptic Curves over \(\Z/N\Z\)}
+\begin{definition}
+	Let \(N>2\) be odd.  An \emph{elliptic curve} over \(\Z/N\Z\) is the set of solutions \((x,y)\) to
+	\[
+		y^2 \equiv x^3 + a x + b \pmod N,
+	\]
+	with \(\gcd(4a^3+27b^2,\,N)=1\), together with the point at infinity \(\mathcal{O}\).  We denote this group by \(E(\Z/N\Z)\).
+\end{definition}
+
+\begin{eg}
+	On 
+	\[
+		y^2 = x^3 + 3x + 7,\quad N=187=11\cdot17,
+	\]
+	take \(P=(38,112)\).  To compute \(2P\) we use the tangent slope
+	\[
+		m=\frac{3x^2+3}{2y}\bmod 187
+		=\frac{3\cdot38^2+3}{2\cdot112}
+		=\frac{4335}{224}
+		=\frac{34}{37}
+		=34\cdot37^{-1}\equiv102\pmod{187}.
+	\]
+	The line is \(y-112=102(x-38)\), substitute back into the curve, and find
+	\[
+		2P=(43,126).
+	\]
+	Continuing,
+	\[
+		3P=(54,105),\quad4P=3P+P,\quad5P=3P+2P.
+	\]
+	But in the formula for \(5P\) the denominator \((x_2-x_1)\equiv-11\pmod{187}\) shares \(\gcd(11,187)=11>1\).  Hence \(5P\) “does not exist” in \(E(\Z/187\Z)\), and
+	\(\gcd(21,-11)=11\)
+	reveals the factor \(11\).
+\end{eg}
+
+\section{Algorithm (v1)}
+Choose
+\[
+	L = k!\quad(k=1,2,3,\dots)
+\]
+and attempt to compute \(L\cdot P\) on \(E(\Z/N\Z)\).  Three outcomes:
+\begin{itemize}
+	\item You obtain a valid point—proceed to \((k+1)!\,P\).
+	\item A denominator during addition has \(\gcd(d,N)>1\); that gcd is a nontrivial factor of \(N\).
+	\item A denominator is zero (vertical line), yielding \(\mathcal O\); restart with a new curve or base point.
+\end{itemize}
+
+\section{Chinese Remainder Perspective}
+Under
+\[
+	E(\Z/187\Z)\cong E(\Z/11\Z)\times E(\Z/17\Z),
+\]
+our base point 
+\[
+	P=(38,112)\mapsto (5,2)\bmod11,\;(4,10)\bmod17.
+\]
+We find \(5P\equiv\mathcal O\pmod{11}\) but \(5P\not\equiv\mathcal O\pmod{17}\), so the slope-denominator failure pinpoints the factor \(11\).
+
+\section{Worked Example}
+\begin{eg}
+	Let \(N=6887\), curve \(y^2=x^3+14x+19\), and \(P=(1512,3116)\).  Compute
+	\[
+		1!\,P,\;2!\,P=2P,\;3!\,P=3\cdot2P,\;\dots,\;7!\,P.
+	\]
+	At \(7!\,P\) the slope-denominator is \(781\), and \(\gcd(781,6887)=71\).  Thus \(71\mid N\), and \(6887=71\cdot97\).
+\end{eg}
+
+\section{Choosing the Curve}
+Instead of testing if \(x^3+ax+b\) is a square mod \(N\), pick
+\((P,a)\) and solve for \(b\).  For example, \(N=35\), \(P=(2,6)\), \(a=3\):
+\[
+	6^2\equiv2^3+3\cdot2+b\pmod{35}
+	\implies 36\equiv8+6+b\pmod{35}
+	\implies b\equiv22\pmod{35},
+\]
+so use \(y^2=x^3+3x+22\) on \(\Z/35\Z\).

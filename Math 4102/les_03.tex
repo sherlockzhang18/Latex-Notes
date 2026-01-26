@@ -1,0 +1,80 @@
+\lesson{3}{Fri Jan 16 2026 10:00}{}
+
+\begin{theorem}
+    $ f $ is riemann integrable $ \iff $ $ \forall \epsilon > 0$, $ \exists f_1, f_2 $ step functions such that $ f_1 \leqslant f \leqslant f_2 $, and $ |\int f_2 - \int f_1| < \epsilon $.
+\end{theorem}
+
+\begin{proof} \leavevmode
+    
+    $ \implies $
+
+    Let $ P $ be a partition and define step functions $ U(f, p) = f_2, L(f,p) = f_1 $, satisfying 
+    
+    $ f_2(x) = \sup \{f(z): x_{i-1} \leqslant z \leqslant x_{i}\} $ for $ x \in [x_{i-1}, x_{i}] $ in $ P $
+
+    , and $ f_1(x) = \inf \{f(z): x_{i-1} \leqslant z \leqslant x_{i}\} $ for $ x \in [x_{i-1}, x_{i}] $ in $ P $.
+
+    Note $ U, L $ exists since riemann integrable implies bounded.
+
+    Then, $ f_1(x) \leqslant f(x) \leqslant f_2(x) $ for all $ x \in [a, b] $.
+
+    Given $ \epsilon > 0 $, find $ P $ such that $ |R(f,p) - R| < \frac{\epsilon}{2} $, then $ |\int f_2 - R| \leqslant \frac{\epsilon}{2} $ and $ |\int f_1 - R| < \frac{\epsilon}{2} $.
+
+    $ |\int f_2 - R| \leqslant \frac{\epsilon}{2} $ because of triangle inequality.
+    \[
+        |\int f_2 - \int f_1| \leqslant |\int f_1 - R | + |\int f_2 - R| \leqslant  \epsilon
+    \]
+
+    \vspace{2em}
+    $ \impliedby $
+
+    Let $ R = \sup \{\int f_1 : f_1 \text{step function}, f_1 \leqslant f\} < \infty $.
+    
+    Claim: $ R = \inf\{\int f_2 : f_2 \text{step function}, f \leqslant f_2\} $.
+
+    Use this $ R $ to show that $ f  $ is riemann integrable.
+
+    Let $ \epsilon > 0 $ and find step function $ f_1, f_2 $ with $ f_1 \leqslant f \leqslant f_2 $ and $ |\int f_2 - \int f_1| < \epsilon $. WLOG, can use same partition $ P $ for $ f_1 $ and $ f_2 $. But $ \int f_1 \leqslant R(f,p) \leqslant \int f_2 $, so $ |R(f,p) - R| < \epsilon $.
+
+    \vspace{1em}
+    Note: Existance of $ f_1 \leqslant f \leqslant f_2 $ usually $ U(f,p) $ and $ L(f,p) $ is convenient for showing $ f $ is riemann integrable.
+\end{proof}
+
+\vspace{2em}
+\begin{theorem}
+    If $ f $ is continuous on $ [a,b] $, then $ f $ is riemann integrable.
+\end{theorem}
+
+\begin{proof}
+    Recall: $ f $ is continuous on a compact domain $ \implies f $ is uniformly continuous: $ \forall \epsilon > 0 \exists \delta > 0 $  such that $ |x_1 - x_2| < \delta \implies |f(x_1) - f(x_2)| < \epsilon $.
+
+    \vspace{1em}
+    Recall: (Heine-borel theorem): Compact $ \implies $ cloased and bounded, and (for subsets in $ \mathbb{R}^n $) closed and bounded $ \implies  $compact.
+
+    \vspace{1em}
+    Thus $ [a,b] $ is compact and so $ f $ is uniformly continuous on $ [a,b] $. Let $ \epsilon > 0 $ be given and find $ \delta > 0 $ such that $ |x_1 - x_2| < \delta \implies |f(x_1) - f(x_2)| < \frac{\epsilon}{b-a}$, all $ x_1, x_2 \in [a,b] $.
+
+    \vspace{1em}
+    Let $ P $ be any partition of $ [a,b] $ with $ \left\lVert P \right\rVert < \delta $. Then
+    \[
+        |U(f,p) - L(f,p)| < \frac{\epsilon}{b-a}
+    \]
+    Let $ f_2  = U(f,p) $ and $ f_1 = L(f,p) $ and observe that $ f_1 \leqslant f \leqslant  f_2 $ and $ |\int f_2 - \int f_1| < \epsilon $, so $ f $ is riemann integrable by previous theorem.
+
+\end{proof}
+
+\vspace{2em}
+\begin{theorem}
+    $ f $ is monotone on $ [a,b] \implies f $ is riemann integrable on $ [a,b] $.
+\end{theorem}
+
+\begin{note}
+    monotone means increasing: $ x > y \implies f(x) \geqslant f(y) $ or decreasing.
+\end{note}
+
+\begin{proof}
+    WLOG, assume $ f $ is increasing. Note that $ f(a) > -\infty, f(b) < \infty, f(b) - f(a) < \infty $. Let $ P $ be any partition of $ [a,b] $, let $ P'$  be $ P \cup \{\text{midpoints}\} $.
+
+    \vspace{1em}
+    Let $ U(f,p) $
+\end{proof}

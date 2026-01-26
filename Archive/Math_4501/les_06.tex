@@ -1,0 +1,113 @@
+\lesson{6}{Mon Sep 08 2025 15:00}{}
+
+\begin{theorem}
+    $ f:[a,b] \to \mathbb{R} $, $ f(\xi) = 0 $,
+    \begin{itemize}
+        \item $ f'(\xi) $ continuous in a neighbourhood of $ \xi $
+        \item $ f(\xi) \neq 0$
+    \end{itemize}
+
+    Then there exist $ \delta , \lambda $ such that relaxation iteration converges to $ \xi $ if $ x \in [\xi - \delta , \xi + \delta ] $    
+\end{theorem}
+
+\begin{proof} \leavevmode
+
+    $ g_{\lambda}(x) = x - \lambda f(x), x_{k+1} = g_\lambda(x_k) $, WLOG $ f'(\xi) > 0 $. $ |g_\lambda'(\xi)| = |1-\lambda f'(\xi)| $ needed to pick $ \lambda $ such that $ |g_\lambda '(\xi)| \leqslant L < 1$, $ -L \leqslant 1-\lambda f'(\xi) < L $, $ m \leqslant f'(\xi) \leqslant  M $. (Say $ m \leqslant  f'(x) \leqslant M  $ for $ \delta $ small.)
+
+    Choose $ \delta > 0 $ such that $ \begin{cases}
+        1 - \lambda m \leqslant L \\
+        1-\lambda M \geqslant  -L
+    \end{cases} $
+
+    Can choose $ \lambda $ such that equality holds:
+    \[
+        \lambda = \frac{2}{M+m}
+    \]
+
+    For this choice $ g_\lambda (x) $ is a contraction mapping from $ [\xi-\delta, \xi + \delta] \to [\xi-\delta, \xi+\delta] $
+\end{proof}
+
+\vspace{3em}
+\underbar{\textbf{Newton's Method}}
+
+\vspace{1em}
+\textbf{Idea}: Take $ x_{k+1} = g_\lambda(x_k) = x_k-\lambda f(x_k) $
+\begin{itemize}
+    \item pick $ \lambda $ depending on k: $ x_{k+1} = g_{\lambda_k} (x_k) = x_k - \lambda_k f(x_k) $
+    \item choose $ \lambda_k $ so that $ g_{\lambda_k} $ is a contraction:
+    
+    Want $ |g_{\lambda_k}'(x_k)| = |1-\lambda_k f'(x_k)| $ is small.
+
+    Choose $ \lambda_k = \frac{1}{f'(x_k)}$ (Newton's method)
+\end{itemize}
+
+
+\begin{theorem} \underbar{\textbf{Newton's Method}} \leavevmode
+
+    \begin{itemize}
+        \item $ x_{k+1} = x_k-\frac{f(x_k)}{f'(x_k)} $, $ k = 0, 1, 2, \cdots  $ (Assume $ f'(x_k) \neq 0 $ for all $ k $)
+
+        \begin{remark}
+            $ x_{k+1}  $ is the solution to $ (x-x_k)f'(x_k) + f(x_k) = 0 $
+
+            graph to be filled here.
+        \end{remark}
+
+        \item Next iteration is where the target line intersects zero
+    \end{itemize}
+\end{theorem}
+
+\vspace{1em}
+\begin{theorem} Convergence of Newton's Method \leavevmode
+
+    \begin{itemize}
+        \item $ f:[a,b] \to \mathbb{R} $ continuous $ f(\xi) = 0 $
+        \item $ f''(\xi) \neq 0 $, $ f'' $ continuous in $ [\xi - \delta, \xi + \delta] $, $ \delta > 0 $
+        \item $ |f''(x)| \leqslant A |f'(y)| $, for $ x, y \in [\xi - \delta, \xi + \delta] $, $ \delta > 0 $
+    \end{itemize}
+    Then $ (x_k) $ converges to $ \xi $ if $ x_0 $ is sufficient close to $ \xi $. ($ |x_0 - \xi| \leqslant \text{min}\{\delta, \frac{1}{A}\} $)
+\end{theorem}
+
+\begin{note}
+    The condition : max$ |f''(x)| \leqslant A \text{min}|f'(y)| $, $ x,y \in [\xi-\delta, \xi + \delta] $ is demanding.
+
+    \begin{itemize}
+        \item $ f''(\xi) \neq 0 \implies \text{max}| f''(x) | > 0, x \in [\xi-\delta, \xi + \delta]$
+        \item $ 0 < A \text{min}| f'(y) | \leqslant A|f'(\xi)| $
+    \end{itemize}
+
+    $ f'(\xi) \neq 0  $ is implied by the conditions
+
+    Pick functions that break these conditions:
+
+    \begin{align*}
+        &f(x) = \sin(10x) \\
+        &f'(x) = 10\cos(10x) \\
+        &f''(x) = 10^2\sin(10x)
+    \end{align*}
+
+    picture to be filled here
+\end{note}
+
+\begin{proof} convergence of Newton's Method\leavevmode
+
+    Taylor Expansion about $ \xi $.
+    \[
+         0 = f(\xi) = f(x) + f'(x)(\xi-x) + \frac{f''(\eta )}{2!}(\xi-x)^2
+    \]($ \eta $ between $ \xi $ and $ x $).
+
+    Say $ x = x_k $
+    \begin{align*}
+        0 &= \left(x_k - \frac{f(x_k)}{f'(x_k)}\right) + \xi + \frac{f''(\eta_k)}{2f'(x_k)}(\xi-x_k)^2 \\
+        &= \xi - x_{k+1} + \frac{f''(\eta_k)}{2f'(x_k)} (\xi-x_k)^2 \\
+        &|\xi-x_{k+1}| = \left|\frac{f''(\eta_k)}{2f'(x_k)}\right| |\xi-x_k|\cdot |\xi-x_k|\\
+    \end{align*}
+
+    Assume $ x_k $ is close to $ \xi $, so that $ |\xi-x_k| \leqslant \frac{1}{A} $.
+    \[
+        \left|\frac{f''(\eta_k)}{f'(x_k)}\right| \leqslant A \implies \left|\frac{f''(\eta_k)}{f'(x_k)}\right| |x_k-\xi| \leqslant A \cdot \frac{1}{A} = 1
+    \]
+
+    Hence, $ |\xi - x{k+1}| \leqslant  \frac{1}{2}|\xi-x_k| \leqslant \cdots \leqslant \frac{1}{2^k}|\xi-x_0| $ if $ |x_0-\xi| \leqslant \text{min}\{\delta, \frac{1}{A}\} $
+    
+\end{proof}

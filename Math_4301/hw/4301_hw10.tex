@@ -1,0 +1,445 @@
+\documentclass[a4paper]{article}
+
+% \usepackage[margin=1in]{geometry} // reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{4301 linear algebra - Homework 10}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4301 - Homework 10}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}[5B.3]
+
+    Suppose $ n $ is an integer with $ n > 1 $ and $ T \in L(F^n) $ is defined by
+    \[
+        T(x_1, \cdots ,x_{n}) = (x_1 + \cdots + x_{n}, \cdots , x_1 + \cdots + x_{n}).
+    \]
+
+\end{problem}
+
+\begin{subproblem}
+
+    Find all eigenvalues and eigenvectors of $ T $.
+
+\end{subproblem}
+
+\vspace{2em}
+\begin{solution}
+
+    \[
+        M(T) = \begin{bmatrix}
+          1 & \cdots & 1 \\
+          \vdots & \ddots & \vdots \\
+          1 & \cdots  & 1 \\
+        \end{bmatrix}
+    \]
+    Since $ T(-x_2-x_3\cdots -x_{n}, x_2, \cdots x_{n}) \in \text{null }T $, $ \text{null }T \neq \{0\} $. Therefore, 0 is an eigenvector since $ T $ is not injective. The eigenvector is $ -x_2-x_3\cdots -x_{n}, x_2, \cdots x_{n} $.
+
+    \vspace{1em}
+
+    Also, $ T(1, \cdots ,1) = (n, \cdots , n) $, so $ n $ is also an value, with $ (1, \cdots ,1) $ as eigenvector.
+
+    Since $ \text{range }T = \text{span }(1,\cdots ,1) $, we know that if $ \lambda \neq 0 $ is an eigenvalue, and $ x $ is a corresponding eigenvector, then there must be a constant $ c $ such that
+    \[
+        Tx = \lambda x = c \cdot (1, \cdots , 1)
+    \]
+
+    Then, $ x = c \cdot (1, \cdots , 1) \lambda^{-1} $.
+    So $ x $ is linearly dependent to $ (1, \cdots ,1) $, which means $ \lambda = n $.
+
+    Therefore, only two eigenvalue above exists.
+
+\end{solution}
+
+\begin{subproblem}
+    
+    Find  the minimal polynomial of $ T $.
+
+\end{subproblem}
+
+\vspace{2em}
+\begin{solution}
+
+    \[
+        T(T - nI) 
+        =
+        \begin{bmatrix}
+          1 & \cdots & 1 \\
+          \vdots & \ddots & \vdots \\
+          1 & \cdots  & 1 \\
+        \end{bmatrix}
+        \cdot 
+        \begin{bmatrix}
+          1-n & \cdots & 1 \\
+          \vdots & \ddots & \vdots \\
+          1 & \cdots  & 1-n \\
+        \end{bmatrix}
+        =
+        0
+    \]
+    Since there are two distinct eigenvalues, $ \text{deg }p $ is at least 2. Since $ T(T - nI) = 0 $, then $ p(x) = x(x - n) $.
+
+\end{solution}
+
+\newpage
+\begin{problem}[5B.6]
+    
+    Suppose $ T \in L(F^2) $ is defined by $ T(w, z) = (-z, w) $. Find the minimal polynomial of $ T $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    The minimal polynomial cannot be degree 1 since $ T - \lambda I $ cannot be the zero operator since $ T $ is not a multiple of identity operator. Therefore, the degree is at least 2. As $ T^2(w, z) = T(-z, w) = (-w, -z) = -(w, z) $, $ T^2 = -I $. So $ T^2 + I = 0 $, $ p(x) = x^2+1 $.
+
+\end{solution}
+
+\newpage
+\begin{problem}[5B.11]
+
+    Suppose $ V $ is a two-dimensional vector space, $ T \in L(V) $, and the matrix of $ T $ with respect to some basis of $ V $ is $ \begin{bmatrix}
+      a & c \\
+      b & d \\
+    \end{bmatrix} $.
+    
+\end{problem}
+
+\begin{subproblem}
+    
+    Show that $ T^2 - (a+d)T + (ad-bc)I = 0 $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    Let 
+    \[
+      A = 
+      \begin{bmatrix}
+        a & c \\
+        b & d
+      \end{bmatrix}.
+    \]
+    Then
+    \[
+      A^2 =
+      \begin{bmatrix}
+        a & c \\
+        b & d
+      \end{bmatrix}
+      \begin{bmatrix}
+        a & c \\
+        b & d
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        a^2 + bc & c(a+d) \\
+        b(a+d) & bc + d^2
+      \end{bmatrix}.
+    \]
+    Also,
+    \[
+      (a+d)A =
+      (a+d)
+      \begin{bmatrix}
+        a & c \\
+        b & d
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        a(a+d) & c(a+d) \\
+        b(a+d) & d(a+d)
+      \end{bmatrix}.
+    \]
+    Hence
+    \[
+      A^2 - (a+d)A =
+      \begin{bmatrix}
+        a^2 + bc - a(a+d) & 0 \\
+        0 & bc + d^2 - d(a+d)
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        bc - ad & 0 \\
+        0 & bc - ad
+      \end{bmatrix}.
+    \]
+    Adding $(ad-bc)I$ gives
+    \[
+      A^2 - (a+d)A + (ad-bc)I =
+      \begin{bmatrix}
+        bc - ad & 0 \\
+        0 & bc - ad
+      \end{bmatrix}
+      +
+      \begin{bmatrix}
+        ad - bc & 0 \\
+        0 & ad - bc
+      \end{bmatrix}
+      =
+      \begin{bmatrix}
+        0 & 0 \\
+        0 & 0
+      \end{bmatrix}.
+    \]
+    Thus $A$ satisfies $A^2 - (a+d)A + (ad-bc)I = 0$. Since $A$ is the matrix
+    of $T$ with respect to a basis of $V$, this equation is equivalent to
+    \[
+      T^2 - (a+d)T + (ad-bc)I = 0.
+    \]
+
+\end{solution}
+
+\begin{subproblem}
+    
+    Show that the minimal polynomial of $ T $ equals
+    \[
+        \begin{cases}
+            z - a & \text{if } b = c = 0 \text{ and } a = d, \\
+            z^2 - (a+d)z + (ad - bc) & \text{otherwise}.
+        \end{cases}
+    \]
+
+\end{subproblem}
+
+\begin{solution}
+
+    If $ b = c = 0 \text{ and } a = d $, then $ T = a I $ where $ c \in F $. Then, $ T - aI = 0 $, which shows that in this case the minimal polynomial should be $ p(z) = z - a $. 
+    
+    On the other hand, in other cases, $ T \neq cI $ for any $ c \in F $, so there is no 1 degree minimal polynomial exists. $ \text{deg }p \geqslant 2 $. Since $ T^2 - (a+d)T + (ad-bc)I = 0 $, we know that $ T^2 - (a+d)T + (ad-bc)I = 0 $, then $ p(z) = z^2 - (a+d)z + (ad-bc) $ is monic and unique minimal polynomial for other cases.
+    
+\end{solution}
+
+\newpage
+\begin{problem}
+    
+    Suppose $ V $ is finite-dimensional and $ T \in L(V) $ has minimal polynomial $ 4 + 5z - 6z^2 - 7z^3 + 2z^4 + z^5 $. Find the minimal polynomial of $ T^{-1} $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Let the minimal polynomial of $T$ be
+    $m(z)=4+5z-6z^2-7z^3+2z^4+z^5$. Then $m(T)=0$, i.e.
+    $T^5+2T^4-7T^3-6T^2+5T+4I=0$. The constant term is $4\neq 0$, so $T$ is
+    invertible. Multiplying this equation on the left by $T^{-5}$ gives
+    \[
+    4T^{-5}+5T^{-4}-6T^{-3}-7T^{-2}+2T^{-1}+I=0.
+    \]
+    Thus $T^{-1}$ is annihilated by the polynomial
+    $n(z)=4z^5+5z^4-6z^3-7z^2+2z+1$, which we can also write as
+    $n(z)=z^5 m(1/z)$.
+
+    By the result from class that the minimal polynomial of $T^{-1}$ is
+    $z^{\deg m_T} m_T(1/z)$ (up to a nonzero scalar), $n$ is, up to scalar,
+    the minimal polynomial of $T^{-1}$. Making it monic, we obtain
+    \[
+    m_{T^{-1}}(z)
+    = z^5+\tfrac54 z^4-\tfrac32 z^3-\tfrac74 z^2+\tfrac12 z+\tfrac14
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[5B.20]
+    
+    Suppose $ T \in L(F^4) $ is such that the eigenvalues of $ T $ are $ 3, 5, 8 $. Prove that $ (T-3I)^2(T-5I)^2(T - 8I)^2 = 0 $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    By theorem in class, we know that minimal polynomial of $ T $
+    \[
+        p(x) = s(x)(x -3)(x - 5)(x - 8)
+    \]
+    Since $ T $ only has three eigenvalues, and $ \text{deg }p \leqslant \dim V = 4 $, $ s(x) = \{1, (x - 3), (x - 5), (x - 8)\} $. So the polynomial of $ (T-3I)^2(T-5I)^2(T - 8I)^2 $ which is $ q(x) = (x - 3)^2(x-5)^2(x- 8)^2 $ is a multiple of the minimal polynomial $ p(x) $, so $ q(x )= 0 $.
+
+\end{solution}
+
+\newpage
+
+\begin{problem}[5D.2]
+    
+    Suppose $ T \in L(V) $ has diagonal matrix $ A $ with respect ot some basis of $ V $. Prove that if $ \lambda \in F $, then $ \lambda $ appears on the diagonal of $ A $ precisely $ \dim E(\lambda, T) $ times.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Let $\{v_1,\dots,v_n\}$ be a basis of $V$ with respect to which the
+    matrix of $T$ is diagonal. Then
+    \[
+        A = \operatorname{diag}(a_1,\dots,a_n)
+    \]
+    for some $a_1,\dots,a_n\in F$, and we have $T(v_j)=a_j v_j$ for each $j$.
+
+    Fix $\lambda\in F$ and let
+    \[
+        J = \{ j : a_j = \lambda \}.
+    \]
+    For each $j\in J$ we have $T(v_j)=\lambda v_j$, so $v_j\in E(\lambda,T)$.
+    Hence $\operatorname{span}\{v_j : j\in J\} \subseteq E(\lambda,T)$.
+
+    \vspace{1em}
+    Conversely, let $v\in E(\lambda,T)$. Write
+    $v = x_1 v_1 + \cdots + x_n v_n$ for some scalars $x_1,\dots,x_n$.
+    The equation $T(v)=\lambda v$ becomes
+    \[
+        T(v) = a_1 x_1 v_1 + \cdots + a_n x_n v_n
+        = \lambda (x_1 v_1 + \cdots + x_n v_n),
+    \]
+    so for each $j$ we have $(a_j - \lambda)x_j = 0$. Thus, if $a_j\neq\lambda$
+    then $x_j=0$. Therefore all nonzero coefficients $x_j$ occur only for
+    indices $j\in J$, and $v$ is a linear combination of $\{v_j : j\in J\}$.
+    This shows $E(\lambda,T)\subseteq \operatorname{span}\{v_j : j\in J\}$.
+
+    Hence
+    \[
+        E(\lambda,T) = \operatorname{span}\{v_j : j\in J\},
+    \]
+    so $\dim E(\lambda,T)$ equals the number of indices $j$ with $a_j=\lambda$,
+    which is exactly the number of times $\lambda$ appears on the diagonal of $A$.
+
+\end{solution}
+
+\newpage
+\begin{problem}[5D.6]
+
+    Suppose $ T \in L(F^5) $ and $ \dim E(8,T) = 4 $. Prove that $ T - 2I $ or $ T - 6I $ is invertible.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Prove contrapositive. 
+    
+    Assume that neither $T-2I$ nor $T-6I$ is invertible. Then $2$ and $6$ are eigenvalues of $T$, so $\dim E(2,T) \ge 1$ and $\dim E(6,T) \ge 1$.
+
+    Whether $8$ is an eigenvalue or not, theorem in class implies that the sum $E(8,T) + E(2,T) + E(6,T)$ is a direct sum of eigenspaces. Hence
+    \[
+        \dim E(8,T) + \dim E(2,T) + \dim E(6,T) \le \dim F^5 = 5.
+    \]
+    Because $\dim E(2,T) \ge 1$ and $\dim E(6,T) \ge 1$, we obtain
+    \[
+        \dim E(8,T) \le 5 - \dim E(2,T) - \dim E(6,T)
+        \le 5 - 1 - 1 = 3.
+    \]
+
+    But this contradicts the assumption that $\dim E(8,T) = 4$.
+
+    Therefore our assumption that both $T-2I$ and $T-6I$ are noninvertible must be false. Thus at least one of them is invertible.
+
+\end{solution}
+
+
+
+\end{document}

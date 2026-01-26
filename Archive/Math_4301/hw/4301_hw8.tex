@@ -1,0 +1,340 @@
+\documentclass[a4paper]{article}
+
+% \usepackage[margin=1in]{geometry} // reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{4301 linear algebra - Homework 8}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4301 - Homework 8}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}[5A.5]
+
+    Suppose $ T \in L(\mathbb{R}^2) $ is defined by $ T(x, y) = (-3y, x) $. Find the eigenvalues of $ T $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Let $ \lambda $ be the eigenvalue of $ T $, then $ T(x, y) = \lambda (x, y) = (-3y, x) $.
+
+    so we got $ \begin{cases}
+        \lambda x = -3y \\
+        \lambda y = x
+    \end{cases} $
+
+    \vspace{1em}
+    From the second equation we know $ x = \lambda y $, plug in to the first equation, $ \lambda^2 y = -3 y $. So $ \lambda^2 = -3 $. There is no real solution for $ \lambda $. In $ \mathbb{C} $ there is solution for $ \lambda = \pm \sqrt{3}i $.
+    
+\end{solution}
+
+
+
+\newpage
+\begin{problem}[5A.8]
+
+    Suppose $ P \in L(V) $ is such that $ P^2 = P $. Prove that if $ \lambda $ is an eigenvalue of $ P $, then $ \lambda = 0 $ or $ \lambda = 1 $.
+    
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $ \lambda $ be the eigenvalue of $ T $ and corresponding eigenvector $ v $, then
+    \[
+        \lambda v = Pv = P^2v = P(Pv) = P \lambda v = \lambda P v = \lambda^2 v
+    \]
+
+    then we got deduced to
+    \[
+        \lambda v = \lambda^2 v
+    \]
+    \[
+        (\lambda - 1) \lambda v = 0
+    \]
+    Since $ v $ is the eigenvector, $ v \neq 0 $, so the only two real solutions for $ \lambda  $ will be $ \lambda = 1 $ and $ \lambda = 0 $.
+
+\end{solution}
+
+
+
+\newpage
+\begin{problem}[5A.9]
+    
+    Define $ T: P(\mathbb{R}) \to P(\mathbb{R}) $ by $ Tp = p' $. Find all eigenvalues and eigenvectors of $ T $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $ p = c $ to be non-zero constant, then $ p' = 0 $, so $ \lambda = 0 $ is an eigenvalue for $ T $ . For any $ p $ that has $ \text{deg } p $ larger than 1, then if $ \text{deg }p = a $, then $ \text{deg }p' = a - 1 $, so there is no $ \lambda $ such that $ \lambda p = Tp = p' $. Therefore, the only eigenvalue is $ 0 $. The corresponding eigenvectors are non-zero constant polynomials in $ P(\mathbb{R}) $.
+
+\end{solution}
+
+
+\newpage
+\begin{problem}[5A.19]
+    
+    Show that the forward shift operator $ T \in L(F^{\infty}) $ defined by
+    \[
+        T(z_1, z_2, \cdots) = (0, z_1, z_2, \cdots )
+    \]
+    has no eigenvalues.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $ \lambda $ be the eigenvalue of $ T $, and $ v = (z_1, z_2, \cdots ) $ with $ v \neq 0 $ . Then
+    \[
+        (\lambda z_1, \lambda z_2, \cdots ) = (0, z_1, z_2, \cdots )
+    \]
+
+    which transfers to the following equality:
+    \[
+        \begin{cases}
+            \lambda z_1 = 0 \\
+            \lambda z_2 = z_1 \\
+            \vdots
+        \end{cases}
+    \]
+
+    If $ \lambda = 0 $, then $ \lambda z_2 = 0 $, which shows that $ z_1 = 0 $. Following the similar arguments above, we can show that $ z_1 = z_2 = \cdots = 0 $. 
+    
+    \vspace{1em}
+    If $ \lambda \neq 0 $, then $ z_1 = 0 $. So $ \lambda z_2 = 0 $, then $ z_2 = 0 $ as well. Following the similar arguments above, we can show that $ z_1 = z_2 = \cdots = 0 $.
+
+    In either case, we both showed that eigenvector $ v = 0 $, which is a contracdiction. Therefore, there is no eigenvalue for $ T $.
+
+\end{solution}
+
+\newpage
+\begin{problem}[5A.21]
+    
+    Suppose $ T \in L(V) $ is invertible.
+
+\end{problem}
+
+\vspace{1em}
+\begin{subproblem}
+
+    Suppose $ \lambda \in F $ with $ \lambda \neq 0 $. Prove that $ \lambda $ is an eigenvalue of $ T $ if and only if $ \frac{1}{\lambda} $ is an eigenvalue of $ T^{-1} $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    If $ \lambda $ is an eigenvalue of $ T $ and $ v \neq 0 $ is the corresponding eigenvector, then 
+    \[
+        Tv = \lambda v \iff v = T^{-1} \lambda v \iff T^{-1}v = \frac{v}{\lambda}
+    \]
+
+    This is equivalent to the statement $ \lambda $ is an eigenvalue of $ T $ if and only if $ \frac{1}{\lambda} $ is an eigenvalue of $ T^{-1} $.
+
+\end{solution}
+
+
+
+\vspace{1em}
+\begin{subproblem}
+
+    Prove that $ T $ and $ T^{-1} $ have the same eigenvectors.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    As $ T $ is invertible, by definition both $ T $ and $ T^{-1} $ is injective, so the null space is $ \{0\} $. So 0 cannot be the eigenvalue. For non-zero eigenvalues, using the equation above:
+    \[
+        Tv = \lambda v \iff v = T^{-1} \lambda v \iff T^{-1}v = \frac{v}{\lambda}
+    \]
+
+    This shows that both $ T $ and $ T^{-1} $ has the same eigenvector.
+
+\end{solution}
+
+\newpage
+\begin{problem}[5A.23]
+    
+    Suppose $ V $ is finite-dimensional and $ S, T \in L(V) $. Prove that $ ST $ and $ TS $ have the same eigenvalues.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $ \lambda $ be the eigenvalue of $ ST $, then let $ v \neq 0 $ be the corresponding eigenvector.
+    If $ \lambda \neq 0 $, then we know $ ST v = \lambda v $
+    \[
+        (TS)(Tv) = T(STv) = T(\lambda v) = \lambda Tv
+    \]
+
+    If $ \lambda = 0 $, then $ STv = \lambda v = 0 $ for some $ v \neq 0 $. Then $ ST $ is not invertible. By previous homework problem 3D.11, $ ST $ not invertible $ \implies $ $ S $ and $ T $ are not both invertible $ \implies $ $ TS $ is not invertible.
+
+    \vspace{1em}
+    Therefore, the null space of $ TS $ is not only $ \{0\} $. There exists $ v \neq 0 $ such that $ TS v = 0 = \lambda v $. Therefore, $ TS $ also have 0 as eigenvalue.
+
+    \vspace{1em}
+    Thus, $ ST $ and $ TS $ always have the same eigenvalues.
+
+\end{solution}
+
+
+\newpage
+\begin{problem}[5A.25]
+    
+    Suppose $ T \in L(V) $ and $ u, w $ are eigenvectors of $ T $ such that $ u + w $ is also an eigenvector of $ T $. Prove that $ u $ and $ w $ are eigenvectors of $ T $ corresponding to the same eigenvalue.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Assume that $ Tu = \lambda_1 u $, $ Tw = \lambda_2 w $, 
+    then 
+    \[
+        \lambda_3 (u + w) = T(u + w) = T(u) + T(w) = \lambda_1 u + \lambda_2 w
+    \]
+    Rearrange the equation we get
+    \[
+        (\lambda_3 - \lambda_1) u + (\lambda_3 - \lambda_2)w = 0
+    \]
+
+    If $ \lambda_1 \neq \lambda_2 $, then its corresponding eigenvector $ u $ and $ w $ should be linearly independent. Then the equation above should give $ \lambda_1 = \lambda_2 = \lambda_3 $, which is the trivial solution. Therefore we reached a contradiction here. Thus $ \lambda_1 = \lambda_2 $.
+
+\end{solution}
+
+
+\newpage
+\begin{problem}[5A.30]
+    
+    Suppose $ T \in L(V) $ and $ (T - 2I)(T - 3I)(T - 4I) = 0 $. Suppose $ \lambda $ is an eigenvalue of $ T $. Prove that $ \lambda = 2 $ or $ \lambda = 3 $ or $ \lambda = 4 $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $ \lambda $ be the eigenvalue of $ T $ and let $ v \neq 0 $ be the eigenvector.
+    By definition, 
+    \[
+        Tv = \lambda v \implies Tv - \lambda v = 0 \implies (T - \lambda I) v = 0
+    \]
+    Therefore,
+    \[
+        0 = (T - 2I)(T - 3I)(T - 4I)v = (\lambda - 2)(\lambda - 3)(\lambda - 4) = 0
+    \]
+
+    This implies that $ \lambda $ can be $ 2, 3, 4 $.
+
+\end{solution}
+
+
+\end{document}

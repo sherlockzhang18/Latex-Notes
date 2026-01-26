@@ -1,0 +1,110 @@
+% lec_03.tex
+\lesson{3}{Wed Apr 17 2024 10:00}{Elliptic ElGamal \& MV-ElGamal}
+
+\section{Review: ECDH Key Exchange}
+Last time we saw Elliptic Curve Diffie–Hellman (ECDH):
+\[
+	\text{Public: }(p,E,P),\quad
+	Q_A = n_A P,\; Q_B = n_B P,\quad
+	n_AQ_B = n_BQ_A = n_An_BP
+\]
+which yields a shared secret (e.g.\ the \(x\)-coordinate of \(n_An_BP\)).
+
+\section{Classical ElGamal over \(\F_p\)}
+\begin{itemize}
+	\item Public: \((p,g)\) in \(\F_p^*\).
+	\item Alice’s private key \(a\), public key \(A = g^a\pmod p\).
+	\item Bob picks random \(k\), encrypts message \(m\) as
+	      \[
+	      	(c_1,c_2)=(g^k,\;m\cdot A^k)\pmod p.
+	      \]
+	\item Alice recovers
+	      \(\displaystyle
+	      m = c_2\cdot c_1^{-a}\pmod p.
+	      \)
+\end{itemize}
+
+\section{Elliptic ElGamal}
+\begin{itemize}
+	\item Public: \((p,E,P)\).
+	\item Alice's private key \(n_A\), public key \(Q_A=n_AP\).
+	\item Bob picks random \(k\), message \(M\in E(\F_p)\).  He sends
+	      \[
+	      	(c_1,c_2)=(kP,\;M + k\,Q_A).
+	      \]
+	\item Alice computes
+	      \[
+	      	c_2 - n_A\,c_1 = (M + kQ_A) - n_A(kP) = M.
+	      \]
+\end{itemize}
+
+\subsection{Menezes-Vanstone (MV) Variant}
+Allows numeric messages \(m_1,m_2\in\F_p\):
+\begin{itemize}
+	\item Public: \((p,E,P)\), Alice: private \(n_A\), public \(Q_A=n_AP\).
+	\item Bob picks random \(k\), sets
+	      \[
+	      	C = kP,\quad S = kQ_A = (x_s,y_s).
+	      \]
+	\item Encrypt: 
+	      \[
+	      	c_1 = m_1\,x_s\pmod p,\quad c_2 = m_2\,y_s\pmod p,
+	      \]
+	      send \((C,c_1,c_2)\).
+	\item Alice recovers
+	      \[
+	      	T = n_A\,C = (x_T,y_T),
+	      	\quad
+	      	m_1 = x_T^{-1}c_1,\; m_2 = y_T^{-1}c_2 \pmod p.
+	      \]
+\end{itemize}
+
+\begin{eg}
+	Let \(p=13\), \(E:y^2=x^3+x+1\), \(P=(5,1)\).  Alice picks \(n_A=7\):
+	\[
+		Q_A=7P=(1,9).
+	\]
+	Bob has \(m_1=3,m_2=8\), picks \(k=10\):
+	\[
+		C=10P=(11,2),\quad S=10Q_A=(4,2).
+	\]
+	He computes
+	\[
+		c_1=3\cdot4=12,\quad c_2=8\cdot2=3\pmod{13}
+	\]
+	and sends \(\bigl((11,2),12,3\bigr)\).  Alice gets
+	\[
+		T=7C=(4,0),\quad
+		m_1 = 4^{-1}\cdot12=3,\quad
+		m_2 = 0^{-1}\cdot3=8\pmod{13}.
+	\]
+\end{eg}
+
+\section{Point Compression}
+Instead of sending \((x_c,y_c)\), send \((x_c,\beta)\) where
+\[
+	\beta=\begin{cases}
+	0,&0\le y_c<\tfrac p2,\\
+	1,&\tfrac p2<y_c<p.
+	\end{cases}
+\]
+Alice recovers \(y_c\) by solving \(y^2=x_c^3+ax_c+b\pmod p\)
+and choosing the root consistent with \(\beta\).
+
+\section{Solving \(y^2=a\pmod p\)}
+\begin{lemma}[Square roots mod \(p\)]
+	If \(p\equiv3\pmod4\) and \(\bigl(\tfrac ap\bigr)=1\), then
+	\[
+		y\;\equiv\;\pm\,a^{\tfrac{p+1}4}\pmod p
+	\]
+	are the two solutions to \(y^2\equiv a\pmod p\).
+\end{lemma}
+\begin{proof}
+	\[
+		\bigl(a^{\tfrac{p+1}4}\bigr)^2
+		=a^{\tfrac{p+1}2}
+		=a^{\tfrac{p-1}2}a
+		\equiv (1)\,a
+		=a\pmod p.
+	\]
+\end{proof}

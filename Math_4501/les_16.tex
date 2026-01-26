@@ -1,0 +1,114 @@
+\lesson{15}{Mon Sep 29 2025 15:00}{}
+
+\begin{definition} Jacobian Matrix \leavevmode
+    
+    $ f: \mathbb{R}^m \to \mathbb{R}^n $
+
+
+    \[
+        \left[ \overrightarrow{J}_{f} (x)_{ij} = \frac{\partial f_{i}}{\partial x_{j}}\right] \hspace{2em} i = 1, \cdots , n, j = 1, \cdots ,m
+    \]
+
+\end{definition}
+
+\vspace{2em}
+\begin{theorem}
+    
+    \begin{itemize}
+        \item $ g: \mathbb{R}^n \to \mathbb{R}^n $
+        \item $ g $ continuous in some closed $ D \in \mathbb{R}^n $
+        \item $ g $ has a fixed point $ \xi $ in the interior of $ D $ (points in $ D $ such that $ x \in D $ has $ x \in B_{\epsilon}(\xi) \in D $)
+        \item $ \left\lVert J_{g}(\xi) \right\rVert _\infty < 1 $
+    \end{itemize}
+
+    \vspace{2em}
+    Then there is $ \epsilon > 0 $ such that 
+    \begin{itemize}
+        \item $ g(B_{\epsilon}(\xi)) \leqslant B_{\epsilon}(\xi) $
+        \item simulaneous iteration $ (x_{k})_{k=0}^\infty $ converges to $ \xi $ if $ x_0 \in B_{\epsilon}(\xi) $
+    \end{itemize}
+
+\end{theorem}
+
+\vspace{1em}
+\begin{theorem} MVT in high dimension \leavevmode
+    
+    \[
+        g_{i}(y) - g_{i}(x) = \triangledown g_{i}(\eta_{i}) \cdot (y-x) \hspace{2em} \eta \in \cdots 
+    \]
+
+\end{theorem}
+
+\begin{proof} proof of 17 \leavevmode
+
+    \underbar{Want} $ \left\lVert g(x)-g(\xi) \right\rVert _\infty \leqslant L \left\lVert x - \xi \right\rVert _\infty $, $ L < 1 $ for $ x $ in a neighbourhood of $ \xi $.
+
+    \[
+        g_{i}(x) - g_{i}(\xi) = \triangledown g_{i} (\eta_{i})(x - \xi) \begin{cases}
+            x: \text{ is the neighbourhood of } \xi \text{ in which } \frac{dg_{i}}{\partial x_{j}} \text{ continuous}\\
+        \eta_{i}: \text{ on the line b/w } x \text{ and } \xi\\
+        \end{cases}
+    \]
+
+    \vspace{2em}
+    Equivalently there is $ \epsilon_0 > 0 $ such that
+    \[
+        g_{i}(x) - g_{i}(\xi) = \triangledown g_{i}(\eta_{i}) \cdot (x - \xi), \hspace{1em} x \in B_{\epsilon_0}(\xi)
+    \]
+
+    \begin{align*}
+        &|g_{i}(x) - g_{i}(\xi)| = \left| \sum_{j = 1}^{n} \frac{dg_{i}}{\partial x_{j}} (\eta_{i}) (x_{j} - \xi_{j}) \right| \leqslant \left\lVert \triangledown g_{i}(\eta_{i}) \right\rVert _1 \left\lVert x - \xi \right\rVert _\infty \\
+        &\left\lVert g(x) - g(\xi) \right\rVert _\infty = \max_{i} \left| g_{i}(x) -g_{i}(\xi)  \right| \leqslant \max_{i} \left\lVert \triangledown g_{i}(\eta_{i}) \right\rVert _1 \cdot \left\lVert x - \xi \right\rVert _\infty \\
+    \end{align*}
+
+    from the definition of Jacobian we derive that:
+    \[
+        \max_{i} \left\lVert \triangledown g_{i}(y_{i}) \right\rVert _1 = \left\lVert J_{g}(y) \right\rVert _\infty
+    \]
+
+    then, 
+    \begin{align*}
+        \max_{i} \left\lVert \triangledown g_{i}(\eta_{i}) \right\rVert _1 = \left\lVert \triangledown g_{i*}(\eta_{i*}) \right\rVert _1 
+        &\leqslant \sup_{y \in B_{\epsilon_0}(\xi)} \left\lVert \triangledown g_{i*}(y) \right\rVert _\infty \\
+        &\leqslant \sup_{y \in B_{\epsilon_0}(\xi)} \max_{i} \left\lVert \triangledown g_{i}(y) \right\rVert _1 \\
+        &= \sup_{y \in B_{\epsilon_0}(\xi)} \left\lVert J_{g}(y) \right\rVert _\infty \\
+    \end{align*}
+
+    So now we want
+    \[
+        \left\lVert g(x) - g(\xi) \right\rVert _\infty 
+        \leqslant \sup_{y \in B_{\epsilon_0}(\xi)} 
+        \left\lVert J_{g}(y) \right\rVert _\infty
+        \left\lVert x - \xi \right\rVert _\infty
+    \]
+
+    \underbar{WANT} 
+    \[
+        \sup_{y \in B_{\epsilon_0}(\xi)} \left\lVert J_{g}(y) \right\rVert _\infty \leqslant L < 1
+    \]
+    
+    Note $ \left\lVert J_{g}(y) \right\rVert _\infty < 1 $, $ y \to J_{g}(y) \to \left\lVert J_{g}(y) \right\rVert $ is continuous. The intermediate steps are both continuous.
+
+    \vspace{1em}
+    So there exists $ \epsilon < \epsilon_0 $ such that $ \left\lVert J_{g}(y) \right\rVert _\infty \leqslant L < 1 $ for all $ y \in B_{\epsilon}(\xi) $.
+
+    \vspace{1em}
+    \noindent Thus $ \left\lVert g(x) - g(\xi) \right\rVert _\infty \leqslant \sup_{y \in B_{\epsilon_0}(\xi)} \left\lVert J_{g}(y) \right\rVert _\infty \left\lVert x-\xi \right\rVert _\infty \leqslant L \left\lVert x - \xi \right\rVert _ \infty $,  $ g $: contraction in $ B_{\epsilon}(\xi) $, $ g(B_{\epsilon}(\xi)) \subseteq B_{\epsilon}(\xi) $, and $ \left\lVert x_{k} - \xi \right\rVert _\infty \leqslant L^k \left\lVert x_0 - \xi \right\rVert _\infty $, so $ x_{k} \to \xi $ if iterates enough times.
+\end{proof}
+
+\vspace{2em}
+\vspace{2em}
+\noindent\underbar{\textbf{Simulaneous Iteration}}:
+\[
+    x_{k+1} = g(x_{k})
+\]
+
+\vspace{2em}
+How to solve $ f (x) = 0 $ ? By turning it into a fixed point problem. ($ g(\xi) = \xi $)
+
+\vspace{2em}
+Try $ g(x) = x - f(x) $, \hspace{2em} $ g(\xi) = \xi - f(\xi) = \xi $
+
+$ g(x) = x - \lambda f(x) $ relaxation iteration
+
+$ g(x) = x - \left[J_{g}(x)\right]^{-1} f(x) $ Newton's method.

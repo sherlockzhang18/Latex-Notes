@@ -1,0 +1,338 @@
+\documentclass[a4paper]{article}
+
+% \usepackage[margin=1in]{geometry} // reduce margin
+
+% Basic packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{xifthen}
+
+% Math packages
+\usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
+\usepackage{mathrsfs}
+\usepackage{cancel}
+\usepackage{bm}
+\usepackage{systeme}
+\usepackage{stmaryrd} % for \lightning
+
+% Math shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\F{\ensuremath{\mathbb{F}}}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ker}{ker}
+\DeclareMathOperator{\im}{Im}
+
+% Logic symbols
+\let\svlim\lim\def\lim{\svlim\limits}
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\newcommand\contra{\scalebox{1.1}{$\lightning$}}
+
+% Useful commands
+\definecolor{correct}{HTML}{009900}
+\newcommand\correct[2]{\ensuremath{\:}{\color{red}{#1}}\ensuremath{\to }{\color{correct}{#2}}\ensuremath{\:}}
+\newcommand\green[1]{{\color{correct}{#1}}}
+
+% Horizontal rule
+\newcommand\hr{
+    \noindent\rule[0.5ex]{\linewidth}{0.5pt}
+}
+
+% Simple theorem environments (without fancy boxes for homework)
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{example}{Example}
+
+% Problem environment
+\newcounter{problem}
+\newenvironment{problem}[1][]
+{
+    \stepcounter{problem}
+    \section*{Problem \theproblem\ifx\relax#1\relax\else: #1\fi}
+}
+{}
+
+% Subproblem environment
+\newcounter{subproblem}[problem]
+\newenvironment{subproblem}[1][]
+{
+    \stepcounter{subproblem}
+    \subsection*{(\alph{subproblem})\ifx\relax#1\relax\else\ #1\fi}
+}
+{}
+
+% Solution environment
+\newenvironment{solution}
+{
+    \noindent\textbf{Solution:}\\
+}
+{
+    
+}
+
+% Headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Sherlock Zhang}
+\fancyhead[C]{4301 linear algebra - Homework 6}
+\fancyhead[R]{\today}
+\fancyfoot[C]{\thepage}
+
+% Title info
+\title{Math 4301 - Homework 6}
+\author{Sherlock Zhang}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+% =============================================================================
+% HOMEWORK PROBLEMS START HERE
+% =============================================================================
+
+\begin{problem}[3F.1]
+
+    Explain why each linear functional is surjective or is the zero map.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Suppose $ \phi \in V' $, then if $ \phi $ is not the zero map, then there exist some $ v \in V $ such that $ \phi(v) = a  $, where $ a \neq 0 $.
+
+    Therefore, since $ \phi $ is linear, for any $ b \in F $, there exists
+    \[
+        \phi(\frac{v}{a} \times b) = \frac{\phi(v)}{a} \times b = \frac{a}{a} \times b = b
+    \]
+
+    Thereofore, $ \phi $ is either zero map or surjective.
+    
+\end{solution}
+
+\newpage
+\begin{problem}[3F.3]
+
+    Suppose $ V $ is finite-dimensional and $ v \in V $ with $ v \neq 0 $. Prove that there exists $ \phi \in V' $  such that $ \phi(v) = 1 $.
+    
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    let $ v_1 = v $ and extend into a basis for $ V $: 
+    \[
+        v_1, \cdots ,  v_{n}
+    \]
+
+    Then define $ \phi \in V' $ as
+    \[
+        \phi(v_{k}) = 1 \hspace{2em} \text{for }1 \leqslant k \leqslant n
+    \]
+
+    Then $ \phi(v) = 1 $.
+
+\end{solution}
+
+\newpage
+\begin{problem}[3F.11]
+    
+    Suppose $ v_1, \cdots , v_{n} $ is a basis of $ V $ and $ \phi_1, \cdots ,\phi_{n} $ is the corresponding dual basis of $ V' $. Suppose $ \psi \in V' $. Prove that
+    \[
+        \psi = \psi(v_1)\phi_1 + \cdots + \psi(v_{n})\phi_{n}
+    \]
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    \begin{align*}
+        &\psi(v_1)\phi_1 + \cdots + \psi(v_{n})\phi_{n} (v) \\
+        &= \psi(v_1)\phi_1 + \cdots + \psi(v_{n})\phi_{n} (a_1v_1 + \cdots + a_{n}v_{n}) \\
+        &= \psi(v_1)\phi_1 (a_1v_1 + \cdots + a_{n}v_{n}) + \cdots + \psi(v_{n})\phi_{n} (a_1v_1 + \cdots + a_{n}v_{n}) \\
+        &=\psi (v_1) a_1 + \cdots + \psi (v_{n}) a_{n} \\
+        &= \psi(a_1v_1 + a_2v_2 + \cdots + a_{n}v_{n})
+    \end{align*}
+
+\end{solution}
+
+\newpage
+\begin{problem}[3F.14]
+    
+    Define $ T: \mathbb{R}^3 \to \mathbb{R}^2 $ by
+    \[
+        T(x, y, z) = (4x + 5y + 6z, 7x + 8y + 9z)
+    \]
+    Suppose $ \phi_1, \phi_2 $ denotes the dual basis of the standard basis of $ \mathbb{R}^2 $ and $ \psi_1, \psi_2, \psi_3 $ denotes the dual basis of the standard basis of $ \mathbb{R}^3 $.
+
+\end{problem}
+
+\begin{subproblem}
+
+    Describe the linear functionals $ T'(\phi_1) $ and $ T'(\phi_2) $
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    \begin{align*}
+        T'(\phi_1)(x, y, z) = \phi_1 T(T(x, y, z)) = \phi_1(4x + 5y + 6z, 7x + 8y + 9z) = 4x + 5y + 6z \\
+        T'(\phi_2)(x, y, z) = \phi_2 T(T(x, y, z)) = \phi_2(4x + 5y + 6z, 7x + 8y + 9z) = 7x + 8y + 9z
+    \end{align*}
+
+\end{solution}
+
+\vspace{1em}
+\begin{subproblem}
+    
+    Write $ T'(\phi_1) $ and $ T'(\phi_2) $ as linear combination of $ \psi_1, \psi_2, \psi_3 $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    \[
+        T'(\phi_1) = 4\psi_1 + 5\psi_2 + 6\psi_3 \hspace{2em} T'(\phi_2) = 7\psi_1 + 8\psi_2 + 9\psi_3
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[3F.15]
+
+    Define $ T $ : $ P(\mathbb{R}) \to P(\mathbb{R}) $ by
+    \[
+        (Tp)(x) = x^2p(x) + p''(x)
+    \]
+    for each $ x \in \mathbb{R} $.
+
+\end{problem}
+
+\begin{subproblem}
+    
+    Suppose $ \phi \in P(\mathbb{R})' $ is defined by $ \phi(p) = p'(4) $. Describe the linear function $ T'(\phi) $ on $ P(\mathbb{R}) $.
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    \[
+        T'(\phi) (p) = \phi(Tp) = \phi(x^2p + p'') = 8p(4) + 16p'(4) + p'''(4)
+    \]
+
+\end{solution}
+
+\vspace{2em}
+\begin{subproblem}
+    
+    Suppose $ \phi \in P(\mathbb{R})' $ is defined by $ \phi(p) = \int_{0}^{1} p $. Evaluate $ (T'(\phi))(x^3) $
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    \[
+        (T'(\phi))(x^3) = \phi(Tx^3) = \phi(x^5 + 6x) = \int_{0}^{1} x^5 + 6x dx = \frac{19}{6}
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[3F.16]
+    
+    Suppose $ W $ is finite-dimensional and $ T \in L(V, W) $. Prove that
+    \[
+        T' = 0 \iff T = 0
+    \]
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    $ \impliedby $
+    
+    \vspace{1em}
+    If $ T = 0 $ and $ \phi \in W' $, then $ T'(\phi) = \phi \circ T = \phi \circ 0 = 0 $. 
+
+    \vspace{2em}
+    $ \implies $
+
+    \vspace{1em}
+    If $ T' = 0 $, then $ \text{null }T' = W' $. Since $ \text{null }T' = (\text{range }T)^0 $, $ (\text{range T})^0 = W' $ as well.
+
+    This means for all $ f \in W' $ $ f(v) = 0 $ for all $ v \in \text{range }T $. This can only happen when $ \text{range }T = \{0\} $. So $ T = 0 $.
+
+\end{solution}
+
+\newpage
+\begin{problem}[3F.21]
+    
+    Suppose $ V $ is finite-dimensional and $ U $ and $ W $ are subspaces of $ V $.
+
+\end{problem}
+
+\begin{subproblem}
+    
+    Prove that $ W^0 \subseteq U^0 $ if and only if $ U \subseteq W $
+
+\end{subproblem}
+
+\vspace{1em}
+\begin{solution}
+    
+    $ \impliedby $
+
+    \vspace{1em}
+    If $ U \subseteq W $, then for $ f \in W^0 $, for all $ u \in U \subseteq W $, $ f(u) = 0 $. So $ W^0 \subseteq U^0 $.
+
+    \vspace{2em}
+    $ \implies $
+
+    \vspace{1em}
+    Define $ (U^0)^0 as \{v \in V | \phi(v) = 0 \text{ for all } \phi \in U^0\} $. Then since $ W^0 \subseteq U^0 $, if $ v \in (U^0)^0 $, then it is also in $ (W^0)^0 $. So $ (U^0)^0 \subseteq (W^0)^0 $. By definition, it is equivalent to $ U \subseteq W $.
+
+\end{solution}
+
+\begin{subproblem}
+    
+    Prove that $ W^0 = U^0 $ if and only if $ U = W $
+
+\end{subproblem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Since $ W^0 = U^0 $, $ W^0 \subseteq U^0 $ and $ U^0 \subseteq W^0 $. Therefore, we geometry
+    \[
+        U \subseteq W \text{ and } W \subseteq U \implies U = W
+    \]
+
+\end{solution}
+
+\end{document}

@@ -1,0 +1,214 @@
+\lesson{9}{Tue Sep 23 2025 14:30}{}
+
+\begin{note}
+    
+    Once we fix base. $ v_1, \cdots , v_{n} $ and $ w_1, \cdots , w_{m} $
+    
+    $L(V, W) \iff m \times n $ matrices
+
+    $ T \to M(T) $, we have
+
+    \begin{align*}
+        &M(T+S) = M(T) + M(S) (T,S: V \to W) \\
+        &M(cT) = cM(T) \\
+    \end{align*}
+
+\end{note}
+
+\begin{definition}
+    
+    Matrix multiplication: let $ A_{m \times n} $ and $ C_{n \times p} $
+
+    \[
+        (AC)_{jk} = \sum_{r = 1}^{n} A_{jr}C_{rk}
+    \]
+
+    The result should have dimension $ m \times p $.
+
+\end{definition}
+
+\newpage
+\begin{eg}
+    
+    \[
+        \begin{bmatrix}
+            1 & 2 \\
+            3 & 4 \\
+            5 & 6 \\
+        \end{bmatrix} 
+        \times
+        \begin{bmatrix}
+          6 & 5 & 4 & 3 \\
+          2 & 1 & 0 & -1 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            10 & 7 & 4 & 1 \\
+            26 & 19 & 12 & 5 \\
+            42 & 31 & 20 & 9 \\
+        \end{bmatrix} 
+    \]
+
+
+\end{eg}
+
+\vspace{2em}
+So this forms a relation that
+\begin{itemize}
+    \item $ T: V \to W $
+    \item $ S: W \to U $
+    \item $ ST: V \to U $
+\end{itemize}
+
+
+\begin{itemize}
+    \item $ v_1, \cdots ,v_{n} $ is a basis for $ V $
+    \item $ w_1, \cdots ,w_{m} $ is a basis for $ W $
+    \item $ u_1, \cdots ,u_{k} $ is a basis for $ U $
+\end{itemize}
+
+then $ M(T) \text{ is } m \times n $, $ M(S) \text{ is }  k \times m$, $ M(ST)\text{ is }{k \times n} $
+
+\begin{theorem}
+    
+    $ M(ST) = M(S)M(T) $
+
+\end{theorem}
+
+\begin{eg}
+    
+    \begin{tikzcd}
+        P_2(\mathbb{R}) \arrow[r, "T"] \arrow[rr, bend right=20, "DT"']
+        & P_3(\mathbb{R}) \arrow[r, "D"]
+        & P_2(\mathbb{R})
+    \end{tikzcd}
+
+    Let \[
+        M(T) = 
+        \begin{bmatrix}
+          0 & 0 & 0 \\
+          1 & 0 & 0 \\
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+        \end{bmatrix}
+        , \text{ and } 
+        M(D) =
+        \begin{bmatrix}
+          0 & 1 & 0 & 0 \\
+          0 & 0 & 2 & 0 \\
+          0 & 0 & 0 & 3 \\
+        \end{bmatrix}
+    \]
+
+    then \[
+        M(D)M(T) = 
+        \begin{bmatrix}
+          0 & 1 & 0 & 0 \\
+          0 & 0 & 2 & 0 \\
+          0 & 0 & 0 & 3 \\
+        \end{bmatrix}
+        \begin{bmatrix}
+          0 & 0 & 0 \\
+          1 & 0 & 0 \\
+          0 & 1 & 0 \\
+          0 & 0 & 1 \\
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+          1 & 0 & 0 \\
+          0 & 2 & 0 \\
+          0 & 0 & 3 \\
+        \end{bmatrix}
+    \]
+
+    Therefore, $ DT: P_2(\mathbb{R}) \to P_2(\mathbb{R}) $, $ DT(P(x)) = D(xp(x)) = (xp(x))' $
+
+\end{eg}
+
+\section{Invertibility and Isomorphisms}
+\vspace{2em}
+\begin{definition}Intervible Linear maps: \leavevmode
+
+    \vspace{1em}
+    $ T \in L(V, W) $. $ T $ is called \underbar{invertible} if there is a linear map $ S \in L(W, V) $ such that $ TS = I_{W} $ and $ ST = I_V $.
+
+    \vspace{1em}
+    $ TS \in L(W, W)  $ and $ ST \in L(V, V) $.
+
+    \begin{tikzcd}
+        V \arrow[r, bend left=20, "T"]
+        &W \arrow[l, bend left=20, "S"]
+    \end{tikzcd}
+
+\end{definition}
+
+\begin{eg} \leavevmode
+
+    \begin{enumerate}
+        \item $ T: \mathbb{R}^2 \to \mathbb{R}^2 $
+        
+        $ T(x,y) = (x+2y, y) $
+
+        It is invertible:
+        \begin{itemize}
+            \item $ S(x,y) = (x-2y, y) $
+            \item $ ST(x, y) = S(x+2y, y) = (x,y) $
+            \item $ TS(x,y) = T(x-2y, y) = (x,y) $
+        \end{itemize}
+
+        \item $ T: \mathbb{R}^2 \to \mathbb{R}^2 $, $ T(x,y) = (x+2y, 0) $
+        Is it invertible? No.
+
+        \vspace{1em}
+        $ TS \neq I_{\mathbb{R}^2} $
+
+        $ TS(a,1) = T(S(a,1)) = (?,0) \neq (a,1) $
+    \end{enumerate}
+
+\end{eg}
+
+\begin{theorem}
+    
+    A linear map is invertible if and only if it is injective and surjective.
+    
+\end{theorem}
+
+\begin{proof}
+    Suppose $ T \in L(V, W) $ is invertible. Then there is $ S \in L(W, V) $ such that $ TS, ST $ are identity maps.
+
+    \begin{itemize}
+        \item $ T $ injective: If $ Tv = Tv' $, then $ S(Tv) = S(Tv') $, so $ ST(v) = ST(v') \implies v = v' (ST = I) $
+        \item $ T $ surjective: If $ w \in W $, then let $ v = Sw $. We have
+        \[
+            Tv = TSw = w (TS = I)
+        \], and this implies $ w \in \text{range}T $.
+    \end{itemize}
+
+    \vspace{2em}
+    Now suppose $ T $ is surjective and injective. Define $ S: W \to V $ as follows.
+
+    For $ w \in W $, there is $ v \in V $ with $ Tv = w $(surjectivity of $ T $) and this $ v $ is unique (by injectivity). Let $ Sw = v $, claim: 1: $ S \in L(W,V) $, and 2: $ TS = I_{W} $ and 3: $ ST=I_{V} $
+
+    \begin{enumerate}
+        \item $ S $ is linear: $ S(w_1+w_2) = Sw_1 + Sw_2 $. 
+        
+        If $ Sw_1 = v_1 $ and $ Sw_2 = v_2 $, then $ Tv_1 = w_1, Tv_2 = w_2 $. So $ T(v_1+v_2) = w_1+w_2 $, so $ S(w_1+w_2) = v_1+v_2 $
+
+        \vspace{1em}
+        $ S(aw) = aS(w) $ exercise
+
+        \item $ w \in W $ If $ v \in Sw $, then $ Tv = w $, so $ TSw = Tv = w $.
+        
+        \item $ v \in V $ If $ Tv = w $, then $ Sw = v $, so $ STv = Sw = v $.
+    \end{enumerate}
+\end{proof}
+
+\begin{eg}
+    
+    \begin{enumerate}
+        \item $ T: F^\infty \to F^\infty $, $ T(a_1, \cdots ,a_{n}, \cdots ) = (a_2, a_3, \cdots ) $ not invertible because not injective.
+        
+        \item $ T: F^\infty \to F^\infty $, $ T(a_1, \cdots ,a_{n}, \cdots ) = (0, a_1, a_2, \cdots ) $ not invertible because not surjevtive.
+    \end{enumerate}
+
+\end{eg}

@@ -1,0 +1,112 @@
+% lec_01.tex
+\newpage
+\lesson{1}{Mon Aug 25 2025 10:00}{Greedy Algorithm}
+
+\underbar{Scenario}:
+
+\begin{itemize}
+    \item You are an installer for Charter Cable
+    \item your job is to do installations by appointment
+    \item Appointments have fixed 30 minutes length and must start at 30 minutes boundary
+    \item Each customer specifies an earliest and a latest possible start time for her appointment
+    \item Goal is to schedule as many appointments as possible in a day.
+\end{itemize}
+
+\underbar{More formally}:
+
+\begin{itemize}
+    \item Given a set P of unit-duration jobs that must be scheduled at integer times (time slots: 0, 1, 2, 3 ...)
+    \item only one job may be scheduled per slot
+    \item Job $ i $ may start in any slot from $ s_i $ to $ e_i $ inclusive
+    \item goal: find a schedule that maximizes number of jobs scheduled.
+\end{itemize}
+
+Let P be the input set of jobs
+
+\begin{itemize}
+    \item Let t be the latest slot in which some job from P may be scheduled
+    \item let $ \Sigma \subset P $ be the set of all jobs in P that can be scheduled at time t
+    \item choose jobs $ i \in \Sigma $ with the latest start time $ s_i $
+    \item Schedule job i at t
+    \item Recur back on remaining job set $ P-\{i\} $, until its empty or no jobs can be scheduled
+\end{itemize}
+
+\begin{eg}
+    $ P: \{ 1: [1,3]\}, \{ 2: [3,5]\}, \{ 3: [2,6]\}, \{ 4: [4,6]\} $
+
+    $ t = 6, \Sigma = \{3,4\}, i = 4 $    
+\end{eg}
+
+\vspace{1em}
+
+\textbf{Proving optimality:}
+
+We have 3 ports:
+
+1. Greedy choice property: Let $ \hat{i} $ be the jobchosen first by the greedy algorithm, and let $ \hat{t} $be the time at which it was scheduled. Then, there exist an optimal solution that makes the greedy choice. That is, a solution that scheules $ \hat{i} $ at $ \hat{p} $.
+
+(Note: it is not enough to find an optimal solution that uses $ \hat{i} $. It must be scheduled at $ \hat{t} $, because that's our greedy choice).
+
+\begin{proof}
+    let $ \pi $ be any optimal solution.
+
+    if $ \pi $ schedules $ \hat{i} $ at $ \hat{t} $, great.
+
+    otherwise we have two cases:
+    
+    \vspace{1em}
+
+    Case 1: Suppose that $  \pi $ doesn't schedule $ \hat{i} $ at all.
+    \begin{itemize}
+        \item If slot $ \hat{t} $ is empty in $ \pi $, can simply add $ \hat{i} $ at $ \hat{t} $, a better solution. (Cannot happen because you could get a better solution than the optimal solution)
+        \item If slot $ \hat{t} $ is occupied by job $ j $, throw out j and put $ \hat{i} $ there, solution has the same size as before.
+    \end{itemize}
+
+    \vspace{1em}
+    
+    Case 2: Suppose that $ \pi $ does schedule $ \hat{i} $ at time $ t \neq \hat{t} $
+    \begin{itemize}
+        \item If slot $ \hat{t} $ is empty in $ \pi $, move $ \hat{i} $ to $ \hat{t} $.
+        \item otherwise, some job got scheduled by $ \pi $ at $ \hat{t} $. Observe that $ t < \hat{t} $, since by the choice of $ \hat{t} $, no job in $ P $ can be scheduled after time $ \hat{t} $. Observe that by the choice of job $ \hat{i}, s_{\hat{t}}\geq s_j $. Since $ t \geq s_{\hat{i}} $, job $ j $ can be scheduled at time $ t $. Hence, we simply exchange slots of job $ \hat{i} $ and $ j $.
+    \end{itemize}
+
+    \vspace{1em}
+    In all of the cases new solution has at least as the old $ \pi $ and so it is optimal.
+\end{proof}
+
+\vspace{2em}
+\textbf{Indudctive substructive:} after making the greedy choice, we are left with smaller instance after the scheduling problem with no external constraints.
+
+\begin{proof}
+    Let $ P' = P - \{\hat{i}\} $
+
+    P' is clearly smaller set of jobs to be scheduled.
+
+    but what about the constraints:
+    \begin{itemize}
+        \item First time greedy schedules a job, it can use latest slot that any job can take.
+        \item For subsequent choices, the property doesn't hold! It seems we have more constraints on recursive calls than on the original call, this breaks the inductive substructive.
+    \end{itemize}
+\end{proof}
+
+\vspace{2em}
+\noindent\textbf{Two solutions:}
+
+\noindent\underbar{Problem extension}: input to problem includes a list of blocked slots. Place job $ \hat{i} $ in latest free slot available for any job.
+\vspace{1em}
+
+\noindent\underbar{Recursive definitions:} as it happens, times are filled from latest to earliest. So trim the end times of all unscheduled jobs back to at most t-1. Also remove any jobs j from which $ s_j \geq \hat{t} $.
+For remaining jobs, algorithm never looks beyond $ \hat{t} - 1 $, so doesn't need additional constraints.
+
+\vspace{2em}
+\noindent\textbf{Optimal substructives}: Let $ \pi $ be optimal solutions to subproblems $ P' $, then $ \pi' $ together with $ \hat{i} $ at time $ \hat{t} $ is an optimal solutio to $ P $
+
+\vspace{1em}
+(See the video for proof three steps)
+
+\vspace{2em}
+
+Psudocode for implementation :
+\begin{itemize}
+    \item Make a sorted list L of jobs in decreasing end time 
+\end{itemize}
