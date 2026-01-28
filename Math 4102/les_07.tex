@@ -1,0 +1,132 @@
+\lesson{7}{Wed Jan 28 2026 10:00}{}
+
+\begin{lemma}[Lemma 8.5]\leavevmode
+    
+    $ A \subset B \subset E \implies \begin{cases}
+        \mu^* \leqslant \mu^*(B) \\
+        \mu_*(A) \leqslant  \mu_{*}(B) \\
+    \end{cases} $
+
+\end{lemma}
+
+\begin{proof}
+    idea:
+    \begin{enumerate}
+        \item true for intervals
+        \item true for finite disjoint unions
+        \item true for open sets
+        \item true for all sets
+    \end{enumerate}
+\end{proof}
+
+It works but is tedius.
+
+\vspace{2em}
+\begin{proof}
+    \underbar{\textbf{Another idea}}:
+    If $ G $ is open and $ B \subset G $ and $ A \subset B $, then $ A \subset G $.
+
+    Then, $ \{G^{\text{open}}: B \subset G\} \subset \{G^{\text{open}}: A \subset G\} $
+
+    so $ \mu^*(B)\inf\{\mu^*(G): B \subset G^{\text{open}}\} \geqslant \inf\{\mu^*(G): A \subset G^{\text{open}}\} = \mu^*(A) $
+
+    \vspace{1em}
+    Now use $ A \subset B \implies E \backslash A \supset E \backslash B $,
+    so
+    \[
+        \mu^*(E \backslash A) \geqslant  \mu^*(E \backslash B) \text{ by 1st part of proof}
+    \]
+    so 
+    \[
+        \mu_*(A) = 1 - \mu^*(E \backslash A) \leqslant 1 - \mu^*(E \backslash B) = \mu_*(B)
+    \]
+\end{proof}
+
+
+\begin{lemma}[Lemma 8.6 Countable subadditivity of $ \mu^* $] \leavevmode
+    
+    Suppose $ A_{i} \subset E, i = 1, 2, \cdots  $, then 
+    \[
+        \mu^*(\cup_{i = 1}^\infty A_{i}) \leqslant \sum_{i=1}^{\infty} \mu^*(A_{i})
+    \]
+
+\end{lemma}
+
+\begin{remark}
+    Works without disjointness. Cannot get equivalent relation by counter example 7.7
+\end{remark}
+
+\begin{proof}
+    Steps: 
+    \begin{enumerate}
+        \item finite collections of open intervals
+        \item countable collections of open intervals
+        \item countable collections of arbitrary sets
+    \end{enumerate}
+
+    \vspace{2em}
+    \begin{enumerate}
+        \item Given $ I_1, I_2 \subset E$, open intervals, 
+        \[
+            \mu^*(I_1 \cup I_2) = \begin{cases}
+                \mu^*(I_1)+ \mu^*(I_2) & \text{if } I_1 \cap I_2 = \emptyset \\
+                < \mu^*(I_1) + \mu^*(I_2) & \text{if } I_1 \cap I_2 \neq \emptyset \\
+            \end{cases}
+        \]
+        Extend to finite unions of open intervals by induction.
+
+
+        \item Given $ \cup_{n = 1}^{\infty} I_{n} $, $ I_n $ open interval $ \subset E $,
+        as $ \cup_{n = 1}^{\infty} I_{n} $ is open set, then 
+        
+        $ \cup_{n = 1}^{\infty} I_{n} = \dot\cup_{n = 1}^{\infty}J_{n} $, $ J_{n} $ open component interval in $ E $.
+
+        Now 
+        \[
+            \mu^*\left(\cup_{n=1}^\infty J_{n}\right) = \sum_{n=1}^{\infty} \mu^*(J_{n}) \text{ converge nonnegative summary}\leqslant \sum_{n=1}^{N} \mu^*(J_{n}) + \epsilon
+        \]
+
+        For each $ \epsilon > 0 $, choose $ N = N(\epsilon) $
+
+        But $ \cup_{n}^\infty I_{n} \subseteq \cup_{n}^\infty J_{n} $ (In fact, they are equal).
+
+        So by monotonicity (8.5)
+        \[
+            \mu^*\left(\cup_{n}^\infty I_{n}\right) \leqslant 
+            \mu^*\left(\cup_{n}^\infty J_{n}\right) \leqslant 
+            \sum_{n=1}^{N} \mu^*(J_{n}) + \epsilon
+        \]
+
+        For each $ n $, $ J_{n} = (a_{n}, b_{n}) $, so we may find
+        \[
+            a_{n} < a_{n}' < b_{n}' < b_{n}
+        \]
+        so that $ K_{n} = (a_{n}', b_{n}') \subset J $ and also $ \overline{K_{n}} = [a_{n}', b_{n}'] \subset J_{n} $. Now choose $ a_{n}', b_{n}' $ such that
+        \[
+            \mu^*(J_{n}) < \mu^*(K_{n}) + \frac{\epsilon}{N} \hspace{2em} \text{ for } \epsilon, N(\epsilon) \text{ as before.}
+        \]
+
+        Thus
+        \[
+            \mu^*\left(\cup_{n=1}^\infty I_{n}\right) \leqslant 
+            \sum_{n=1}^{N} \mu^*(K_{n}) + \epsilon + \epsilon
+        \]
+        Now $ \overline{K_{n}} $ is compact (since it is closed and bounded), so $ \cup_{n=1}^N \overline{K_{n}} $ is compact and covered (contained in) by $ \cup_{n=1}^\infty I_{n} $, so that is a finite subcover $ \cup_{n=1}^N \overline{K}_n \subset \cup_{i=1}^r I_{n_{i}}, r < \infty $.
+
+        \vspace{1em}
+        By finite subadditivity, 
+        \[
+            \mu^*(\dot\cup_{n=1}^N K_{n}) = \sum_{n=1}^{N} \mu^*(K_{n}) \leqslant \sum_{i=1}^{r} \mu^*(I_{n_{i}}) \leqslant 
+        \]
+        since $ \sum_{i=1}^{r} \mu^*(I_{n_{i}}) $ is a finite union of open intervals.
+
+        Finally
+        \begin{align*}
+            \mu^*(\cup_1^\infty I_{n}) 
+            \leqslant \sum_{i=1}^{N} \mu^*(K_{n}) + 2\epsilon \\
+            \leqslant \sum_{i=1}^{r} \mu^*(I_{n_{i}}) + 2\epsilon
+        \end{align*}
+
+        Let $ \epsilon \to 0 $ so $ N(\epsilon) \to \infty $, so $ r \to \infty $ and last sum $ \to \sum_{1}^{\infty} \mu^*(I_{n})  $
+    \end{enumerate}
+\end{proof}

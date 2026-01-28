@@ -1,0 +1,118 @@
+\lesson{5}{Tue Jan 27 2026 16:00}{}
+
+\begin{itemize}
+    \item Attention Layer:
+    
+    $ Y = \text{att}(Q, K, V) $
+    \begin{itemize}
+        \item Q: querry \hspace{2em} $ N^Q \times D^{QK} $
+        \item K: key \hspace{2em} $ N^{KV} \times D^{QK} $
+        \item V: value \hspace{2em} $ N^{KV} \times D^{V} $
+    \end{itemize}
+    \begin{itemize}
+        \item $ A_{q,k} =  \text{sof + argmax} \left(\frac{1}{\sqrt{D^{QK}}}Q_{q}K_{k}^T\right)$
+        \item $ Y_{q} = \sum_{k}^{} A_{q,k} V_{k} $
+        \item $ [\text{sof + argmax} (z)]_{i} = \frac{e^{z_{i}}}{\sum_{j=1}^{n} e^{z_{i}} }, z \in \mathbb{R}^n $
+        \item Masks / Dropout
+    \end{itemize}
+
+    \item "Multi-head Attention Layer"
+    \begin{itemize}    
+        \item parameters
+        $ \begin{cases}
+            W^Q & H \times D \times D^{QK} \\
+            W^K & H \times D \times D^{QK} \\
+            W^V & H \times D \times D^{V} \\
+            W^0
+        \end{cases} $
+
+        \vspace{1em}
+        $ \begin{cases}
+            Y_{k} = \text{att}(X^QW_{k}^Q, X^KW_{k}^K, X^VW_{k}^V) \hspace{2em} \text{h: indexing for "head"} \\
+            Y = (Y_1) \cdots (Y_{H})W^0 \leftarrow (Y_1 | \cdots | Y_{H}) 
+        \end{cases} $
+        \begin{figure}[ht]
+            \centering
+            \includegraphics[width=0.8\linewidth]{images/1.jpeg}
+        \end{figure}
+        
+        \item "self-attention": if $ X^Q = X^{K} = X^V $
+        \item "cross-attention" if $ X^K = X^V $
+    \end{itemize}
+
+    \item Normalizing Layers
+    
+    \begin{itemize}
+        \item "Batch normalization"
+        
+        \begin{itemize}
+            \item A Batch: multiple samples of input
+            \begin{eg}
+                $ x_{b,d} = 2, 1, \cdots , 0 $ total of $ B $ samples
+                
+                $ b = 1, \cdots , B $, $ b $ is called batch indexing.
+            \end{eg}
+            \item Depending on the batch the "statistics" might differ
+            
+            \item Adjust ("Normalize") depending on given batch
+            \item Emperical mean:
+            \[
+                \hat{m}_d = \frac{1}{B} \sum_{b=1}^{B} x_{b,d}
+            \]
+            \item Empirical variance:
+            \[
+                \hat{v}_d = \frac{1}{B} \sum_{b=1}^{B}  (x_{b,d} - \hat{m_{d}})^2
+            \]
+            \item Normalize
+            \[
+                z_{b,d} = \frac{x_{b,d}-\hat{m}_d}{\sqrt{\hat{v}_d + \epsilon} } \hspace{2em} \epsilon \text{ avoid dividing by zero}
+            \]
+
+            Output $ y_{b,d} = \gamma_{d}z_{b,d} + \beta_{b} $ \hspace{2em} $ \gamma_{d}, \beta_{d} $: trainable parameters.
+        \end{itemize}
+
+        \item "Layer Normalization":
+        Same normalization procedure for other dimensions (\underbar{not} batch)
+    \end{itemize}
+
+    \item Embedding Layer (Usually a fixed linear layer)
+    \item positioning Encoding
+    
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\linewidth]{images/2.jpeg}
+        \end{figure}
+    
+    \item Architecture
+    \item Multi-Layer Perceptron (MLP)
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/3.jpeg}
+    \end{figure}
+\end{itemize}
+
+\begin{theorem}[Universal Approximation Theorem] \leavevmode
+
+    $ \sigma: $ continuous "discriminatory" function
+
+    Functions of the form:
+    \[
+        G(x) = \sum_{j=1}^{N}c_{j}\sigma (w_j^Tx + b_{j}), \hspace{2em} G:[0,1]^n \to \mathbb{R}
+    \]
+
+    are dense in $ C\left([0,1]^n\right) $.
+
+    \vspace{2em}
+    Given any $ f \in C[0,1]^n $, and any $ \epsilon > 0 $, $ \exists G $ of the above form such that 
+    \[
+        |f(x) - G(x)| < \epsilon \hspace{1em} \forall x\in [0,1]
+    \]
+    
+\end{theorem}
+
+\begin{itemize}
+    \item Convolutional Neural Network (ConvNet, CNN)
+    
+\end{itemize}
+
+\underbar{\textbf{}}
