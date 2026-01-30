@@ -1,0 +1,164 @@
+%
+% CSE Electronic Homework Template
+% Originally by Jeremy Buhler
+% Last updated 1/20/19 by Steve Cole 
+
+\documentclass[11pt]{article}
+\usepackage[left=0.7in,right=0.7in,top=1in,bottom=0.7in]{geometry}
+\usepackage{fancyhdr} % for header
+\usepackage{graphicx} % for figures
+\usepackage{amsmath}  % for extended math markup
+\usepackage{amssymb}
+\usepackage[bookmarks=false]{hyperref} % for URL embedding
+\usepackage[noend]{algpseudocode} % for pseudocode
+\usepackage[plain]{algorithm} % float environment for algorithms
+\usepackage{listings}	% for including source code
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STUDENT: modify the following fields to reflect your
+% name/ID and the current assignment
+
+% Example: 
+%\newcommand{\StudentName}{Steve Cole}
+%\newcommand{\StudentID{123456}
+
+\newcommand{\StudentName}{Sherlock Zhang, Aaron Chen}
+\newcommand{\StudentID}{518915, 517971}
+\newcommand{\AssgtType}{Studio} % Replace Studio with Lab for Lab turnin
+\newcommand{\AssgtNumber}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% You can pretty much leave the stuff up to the next line of %%'s alone.
+
+% create header and footer for every page
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\textbf{\StudentName}}
+\chead{\textbf{\StudentID}}
+\rhead{\textbf{\AssgtType \; \AssgtNumber}}
+\cfoot{\thepage}
+
+% preferred pseudocode style
+\algrenewcommand{\algorithmicprocedure}{}
+\algrenewcommand{\algorithmicthen}{}
+
+% ``do { ... } while (cond)''
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+
+% ``for (x in y ... z)''
+\newcommand{\ForRange}[3]{\For{#1 \textbf{in} #2 \ \ldots \ #3}}
+
+% these are common math formatting commands that aren't defined by default
+\newcommand{\union}{\cup}
+\newcommand{\isect}{\cap}
+\newcommand{\ceil}[1]{\ensuremath \left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\ensuremath \left\lfloor #1 \right\rfloor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+% STUDENT: Your text goes here!
+
+% Note: convenient way to include source code from example file
+%        sourcefile.py
+% (see https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings)
+% \lstinputlisting[language=Python]{sourcefile.py}
+\section{Useful networking commands in Linux}
+
+\begin{enumerate}
+    \item \textbf{ifconfig -a}: It shows every network interface the system knows about, including those that are disabled.
+    \item \textbf{ip addr}:It shows the IP (IPv4 \& IPv6) addresses assigned to all network interfaces on this computer.
+    \item \textbf{ping -c 5 google.com}: It is sending 5 ICMP Echo Request messages to Google’s server and waits for Echo Replies.
+    \item \textbf{ping -c 5 localhost}: It is sending 5 ICMP Echo Requests to the machine itself through the loopback interface and waits for replies.
+    \item \textbf{sudo tcpdump}: It captures and displays network packets in real time when I am visiting google.com. There are DNS requests, TCP SYN and ACK packets, and UDP packets. When stopped by ctrl-c, it reported the number of packets captured.
+\end{enumerate}
+
+
+\section{Wireshark}
+    During the TCP stream it began with the TCP handhsake(SYN, SYN-ACK, ACK), and establish the reliable connection. Then afterward it is the real data transformation.
+
+    \vspace{1em}
+    \noindent Here is the screenshot of imported temp.pcap.
+    
+    % \includegraphics[scale=0.4]{1.png}
+    
+
+
+\section{Sniffing/spoofing}
+
+\begin{enumerate}
+    \item \textbf{1.1A}: sniff(iface=\texttt{"}br-78f7d026353b\texttt{"}, filter=\texttt{"}icmp\texttt{"}, prn=print\_pkt)
+
+    docksh hostA-10.9.0.5
+    
+    ping -c 3 10.9.0.6
+    
+    When running /tmp/sniffer.py as root, Scapy successfully captured ICMP packets on interface br-78f7d026353b.
+
+    % \includegraphics[scale=0.25]{20260129001202.png}
+    
+    After switching to the seed account and running /tmp/sniffer.py, it failed with PermissionError: [Errno 1] Operation not permitted. Scapy attempted to create a raw packet socket (socket.AF\_PACKET with socket.SOCK\_RAW). Creating raw sockets requires higher privileges (like root) on Linux, so a normal user cannot sniff packets.
+
+    % \includegraphics[scale=0.25]{20260129001414.png}
+    
+    \item \textbf{1.1B}:
+        \begin{itemize}
+            \item ICMP explained in 1.1A.
+            \item sniff(..., filter=\texttt{"}tcp and src host 10.9.0.5 and dst port 23\texttt{"}, ...)
+            
+            docksh hostA-10.9.0.5
+            
+            telnet 10.9.0.6
+            
+            I used the filter to capture only TCP packets sent from 10.9.0.5 to destination port 23 (telnet) on 10.9.0.6. The output shows a TCP SYN (flags S) to start the connection, followed by ACK packets, and then packets carrying data. This confirms the filter is correctly capturing telnet traffic. The server-to-client packets like SYN-ACK are not shown because the filter only matches packets whose destination port is 23.
+
+            % \includegraphics[scale=0.25]{20260129002533.png}
+            
+            \item sniff(..., filter=\texttt{"}net 128.230.0.0/16\texttt{"}, ...)
+            
+            With the subnet filter (e.g., net 128.230.0.0/16), I did not capture any packets during my test because the lab traffic stayed within the 10.9.0.0/24 network, so no packets matched that external subnet.
+        \end{itemize}
+
+    \item \textbf{1.2}:
+
+    % \includegraphics[scale=0.25]{20260129012239.png}
+    
+    Using Scapy, I constructed and sent an ICMP echo-request to HostB (10.9.0.6) while spoofing the source IP address as 6.6.6.6. In the packet capture, the echo-request shows IP.src = 6.6.6.6 and IP.dst = 10.9.0.6. HostB responded with an ICMP echo-reply addressed to the spoofed source (IP.dst = 6.6.6.6). This demonstrates IP spoofing. The receiver replies to source IP field in the packet, even though that address does not belong to the sender.
+    
+    \item \textbf{1.3}:
+
+    \lstset
+    {
+        language=Python,
+        basicstyle=\ttfamily\small,
+        keywordstyle=\color{blue},
+        commentstyle=\color{green!60!black},
+        stringstyle=\color{red},
+        frame=single,
+        breaklines=true,
+        showstringspaces=false
+    }
+
+    \begin{lstlisting}
+        from scapy.all import IP, ICMP, send
+        a = IP(dst="1.1.1.1")
+        b = ICMP()
+        
+        a.ttl = 1
+        send(a/b, iface="br-78f7d026353b", verbose=0)
+        a.ttl = 2
+        send(a/b, iface="br-78f7d026353b", verbose=0)
+        a.ttl = 3
+        send(a/b, iface="br-78f7d026353b", verbose=0)
+    \end{lstlisting}
+    
+    \vspace{1.5em}
+    I performed traceroute-style probing using ICMP echo-request packets with manually increased TTL values (1, 2, 3, …) in Scapy. In Wireshark, I verified that the outgoing echo requests had TTL=1, TTL=2, and TTL=3 as shown in the packet list. However, for each TTL value I received an ICMP echo-reply (type 0) from the destination (1.1.1.1) rather than an ICMP Time Exceeded (type 11) message from intermediate routers. This indicates that in my VM/NAT environment, ICMP echo traffic does not expose intermediate hops (likely due to NAT/proxying or ICMP filtering), so an ICMP-based traceroute does not reveal the router-by-router path here, or the same-LAN configuration is making 0 routers that is not revealing Time Exceeded packet.
+
+    % \includegraphics[scale=0.7]{3cb09c8b-144d-48f8-bc6d-7cff5a84c98d.png}
+    
+\end{enumerate}
+
+\end{document}

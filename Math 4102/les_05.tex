@@ -4,7 +4,7 @@
     Define \underbar{a set function} to be $ f: S \to \mathbb{R} $ 
     $ f(s) = 
     \begin{cases}
-        1, & \text{ if } 0 \in S \\
+        1, & \text{ if } \frac{1}{2} \in S \\
         0, &\text{otherwise} 
     \end{cases} $
 
@@ -28,7 +28,7 @@
         \item $ X_{Q} $ is not R.I. on $ [0,1] $, since for any step functions $ f_1\leqslant X_{Q} \leqslant  f_2 $ we have $ \int_{0}^{1}f_1 = 0 < 1 = \int_{0}^{1} f_2 $
         \item Try $ \mu(A) = \inf \{\int_{0}^{1} f(x)dx | f \text{ is step function } f_{n}, X_{A} \leqslant f\} $. (Called "Jordan Constant") set function, monotonic
         
-        but not countably additive: Let $ Q \cap [0,1] = \{q_1, q_2, \cdots \} $ and observe that $ Q \cap [0,1] = \dot\cap^{\infty}_{i=1} \{q_{i}\} $. 
+        but not countably additive: Let $ Q \cap [0,1] = \{q_1, q_2, \cdots \} $ and observe that $ Q \cap [0,1] = \dot\cup^{\infty}_{i=1} \{q_{i}\} $. 
 
         But $ \mu(A) = 1 \neq \sum_{i=1}^{\infty} \mu(A_{i}) = 0   $
     \end{itemize}
@@ -62,8 +62,8 @@
     Given $ x \in G $, define its component open interval 
     \[
         I_{x} = (a_{x}, b_{x}) \text{ where } \begin{cases}
-            a_{x} = \inf\{y: (y,x) \subseteq G\} \text{ (could be )-infty} \\
-            b_{x} = \sup\{y: (x,y) \subseteq G\} \text{ (could be )+infty} \\
+            a_{x} = \inf\{y: (y,x) \subseteq G\} \text{ (could be )-} \infty\\
+            b_{x} = \sup\{y: (x,y) \subseteq G\} \text{ (could be )+} \infty\\
         \end{cases}
     \]
 
