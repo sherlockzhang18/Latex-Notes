@@ -93,8 +93,8 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Sherlock Zhang}
-\fancyhead[C]{Math 4102 Lebesgue Integral - Homework 1}
-\fancyhead[R]{\today}
+\fancyhead[C]{Math 4102 - Homework 1}
+\fancyhead[R]{ID: 518915}
 \fancyfoot[C]{\thepage}
 
 % Title info
@@ -119,31 +119,385 @@
 \vspace{2em}
 \begin{solution}
 
+    Let $ f_1 = 0 $, then $ \int_{0}^{1} f_1 dx = 0 $.
 
+    Need to choose another step function $ f_2 $ so that $ f_2 > f $ and $ \int_{0}^{1} f_2 < \epsilon $ for any $ \epsilon $ so that $ \int_0^1f_2 - \int_0^1f_1 < \epsilon $.
+
+    First choose $ N $ large enough so that $ \frac{1}{N} < \frac{\epsilon}{2} $. Then set $ f_2(x) = 1 $ on $ (0, \frac{1}{N}] $ so that for portion of $ n > N $, $ f_2 > f $. 
+    
+    The rest points with non-zero values in $ f $ is finite: $ \{1, \frac{1}{2}, \cdots , \frac{1}{N_1}\} $. Let $ k = 1, 2, \cdots N-1 $. For each point, pick $ I_{k} $ such that $ \frac{1}{k} \in I_{k} \subset (0,1] $ and $ \sum_{k=1}^{N-1} |I_{k}| < \frac{\epsilon}{2} $, such as choose $ I_{k} = \frac{\epsilon}{2^k+1} $ .
+
+
+    \vspace{1em}
+    Therefore, we can define
+    \[
+        f_2 = 
+        \begin{cases}
+            1, &x \in (0, \frac{1}{N} \text{ or } x \in \cup_{k=1}^{N-1} I_{k}) \\
+            0, \text{otherwise}
+        \end{cases}
+    \]
+
+    \vspace{1em}
+    Thus, there exists step functions $ f_1, f_2 $ such that 
+    
+    $ f_1 \leqslant f \leqslant f_2 $ and $ \int_{0}^{1}f_2(x)dx - \int_{0}^{1}f_1(x) dx < \epsilon $. 
+    
+    Use theorem 1.6 to conclude that $ f $ is Riemann Integrable.
+
+    Known $ \int_{0}^{1} f $ is non-negative 
+    
+    by Corollary 1.7, $ \int_{0}^{1} = \inf\{\int_{0}^{1} f'(x)dx | f' \text{ is a step function and } f' \geqslant  f\} $.
+
+    as $ f_2 < \epsilon $ for all $ \epsilon > 0 $, $ \inf \{f_2\} = 0 $. Therefore $ \int_{0}^{1} f_2 \leqslant 0 $. Thus $ \int_{0}^{1} f = 0 $.
 
 \end{solution}
 
 \newpage
-\begin{problem}
-Another problem statement.
+\begin{problem}[Ex 5.20]
+
+    Invent a function which is monotone on $ [0,1] $ but is not piecewise continuous.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    \[
+        f(x) = \sum_{n=1}^{\infty} 2^{-n} I_{n}(x)  
+    \]
+    where $ I_{n}(x) = \begin{cases}
+        1, & x \geqslant q_{n} \\
+        0, & x < q_{n}
+    \end{cases} $
+
+    Here $ q_{n} $ is listing all rational numbers in $ [0,1] $ in a sequence.
+
+    \vspace{1em}
+    In this function it is non-decreasing, but there are infinitely many jump discontinuity at every rational numbers.
+
+\end{solution}
+
+\newpage
+\begin{problem}[Ex. 5.21]
+    
+    Let $ \chi_{A} $ denote the characteristic function of set $ A $:
+    \[
+        \chi_{A}(x) = 
+        \begin{cases}
+            1, & x \in A \\
+            0, & x \notin A \\
+        \end{cases} 
+    \]
+
 \end{problem}
 
 \begin{subproblem}
-Part (a) of the problem.
+    Prove that for any sets $ A, B $, $ \chi_{A \cap B} = \chi_{A} \chi_{B} $.
 \end{subproblem}
 
+\vspace{1em}
 \begin{solution}
-Solution to part (a).
+    There are two cases to explore
+    Case 1: $ x \in A \cap B $:
+
+    Then $ x \in A $ and $ x \in B $, so $ \chi_{A} \chi_{B} = 1 = \chi_{A \cap B} $.
+
+    \vspace{1em}
+    Case 2: $ x \notin A \cap B $:
+    Then $ x $ is not in at least one set of $ A $ or $ B $. either $ \chi(A) = 0 $ or $ \chi(B) = 0 $.
+    Therefore $ \chi_{A}\chi_{B} = 0 = \chi_{A \cap B} $.
+
 \end{solution}
 
+\vspace{1em}
 \begin{subproblem}
-Part (b) of the problem.
+    
+    for $ \chi_{A \cup B} $, it equals to 1 iff $ x \in A \text{ or } B $. So we can use adding to see if $ x $ is in either set. But if $ x $ is in both then it might add up to 2, so we take that off by subtracting $ \chi_A\chi_{B} $ as in (a) we showed that $ \chi_{A \cap B} = \chi_{A} \chi_{B} $.
+    \[
+        \chi_{A \cup B} = \chi_{A} + \chi_{B} - \chi_A\chi_{B}
+    \]
+
+    \vspace{1em}
+    For $ \chi_{A \backslash B} $, it equals to 1 iff $ \chi_{A} = 1 $ and $ \chi_{B} = 0 $. Therefore, 
+    \[
+        \chi_{A \backslash B} = \chi_{A}(1-\chi_{B})
+    \]
+
 \end{subproblem}
 
+\vspace{1em}
+\begin{subproblem}
+    
+    Show that $ \chi_{A} + \chi_{B} = \chi_{A \cap B} + \chi_{A \cup B} $
+
+\end{subproblem}
+
+\vspace{1em}
 \begin{solution}
-Solution to part (b).
+    
+    From (b) we constructed that $ \chi_{A \cup B} = \chi_{A} + \chi_{B} - \chi_A\chi_{B} $, and in (a) we proved that $ \chi_{A \cap B} = \chi_{A} \chi_{B} $. Therefore, adding them up we geometry
+    \[
+        \chi_{A \cap B} + \chi_{A \cup B} = \chi_{A} + \chi_{B} - \chi_A\chi_{B} - \chi_{A} \chi_{B} = \chi_{A} + \chi_{B}
+    \]
+
 \end{solution}
 
-% Add more problems as needed...
+\newpage
+\begin{problem}[Ex. 5.25]
+    
+    Let $ \epsilon > 0 $. As $ f_{n} \to f $ uniformly, pick $ N $ large such that for all $ x \in [a,b] $, 
+    \[
+        |f(x) - f_{N}(x)| < \frac{\epsilon}{3(b-a)}
+    \]
+
+    That is $ \left\lVert f - f_{N} \right\rVert _\infty < \frac{\epsilon}{3(b-a)} $.
+
+    Since $ f_{N} $ is R.I., there exists $ \delta $ such that any $ P $ with $ \left\lVert P \right\rVert < \delta $ and any Rieman Sum $ R(f_{N}, P) $:
+    \[
+        |R(f_{N}, P) - \int_{a}^{b} f_{N}| < \frac{\epsilon}{3}
+    \]
+
+    Then we can take any $ P $ with $ \left\lVert P \right\rVert < \delta $
+    \begin{align*}
+        \left|R(f,p) - \int_{a}^{b}f_{N}\right| 
+        & \leqslant |R(f,P) - R(f_{N}, P)| + \left|R(f_{N}, P) - \int_{a}^{b}f_{N}\right| \\
+        & \leqslant \left\lVert f - f_{N} \right\rVert _\infty(b-a) + \frac{\epsilon}{3}\\
+        & < \frac{2\epsilon}{3}
+    \end{align*}
+
+    Therefore, $ f $ is R.I.
+
+    \vspace{2em}
+    Since $f_n \to f$ uniformly on $[a,b]$, we have
+\[
+\|f_n - f\|_\infty = \sup_{x\in[a,b]} |f_n(x)-f(x)| \to 0.
+\]
+
+Let $\varepsilon > 0$. Then there exists $N$ such that for all $n \ge N$, $ \|f_n - f\|_\infty < \frac{\varepsilon}{b-a} $
+
+Now for $n \ge N$,
+\[
+\left| \int_a^b f(x)\,dx - \int_a^b f_n(x)\,dx \right|
+= \left| \int_a^b \big(f(x) - f_n(x)\big)\,dx \right|.
+\]
+
+as $|g(x)| \le \|g\|_\infty$ for all $x$,
+\[
+\left| \int_a^b (f - f_n) \right|
+\le \int_a^b |f - f_n|
+\le \int_a^b \|f - f_n\|_\infty
+= (b-a)\|f - f_n\|_\infty
+\]
+
+Hence,
+\[
+    \left| \int_a^b f - \int_a^b f_n \right|
+    < (b-a)\frac{\varepsilon}{b-a} = \varepsilon
+\]
+
+Therefore,
+\[
+    \lim_{n\to\infty} \int_a^b f_n(x)\,dx = \int_a^b f(x)\,dx
+\]
+
+
+\end{problem}
+
+\newpage
+\begin{problem}[Ex. 9.3]
+    
+    Prove that if $ \mu $ is a measure on $ S $ and $ \{x\} \in S $ for every $ x \in [a,b] $, and $ \mu(\{x\}) = \mu(\{y\}) $ for all $ x, y \in [a,b] $, then $ \mu(Q) = 0 $
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Since $ \mu(\{x\}) = \mu(\{y\}) $ for all $ x, y \in [a,b] $, let that common value be:
+    \[
+        c = \mu(\{x\})
+    \]
+
+    Pick $ n $ distinct points $ x_1, \cdots , x_{n}  \in [a,b]$, then since they are disjoint singletons, 
+    \[
+        \mu(\{x_1, \cdots , x_{n}\}) = \sum_{i=1}^{n} \mu(\{x_{i}\}) = nc
+    \]
+
+    since $ \{x_1, \cdots , x_{n}\} \subset [a,b] $, 
+    \[
+        nc \leqslant \mu(a,b)
+    \]
+
+    as $ \mu[a,b] \leqslant b-a $ is finite, for all $ n $ it is impossible  because $ nc \to \infty $ as $ n \to \infty $. Therefore, $ c = 0 $.
+
+    \vspace{2em}
+    The set $ Q \cap [a,b] $ is countable, so list it as $ \{q_1, q_2, \cdots \} $. 
+    Then
+    \[
+        \mu(Q) = \sum_{i=1}^{\infty} \mu(\{q_{i}\})  = \sum_{i=1}^{\infty} 0 = 0
+    \]
+
+\end{solution}
+
+\newpage
+\begin{problem}[Ex. 9.13]
+
+    Do there exist open subsets $ G_1, G_2 $ of $ E $ such aht $ G_1 \neq G_2 $ but $ \mu^*(G_1) = \mu^*(G_2) $?
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Yes, take
+    \[
+        G_1 = (0,\frac{1}{2}) \text{ and } G_2 = (0,\frac{1}{4}) \cup (\frac{3}{4}, 1)
+    \]
+
+    \vspace{2em}
+    Both $ G_1 $ and $ G_2 $ are open sets and they are not equal, but they both have $ \mu^* = \frac{1}{2} $.
+    
+\end{solution}
+
+\newpage
+\begin{problem}[Ex 9.15]
+    
+    Prove that $ \mu^* $ is countably additive on the class of open subsets of $ E $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Let $G_1,G_2,\dots$ be pairwise disjoint open subsets of $E$, and set
+    $G=\bigcup_{n=1}^\infty G_n$. Then $G$ is open.
+
+    By Theorem~7.2, there exist  disjoint open intervals for each $ G_{n} $ as 
+    $\{(a_{n,k},b_{n,k})\}_{k\ge1}$ such that
+    \[
+    G_n=\bigcup_{k=1}^\infty (a_{n,k},b_{n,k}).
+    \]
+    By Definition~7.3, $m^*(G_n)=\sum_{k=1}^\infty (b_{n,k}-a_{n,k})$.
+
+    Since the sets $G_n$ are disjoint, any interval $(a_{n,k},b_{n,k})\subset G_n$
+    is disjoint from any interval $(a_{m,\ell},b_{m,\ell})\subset G_m$ whenever
+    $m\neq n$. 
+    
+    Therefore the group $\{(a_{n,k},b_{n,k}) : n\ge1,\ k\ge1\}$ is pairwise
+    disjoint and
+    \[
+    G=\bigcup_{n=1}^\infty G_n=\bigcup_{n=1}^\infty\bigcup_{k=1}^\infty (a_{n,k},b_{n,k})
+    =\bigcup_{n,k}(a_{n,k},b_{n,k}).
+    \]
+
+    By the uniqueness Theorem 7.2, this is the decomposition of $G$ into
+    pairwise disjoint open intervals, so
+    \[
+    m^*(G)=\sum_{n,k}(b_{n,k}-a_{n,k}).
+    \]
+    Since all terms are nonnegative, we may group the sum by $n$ to obtain
+    \[
+    m^*(G)=\sum_{n=1}^\infty\sum_{k=1}^\infty(b_{n,k}-a_{n,k})
+    =\sum_{n=1}^\infty m^*(G_n).
+    \]
+    Therefore $m^*$ is countably additive on the class of open subsets of $E$.
+
+\end{solution}
+
+\newpage
+\begin{problem}[Ex 9.17]
+    
+    Show that if $ A \subset B \subset E $, then $ \mu^*(A) \leqslant \mu^*(B) $.
+
+\end{problem}
+
+\begin{solution}
+    
+    Assume $A\subset B\subset E$. Define the open sets
+    $ G_A=\{G\subset E: G \text{ open and } A\subset G\}$ 
+    
+    and $ G_B=\{G\subset E: G \text{ open and } B\subset G\}$. Then $A\subset B$
+    implies $ G_B\subset  G_A$, since $B\subset G$ gives $A\subset G$.
+
+    By Definition~7.4 we have
+    \[
+    \mu^*(A)=\inf\{\mu^*(G): G\in G_A\},\qquad
+    \mu^*(B)=\inf\{\mu^*(G): G\in G_B\}.
+    \]
+    Let $S_A=\{\mu^*(G): G\in G_A\}$ and $S_B=\{\mu^*(G): G\in G_B\}$.
+    From $ G_B\subset G_A$ we get $S_B\subset S_A$. For sets of real
+    numbers, $S_B\subset S_A$ implies $\inf S_A\le \inf S_B$ since $\inf S_B$ is a lower
+    bound for $S_B$, hence also a lower bound for $S_A$ only after possibly decreasing,
+    so the glb of $S_A$ cannot exceed glb $S_B$. Therefore
+    \[
+    \mu^*(A)=\inf S_A\le \inf S_B=\mu^*(B).
+    \]
+    
+\end{solution}
+
+\newpage
+\begin{problem}[Ex 9.21]
+    
+    In Example 7.7, prove that if $ E_{\alpha} \cap E_{\beta} \neq \empty $, then $ E_{\alpha} = E_{\beta} $.
+
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+    
+    Assume there is $ x \in  E_{\alpha} \cap E_{\beta}$, then we have
+    \[
+        x - \alpha \in Q \text{ and } x - \beta \in Q
+    \]
+
+    Therefore, 
+    \[
+        (x - \alpha) - (x - \beta) = \beta - \alpha \in Q
+    \]
+
+    Let $ y \in E_{\alpha} $, then $ y - \alpha \in Q $. Since $ \alpha - \beta \in Q $, we get
+    \[
+        y - \beta = y - \alpha + (\alpha - \beta) \in Q
+    \]
+    Therefore $ y \in E_{\beta} $, $ E_{\alpha} \subseteq E_{\beta} $.
+
+    By symmetry claim, we get $ E_{\beta} \subseteq E_{\alpha} $.
+
+    Therefore, $ E_{\alpha} = E_{\beta} $.
+
+\end{solution}
+
+\newpage
+\begin{problem}[Ex. 9.27]
+    
+    Prove that if $ A, B \subset E $ and $ \mu^*(A) + \mu^*(B) = \mu_*(A) + \mu_*(B) $, then $ A $ and $ B $ are measurable. (Hint: Lemma 8.7)
+    
+\end{problem}
+
+\vspace{2em}
+\begin{solution}
+
+    Lemma 8.7 shows that 
+    \[
+        \mu^*(A) \geqslant \mu_*(A) \text{ and } \mu^*(B) \leqslant \mu_*(B)
+    \]
+    so we get 
+    \[
+        \mu^*(A) + \mu^*(B) \geqslant  \mu_*(A) + \mu_*(B)
+    \]
+
+    Let $ a = \mu^*(A) - \mu_*(A) \geqslant 0 $ and $ b = \mu^*(B) - \mu_*(B) \geqslant 0 $
+
+    It reaches equality when $ a + b = 0 $, but both are non-negative. Therefore, $ a = b = 0 $
+
+    Thus
+    \[
+        \mu^*(A) = \mu_*(A) \text{ and } \mu^*(B) = \mu_*(B)
+    \]
+
+    Therefore, by definition 8.2 $ A $ and $ B $ are measurable.
+
+\end{solution}
 
 \end{document}
